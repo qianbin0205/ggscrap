@@ -8,7 +8,13 @@
 import scrapy
 
 
-class GGScrapyItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class GGNewsItem(scrapy.Item):
+    sitename = scrapy.Field()
+    channel = scrapy.Field()
+    url = scrapy.Field()
+    groupname = scrapy.Field()
+    title = scrapy.Field()
+    source = scrapy.Field()
+    author = scrapy.Field()
+    pubtime = scrapy.Field()
+    content = scrapy.Field()

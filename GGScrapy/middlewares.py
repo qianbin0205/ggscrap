@@ -6,9 +6,36 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.exceptions import IgnoreRequest
 
 
-class GGScrapySpiderMiddleware(object):
+class GGDownloaderMiddleware(object):
+    def process_response(self, request, response, spider):
+        if response.css('head').re('<script[^<>]*>\s*setTimeout[^<>]+location[.]replace[^<>]+</script>'):
+            return request.replace(dont_filter=True)
+        else:
+            if response.status == 404:
+                cps = request.meta['cps']
+                rcs = request.meta['rcs']
+                nps = request.meta['nps']
+                n = spider.request_next(cps, rcs, nps)
+                if n is not None:
+                    return n
+                else:
+                    raise IgnoreRequest()
+            if response.status == 403 and spider.update is True:
+                cps = request.meta['cps']
+                rcs = request.meta['rcs']
+                nps = request.meta['nps']
+                n = spider.request_next(cps, rcs, nps)
+                if n is not None:
+                    return n
+                else:
+                    raise IgnoreRequest()
+            return response
+
+
+class GGSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
