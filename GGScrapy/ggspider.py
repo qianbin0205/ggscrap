@@ -78,7 +78,7 @@ class GGNewsSpider(GGSpider):
                                headers={'Referer': cp['ref']},
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
                                      'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
-                               callback=self.parse_list)
+                               callback=self.parse_link)
 
         while len(rcs) >= 1:
             rc = rcs.pop(0)
@@ -107,9 +107,9 @@ class GGNewsSpider(GGSpider):
                                headers={'Referer': cp['ref']},
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
                                      'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
-                               callback=self.parse_list)
+                               callback=self.parse_link)
 
-    def parse_list(self, response):
+    def parse_link(self, response):
         pass
 
     def parse_item(self, response):

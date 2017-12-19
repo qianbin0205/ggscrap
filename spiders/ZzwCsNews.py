@@ -42,7 +42,7 @@ class ZzwCsNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_list(self, response):
+    def parse_link(self, response):
         ch = response.meta['ch']
         pg = response.meta['pg']
         url = response.meta['url']

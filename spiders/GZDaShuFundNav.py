@@ -12,7 +12,7 @@ class GZDaShuFundNavSpider(GGFundNavSpider):
     name = 'GZDaShuFundNav'
     sitename = '广州大树投资'
     allowed_domains = ['www.gzdashu.com']
-    start_urls = ['http://www.gzdashu.com/grzx.aspx']
+    start_urls = ['http://www.gzdashu.com/cpzx.aspx']
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GZDaShuFundNavSpider, self).__init__(limit, *args, **kwargs)
@@ -20,7 +20,7 @@ class GZDaShuFundNavSpider(GGFundNavSpider):
     def start_requests(self):
         fps = [
             {
-                'url': 'http://www.gzdashu.com/grzx.aspx',
+                'url': 'http://www.gzdashu.com/cpzx.aspx',
                 'ref': 'http://www.gzdashu.com/'
             }
         ]
@@ -28,7 +28,7 @@ class GZDaShuFundNavSpider(GGFundNavSpider):
         yield self.request_next(fps, [])
 
     def parse_fund(self, response):
-        funds = response.css('#insideContent>.pn-ltable>.pn-ltbody>tr').extract()
+        funds = response.xpath('//a[starts-with(@id,"qxcp")]').extract()
         print(funds)
 
     def parse_item(self, response):
