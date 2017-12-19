@@ -28,7 +28,7 @@ class GZDaShuFundNavSpider(GGFundNavSpider):
         yield self.request_next(fps, [])
 
     def parse_fund(self, response):
-        funds = response.xpath('//a[starts-with(@id,"qxcp")]').extract()
+        funds = response.xpath(r'//a[re:test(@id, "^qxcp[0-9]+$")]').extract()
         print(funds)
 
     def parse_item(self, response):
