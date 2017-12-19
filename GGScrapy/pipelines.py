@@ -13,11 +13,11 @@ from http.client import IncompleteRead
 from urllib.parse import urljoin
 from urllib.parse import urlparse
 from .ufile import UFile
-from .dbpool import DBPool
 from GGScrapy.settings import DEFAULT_REQUEST_HEADERS
 import config
 
 
+# 新闻资讯Pipeline
 class GGNewsPipeline(object):
     def process_item(self, item, spider):
         try:
@@ -66,7 +66,7 @@ class GGNewsPipeline(object):
             content = re.sub(r'<\s*/\s*[Aa]\s*>', '', content, flags=re.I)
             content = re.sub(r'<script(.|\n)+?</script>', '', content, flags=re.I)
 
-            conn = DBPool.acquire()
+            conn = spider.dbPool.acquire()
             cursor = conn.cursor()
             try:
                 table = config.database['table']
@@ -88,7 +88,7 @@ class GGNewsPipeline(object):
                         (sitename, channel, groupname, title, source, author, pubtime, content, hkey,))
             finally:
                 cursor.close()
-                DBPool.release(conn)
+                spider.dbPool.release(conn)
         except:
             spider.crawler.engine.close_spider(spider, 'pipeline error!')
             spider.crawler.stats.set_value('exit_emsg', traceback.format_exc())
@@ -169,3 +169,9 @@ class GGNewsPipeline(object):
 
         return re.sub(r'(<img(\s+?[^<>\n]+?)*?\s+?src=")([^<">\n]+?)("(\s+?[^<>\n]+?)*?>)', replace, content,
                       flags=re.I)
+
+
+# 基金净值Pipeline
+class GGFundNavPipeline(object):
+    def process_item(self, item, spider):
+        pass

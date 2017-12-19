@@ -1,22 +1,31 @@
-database = {
-    'host': '106.75.32.107',
-    'port': 2433,
-    'user': 'scrapy_debug',
-    'pswd': 'scrapy_debug123',
-    'name': 'SCRAPY_DEBUG_DB',
-    'table': 't_scrapy_news',
-    'timeout': 60
+news = {
+    'db': {
+        'host': '106.75.32.107',
+        'port': 2433,
+        'user': 'scrapy_debug',
+        'pswd': 'scrapy_debug123',
+        'name': 'SCRAPY_DEBUG_DB',
+        'table': 't_scrapy_news',
+        'timeout': 60
+    }
+}
+
+fund_nav = {
+    'db': {
+        'host': '106.75.32.107',
+        'port': 2433,
+        'user': 'scrapy_debug',
+        'pswd': 'scrapy_debug123',
+        'name': 'SCRAPY_DEBUG_DB',
+        'table': 't_nav_general',
+        'timeout': 60
+    }
 }
 
 ufile = {
     'public_key': 'ucloudgcqin@go-goal.com13648682571239575500',
     'private_key': '27f435a8c39f515b01a3db66acbdd7ef9b37d16c',
-    'bucket': 'zyyxpachong',
-    'group': 'Debug'
-}
-
-ITEM_PIPELINES = {
-    'GGScrapy.pipelines.GGNewsPipeline': 300,
+    'bucket': 'zyyxpachong'
 }
 
 DEFAULT_REQUEST_HEADERS = {

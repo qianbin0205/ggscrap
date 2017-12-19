@@ -1,10 +1,41 @@
 from scrapy import Request
 from scrapy.spiders import CrawlSpider
 
+from ggmssql.pool import Pool
+import config
 
-class GGNewsSpider(CrawlSpider):
-    channel = '-'
+
+# 公共Spider基类
+class GGSpider(CrawlSpider):
+    channel = None
     groupname = None
+
+    handle_httpstatus_list = [404]
+    custom_settings = {
+        'DOWNLOAD_DELAY': 1,
+        # 'REDIRECT_ENABLED': True,
+        # 'ITEM_PIPELINES': {'GGScrapy.pipelines.GGPipeline': 300}
+    }
+
+    def __init__(self, *args, **kwargs):
+        super(GGSpider, self).__init__(*args, **kwargs)
+
+
+# 新闻资讯Spider基类
+class GGNewsSpider(GGSpider):
+    channel = '-'
+
+    custom_settings = {
+        'DOWNLOAD_DELAY': 1,
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGNewsPipeline': 300}
+    }
+
+    dbPool = Pool(config.news['db']['host'],
+                  config.news['db']['port'],
+                  config.news['db']['user'],
+                  config.news['db']['pswd'],
+                  config.news['db']['name'],
+                  timeout=config.news['db']['timeout'])
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GGNewsSpider, self).__init__(*args, **kwargs)
@@ -79,6 +110,40 @@ class GGNewsSpider(CrawlSpider):
                                callback=self.parse_list)
 
     def parse_list(self, response):
+        pass
+
+    def parse_item(self, response):
+        pass
+
+
+# 基金净值Spider基类
+class GGFundNavSpider(GGSpider):
+    channel = '基金净值'
+
+    custom_settings = {
+        'DOWNLOAD_DELAY': 1,
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNavPipeline': 300}
+    }
+
+    def __init__(self, *args, **kwargs):
+        super(GGFundNavSpider, self).__init__(*args, **kwargs)
+
+    def request_next(self, fps, ips):
+        while len(fps) >= 1:
+            fp = fps.pop(0)
+            ext = fp['ext'] if 'ext' in fp else {}
+
+            pg = fp['pg'] if 'pg' in fp else None
+            url = fp['url']
+            url = url(pg) if callable(url) else url
+
+            return Request(url, priority=1,
+                           headers={'Referer': fp['ref']},
+                           meta={'pg': pg, 'url': fp['url'],
+                                 'fps': fps, 'ips': ips, 'ext': ext},
+                           callback=self.parse_fund)
+
+    def parse_fund(self, response):
         pass
 
     def parse_item(self, response):

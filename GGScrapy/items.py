@@ -8,7 +8,21 @@
 import scrapy
 
 
+# 新闻资讯Item
 class GGNewsItem(scrapy.Item):
+    sitename = scrapy.Field()
+    channel = scrapy.Field()
+    url = scrapy.Field()
+    groupname = scrapy.Field()
+    title = scrapy.Field()
+    source = scrapy.Field()
+    author = scrapy.Field()
+    pubtime = scrapy.Field()
+    content = scrapy.Field()
+
+
+# 基金净值Item
+class GGFundNavItem(scrapy.Item):
     sitename = scrapy.Field()
     channel = scrapy.Field()
     url = scrapy.Field()
