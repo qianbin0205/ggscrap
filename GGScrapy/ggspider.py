@@ -143,6 +143,15 @@ class GGFundNavSpider(GGSpider):
                                  'fps': fps, 'ips': ips, 'ext': ext},
                            callback=self.parse_fund)
 
+        while len(ips) >= 1:
+            ip = ips.pop(0)
+            ext = ip['ext'] if 'ext' in ip else {}
+
+            return Request(ip['url'], dont_filter=True,
+                           headers={'Referer': ip['ref']},
+                           meta={'fps': fps, 'ips': ips, 'ext': ext},
+                           callback=self.parse_item)
+
     def parse_fund(self, response):
         pass
 

@@ -2,7 +2,6 @@
 
 import re
 from urllib.parse import urljoin
-from scrapy import Request
 from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGNewsItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -28,8 +27,20 @@ class GZDaShuFundNavSpider(GGFundNavSpider):
         yield self.request_next(fps, [])
 
     def parse_fund(self, response):
-        funds = response.xpath(r'//a[re:test(@id, "^qxcp[0-9]+$")]').extract()
-        print(funds)
+        fps = response.meta['fps']
+        ips = response.meta['ips']
+
+        funds = response.xpath(r'//a[re:test(@id, "^qxcp[0-9]+$")]')
+        for fund in funds:
+            name = fund.css('::text').extract_first()
+            url = urljoin(get_base_url(response), fund.css('::attr(href)').extract_first())
+            ips.append({
+                'url': url,
+                'ref': response.url,
+                'ext': {'name': name}
+            })
+
+        yield self.request_next(fps, ips)
 
     def parse_item(self, response):
         ch = response.meta['ch']
