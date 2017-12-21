@@ -149,6 +149,7 @@ class GGNewsSpider(GGSpider):
 # 基金净值Spider基类
 class GGFundNavSpider(GGSpider):
     channel = '基金净值'
+    groupname = 'scrapy'
 
     custom_settings = {
         'DOWNLOAD_DELAY': 1,
