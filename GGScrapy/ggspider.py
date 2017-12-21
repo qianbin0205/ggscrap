@@ -5,6 +5,17 @@ from ggmssql.pool import Pool
 import config
 
 
+def parse_cookies(cookies):
+    ret = {}
+    cookies = cookies.split(';')
+    for cookie in cookies:
+        cookie = cookie.split('=', 1)
+        key = cookie[0].strip()
+        value = cookie[1].strip()
+        ret[key] = value
+    return ret
+
+
 # 公共Spider基类
 class GGSpider(CrawlSpider):
     channel = None
@@ -72,10 +83,14 @@ class GGNewsSpider(GGSpider):
             url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
+            cookies = cp['cookies'] if 'cookies' in cp else None
+            cookies = parse_cookies(cookies)
+
             count = cp['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, priority=1,
                                headers={'Referer': cp['ref']},
+                               cookies=cookies,
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
                                      'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
                                callback=self.parse_link)
@@ -88,10 +103,14 @@ class GGNewsSpider(GGSpider):
             url = rc['url'] if 'url' in rc else None
             url = url(pg) if callable(url) else url
 
+            cookies = rc['cookies'] if 'cookies' in rc else None
+            cookies = parse_cookies(cookies)
+
             count = rc['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, dont_filter=True,
                                headers={'Referer': rc['ref']},
+                               cookies=cookies,
                                meta={'ch': rc['ch'], 'pg': pg, 'url': rc['url'],
                                      'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
                                callback=self.parse_item)
@@ -106,10 +125,14 @@ class GGNewsSpider(GGSpider):
             url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
+            cookies = cp['cookies'] if 'cookies' in cp else None
+            cookies = parse_cookies(cookies)
+
             count = cp['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, priority=1,
                                headers={'Referer': cp['ref']},
+                               cookies=cookies,
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
                                      'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
                                callback=self.parse_link)
@@ -142,8 +165,12 @@ class GGFundNavSpider(GGSpider):
             url = fp['url'] if 'url' in fp else None
             url = url(pg) if callable(url) else url
 
+            cookies = fp['cookies'] if 'cookies' in fp else None
+            cookies = parse_cookies(cookies)
+
             return Request(url, priority=1,
                            headers={'Referer': fp['ref']},
+                           cookies=cookies,
                            meta={'pg': pg, 'url': fp['url'],
                                  'fps': fps, 'ips': ips, 'ext': ext},
                            callback=self.parse_fund)
@@ -156,8 +183,12 @@ class GGFundNavSpider(GGSpider):
             url = ip['url'] if 'url' in ip else None
             url = url(pg) if callable(url) else url
 
+            cookies = ip['cookies'] if 'cookies' in ip else None
+            cookies = parse_cookies(cookies)
+
             return Request(url, dont_filter=True,
                            headers={'Referer': ip['ref']},
+                           cookies=cookies,
                            meta={'pg': pg, 'url': ip['url'],
                                  'fps': fps, 'ips': ips, 'ext': ext},
                            callback=self.parse_item)
