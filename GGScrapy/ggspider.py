@@ -6,14 +6,16 @@ import config
 
 
 def parse_cookies(cookies):
-    ret = {}
-    cookies = cookies.split(';')
-    for cookie in cookies:
-        cookie = cookie.split('=', 1)
-        key = cookie[0].strip()
-        value = cookie[1].strip()
-        ret[key] = value
-    return ret
+    if cookies is not None:
+        ret = {}
+        cks = cookies.split(';')
+        for ck in cks:
+            ck = ck.split('=', 1)
+            key = ck[0].strip()
+            value = ck[1].strip()
+            ret[key] = value
+        cookies = ret
+    return cookies
 
 
 # 公共Spider基类

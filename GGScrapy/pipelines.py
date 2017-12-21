@@ -174,4 +174,60 @@ class GGNewsPipeline(object):
 # 基金净值Pipeline
 class GGFundNavPipeline(object):
     def process_item(self, item, spider):
-        pass
+        try:
+            sitename = item['sitename']
+            channel = item['channel']
+            url = item['url']
+
+            if 'groupname' in item:
+                groupname = item['groupname']
+            else:
+                groupname = None
+
+            fund_name = item['fund_name']
+            if fund_name is not None:
+                fund_name = fund_name.strip()
+            if fund_name is None or len(fund_name) < 1:
+                return item
+
+            statistic_date = item['statistic_date']
+            if statistic_date is not None:
+                statistic_date = statistic_date.strip()
+            if statistic_date is None or len(statistic_date) < 1:
+                return item
+
+            nav = item['nav']
+            if nav is not None:
+                source = nav.strip()
+
+            added_nav = item['added_nav']
+            if added_nav is not None:
+                author = added_nav.strip()
+
+            conn = spider.dbPool.acquire()
+            cursor = conn.cursor()
+            try:
+                table = config.database['table']
+
+                cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
+                row = cursor.fetchone()
+
+                if row is None:
+                    cursor.execute(
+                        'INSERT INTO ' + table + ' (hkey, sitename, channel, groupname, url, title, source, author, publish_time, content) \
+                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (hkey, sitename, channel, groupname, url, title, source, author, pubtime, content,))
+                elif spider.update:
+                    cursor.execute(
+                        'UPDATE ' + table + ' SET sitename=%s, channel=%s, groupname=%s, title=%s, source=%s, author=%s, publish_time=%s, content=%s \
+                         WHERE hkey=%s',
+                        (sitename, channel, groupname, title, source, author, pubtime, content, hkey,))
+            finally:
+                cursor.close()
+                spider.dbPool.release(conn)
+        except:
+            spider.crawler.engine.close_spider(spider, 'pipeline error!')
+            spider.crawler.stats.set_value('exit_emsg', traceback.format_exc())
+            spider.crawler.stats.set_value('exit_code', 1)
+        finally:
+            return item
