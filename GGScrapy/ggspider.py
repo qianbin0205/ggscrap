@@ -155,6 +155,13 @@ class GGFundNavSpider(GGSpider):
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNavPipeline': 300}
     }
 
+    dbPool = Pool(config.fund_nav['db']['host'],
+                  config.fund_nav['db']['port'],
+                  config.fund_nav['db']['user'],
+                  config.fund_nav['db']['pswd'],
+                  config.fund_nav['db']['name'],
+                  timeout=config.fund_nav['db']['timeout'])
+
     def __init__(self, *args, **kwargs):
         super(GGFundNavSpider, self).__init__(*args, **kwargs)
 

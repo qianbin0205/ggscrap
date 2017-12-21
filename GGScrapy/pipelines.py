@@ -7,6 +7,7 @@ import socket
 import hashlib
 import traceback
 from urllib import request
+from urllib.parse import quote
 from urllib.error import URLError
 from urllib.error import HTTPError
 from http.client import IncompleteRead
@@ -198,30 +199,44 @@ class GGFundNavPipeline(object):
 
             nav = item['nav']
             if nav is not None:
-                source = nav.strip()
+                nav = nav.strip()
 
             added_nav = item['added_nav']
             if added_nav is not None:
-                author = added_nav.strip()
+                added_nav = added_nav.strip()
+
+            md5 = hashlib.md5()
+            seed = 'sitename=' + quote(sitename)
+            seed += '&channel=' + quote(channel)
+            seed += '&fund_name=' + quote(fund_name)
+            seed += '&statistic_date=' + quote(statistic_date)
+            seed += '&nav=' + quote(nav)
+            seed += '&added_nav=' + quote(added_nav)
+            md5.update(seed.encode('utf-8'))
+            hkey = md5.hexdigest()
 
             conn = spider.dbPool.acquire()
             cursor = conn.cursor()
             try:
-                table = config.database['table']
+                table = config.fund_nav['db']['table']
 
                 cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
                 row = cursor.fetchone()
 
                 if row is None:
                     cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey, sitename, channel, groupname, url, title, source, author, publish_time, content) \
-                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (hkey, sitename, channel, groupname, url, title, source, author, pubtime, content,))
-                elif spider.update:
-                    cursor.execute(
-                        'UPDATE ' + table + ' SET sitename=%s, channel=%s, groupname=%s, title=%s, source=%s, author=%s, publish_time=%s, content=%s \
-                         WHERE hkey=%s',
-                        (sitename, channel, groupname, title, source, author, pubtime, content, hkey,))
+                        'select top 1 * from ' + table + ' where sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
+                        (sitename, channel, fund_name, statistic_date,))
+                    row = cursor.fetchone()
+                    if row is None:
+                        cursor.execute(
+                            'INSERT INTO ' + table + ' (hkey, sitename, channel, url, fund_name, statistic_date, nav, added_nav) \
+                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
+                            (hkey, sitename, channel, url, fund_name, statistic_date, nav, added_nav,))
+                    else:
+                        cursor.execute(
+                            'UPDATE ' + table + ' SET hkey=%s, url=%s, nav=%s, added_nav=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
+                            (hkey, url, nav, added_nav, sitename, channel, fund_name, statistic_date,))
             finally:
                 cursor.close()
                 spider.dbPool.release(conn)

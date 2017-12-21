@@ -20,7 +20,7 @@ class GZDaShuFundNavSpider(GGFundNavSpider):
             {
                 'url': 'http://www.gzdashu.com/cpzx.aspx',
                 'ref': 'http://www.gzdashu.com/',
-                'cookies': 'ASP.NET_SessionId=kjkteiec1qmis0rzrsthohun; td_cookie=11049074'
+                'cookies': 'ASP.NET_SessionId=kjkteiec1qmis0rzrsthohun; td_cookie=11049075'
             }
         ]
 
