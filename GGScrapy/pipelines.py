@@ -183,7 +183,7 @@ class GGFundNavPipeline(object):
             if 'groupname' in item:
                 groupname = item['groupname']
             else:
-                groupname = None
+                groupname = spider.groupname
 
             fund_name = item['fund_name']
             if fund_name is not None:
