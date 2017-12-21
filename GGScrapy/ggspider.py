@@ -69,7 +69,7 @@ class GGNewsSpider(GGSpider):
             ext = cp['ext'] if 'ext' in cp else {}
 
             pg = cp['pg'] if 'pg' in cp else None
-            url = cp['url']
+            url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
             count = cp['ch']['count']
@@ -84,11 +84,16 @@ class GGNewsSpider(GGSpider):
             rc = rcs.pop(0)
             ext = rc['ext'] if 'ext' in rc else {}
 
+            pg = rc['pg'] if 'pg' in rc else None
+            url = rc['url'] if 'url' in rc else None
+            url = url(pg) if callable(url) else url
+
             count = rc['ch']['count']
             if self.limit is None or count < self.limit:
-                return Request(rc['url'], dont_filter=True,
+                return Request(url, dont_filter=True,
                                headers={'Referer': rc['ref']},
-                               meta={'ch': rc['ch'], 'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
+                               meta={'ch': rc['ch'], 'pg': pg, 'url': rc['url'],
+                                     'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
                                callback=self.parse_item)
 
         cps = nps
@@ -98,7 +103,7 @@ class GGNewsSpider(GGSpider):
             ext = cp['ext'] if 'ext' in cp else {}
 
             pg = cp['pg'] if 'pg' in cp else None
-            url = cp['url']
+            url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
             count = cp['ch']['count']
@@ -134,7 +139,7 @@ class GGFundNavSpider(GGSpider):
             ext = fp['ext'] if 'ext' in fp else {}
 
             pg = fp['pg'] if 'pg' in fp else None
-            url = fp['url']
+            url = fp['url'] if 'url' in fp else None
             url = url(pg) if callable(url) else url
 
             return Request(url, priority=1,
@@ -147,9 +152,14 @@ class GGFundNavSpider(GGSpider):
             ip = ips.pop(0)
             ext = ip['ext'] if 'ext' in ip else {}
 
-            return Request(ip['url'], dont_filter=True,
+            pg = ip['pg'] if 'pg' in ip else None
+            url = ip['url'] if 'url' in ip else None
+            url = url(pg) if callable(url) else url
+
+            return Request(url, dont_filter=True,
                            headers={'Referer': ip['ref']},
-                           meta={'fps': fps, 'ips': ips, 'ext': ext},
+                           meta={'pg': pg, 'url': ip['url'],
+                                 'fps': fps, 'ips': ips, 'ext': ext},
                            callback=self.parse_item)
 
     def parse_fund(self, response):
