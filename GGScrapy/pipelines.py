@@ -224,7 +224,7 @@ class GGFundNavPipeline(object):
                     'select top 1 * from ' + table + ' where sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
                     (sitename, channel, fund_name, statistic_date,))
                 row = cursor.fetchone()
-                
+
                 if row is None:
                     cursor.execute(
                         'INSERT INTO ' + table + ' (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav) \
