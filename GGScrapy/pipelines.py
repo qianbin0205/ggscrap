@@ -220,23 +220,21 @@ class GGFundNavPipeline(object):
             try:
                 table = config.fund_nav['db']['table']
 
-                cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
+                cursor.execute(
+                    'select top 1 * from ' + table + ' where sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
+                    (sitename, channel, fund_name, statistic_date,))
                 row = cursor.fetchone()
-
+                
                 if row is None:
                     cursor.execute(
-                        'select top 1 * from ' + table + ' where sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
-                        (sitename, channel, fund_name, statistic_date,))
-                    row = cursor.fetchone()
-                    if row is None:
-                        cursor.execute(
-                            'INSERT INTO ' + table + ' (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav) \
-                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                            (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav,))
-                    else:
-                        cursor.execute(
-                            'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
-                            (hkey, url, nav, groupname, added_nav, sitename, channel, fund_name, statistic_date,))
+                        'INSERT INTO ' + table + ' (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav) \
+                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav,))
+                else:
+                    cursor.execute(
+                        'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
+                        (hkey, url, nav, groupname, added_nav, sitename, channel, fund_name, statistic_date,))
+
             finally:
                 cursor.close()
                 spider.dbPool.release(conn)
