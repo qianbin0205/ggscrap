@@ -7,6 +7,7 @@ import socket
 import hashlib
 import traceback
 from urllib import request
+from datetime import datetime
 from urllib.parse import quote
 from urllib.error import URLError
 from urllib.error import HTTPError
@@ -186,32 +187,27 @@ class GGFundNavPipeline(object):
                 groupname = spider.groupname
 
             fund_name = item['fund_name']
-            if fund_name is not None:
-                fund_name = fund_name.strip()
-            if fund_name is None or len(fund_name) < 1:
-                return item
+            assert isinstance(fund_name, str)
+            fund_name = fund_name.strip()
+            assert len(fund_name) >= 1
 
             statistic_date = item['statistic_date']
-            if statistic_date is not None:
-                statistic_date = statistic_date.strip()
-            if statistic_date is None or len(statistic_date) < 1:
-                return item
+            assert isinstance(statistic_date, datetime)
+            statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
 
             nav = item['nav']
-            if nav is not None:
-                nav = nav.strip()
+            assert nav is None or isinstance(nav, float)
 
             added_nav = item['added_nav']
-            if added_nav is not None:
-                added_nav = added_nav.strip()
+            assert added_nav is None or isinstance(added_nav, float)
 
             md5 = hashlib.md5()
             seed = 'sitename=' + quote(sitename)
             seed += '&channel=' + quote(channel)
             seed += '&fund_name=' + quote(fund_name)
             seed += '&statistic_date=' + quote(statistic_date)
-            seed += '&nav=' + quote(nav)
-            seed += '&added_nav=' + quote(added_nav)
+            seed += '&nav=' + quote(str(nav))
+            seed += '&added_nav=' + quote(str(added_nav))
             md5.update(seed.encode('utf-8'))
             hkey = md5.hexdigest()
 

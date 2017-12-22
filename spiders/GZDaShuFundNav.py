@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
 from scrapy import FormRequest
@@ -63,9 +64,13 @@ class GZDaShuFundNavSpider(GGFundNavSpider):
             item['channel'] = self.channel
             item['url'] = response.url
             item['fund_name'] = row.css('td:nth-child(1)::text').extract_first()
-            item['nav'] = row.css('td:nth-child(2)::text').extract_first()
-            item['added_nav'] = row.css('td:nth-child(3)::text').extract_first()
-            item['statistic_date'] = row.css('td:nth-child(4)::text').extract_first()
+
+            statistic_date = row.css('td:nth-child(4)::text').extract_first()
+            item['statistic_date'] = datetime.strptime(statistic_date, '%Y/%m/%d')
+
+            item['nav'] = float(row.css('td:nth-child(2)::text').extract_first())
+            item['added_nav'] = float(row.css('td:nth-child(3)::text').extract_first())
+
             yield item
 
         yield self.request_next(fps, ips)
