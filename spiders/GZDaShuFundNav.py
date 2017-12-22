@@ -11,6 +11,7 @@ from GGScrapy.ggspider import GGFundNavSpider
 class GZDaShuFundNavSpider(GGFundNavSpider):
     name = 'GZDaShuFundNav'
     sitename = '广州大树投资'
+    channel = '投资顾问'
     allowed_domains = ['www.gzdashu.com']
     start_urls = ['http://www.gzdashu.com/cpzx.aspx']
 
