@@ -195,11 +195,17 @@ class GGFundNavPipeline(object):
             assert isinstance(statistic_date, datetime)
             statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
 
-            nav = item['nav']
+            nav = item['nav'] if 'nav' in item else None
             assert nav is None or isinstance(nav, float)
 
-            added_nav = item['added_nav']
+            added_nav = item['added_nav'] if 'added_nav' in item else None
             assert added_nav is None or isinstance(added_nav, float)
+
+            nav_2 = item['nav_2'] if 'nav_2' in item else None
+            assert nav_2 is None or isinstance(nav_2, float)
+
+            added_nav_2 = item['added_nav_2'] if 'added_nav_2' in item else None
+            assert added_nav_2 is None or isinstance(added_nav_2, float)
 
             md5 = hashlib.md5()
             seed = 'sitename=' + quote(sitename)
@@ -223,17 +229,17 @@ class GGFundNavPipeline(object):
 
                 if row is None:
                     cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav) \
-                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav,))
+                        'INSERT INTO ' + table + ' (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2, added_nav_2) \
+                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2, added_nav_2,))
                 else:
                     cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
                     row = cursor.fetchone()
 
                     if row is None:
                         cursor.execute(
-                            'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
-                            (hkey, url, groupname, nav, added_nav, sitename, channel, fund_name, statistic_date,))
+                            'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s, nav_2=%s, added_nav_2=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
+                            (hkey, url, groupname, nav, added_nav, nav_2, added_nav_2, sitename, channel, fund_name, statistic_date,))
 
             finally:
                 cursor.close()

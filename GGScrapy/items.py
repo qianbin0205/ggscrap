@@ -31,3 +31,5 @@ class GGFundNavItem(scrapy.Item):
     statistic_date = scrapy.Field()
     nav = scrapy.Field()
     added_nav = scrapy.Field()
+    nav_2 = scrapy.Field()
+    added_nav_2 = scrapy.Field()
