@@ -231,9 +231,13 @@ class GGFundNavPipeline(object):
                                              VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav,))
                 else:
-                    cursor.execute(
-                        'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
-                        (hkey, url, nav, groupname, added_nav, sitename, channel, fund_name, statistic_date,))
+                    cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
+                    row = cursor.fetchone()
+
+                    if row is None:
+                        cursor.execute(
+                            'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
+                            (hkey, url, groupname, nav, added_nav, sitename, channel, fund_name, statistic_date,))
 
             finally:
                 cursor.close()

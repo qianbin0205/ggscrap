@@ -2,6 +2,7 @@
 
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
+from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
@@ -16,11 +17,22 @@ class GZDaShuFundNavSpider(GGFundNavSpider):
         super(GZDaShuFundNavSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
+        yield FormRequest(url='http://www.gzdashu.com/login.aspx',
+                          formdata={'returnUrl': '/',
+                                    'username': '18638357950',
+                                    'password': '123456',
+                                    'rememberMe': 'true'},
+                          meta={
+                              'handle_httpstatus_list': [302]
+                          },
+                          callback=self.parse_login)
+
+    def parse_login(self, response):
         fps = [
             {
                 'url': 'http://www.gzdashu.com/cpzx.aspx',
                 'ref': 'http://www.gzdashu.com/',
-                'cookies': 'ASP.NET_SessionId=kjkteiec1qmis0rzrsthohun; td_cookie=11049075'
+                # 'cookies': 'ASP.NET_SessionId=kjkteiec1qmis0rzrsthohun; td_cookie=11049075'
             }
         ]
 
