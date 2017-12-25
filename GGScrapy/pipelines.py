@@ -159,7 +159,7 @@ class GGNewsPipeline(object):
                 attempt = 3
                 f, b = download(src, attempt, 30)
                 if f is not None:
-                    path = config.ufile['group'] + '/' + hkey[0:2] + '/' + hkey + '/' + f
+                    path = config.news['ufile']['group'] + '/' + hkey[0:2] + '/' + hkey + '/' + f
                     for i in range(attempt):
                         ret, resp = UFile.put_stream(path, b)
                         if resp.status_code == 200:
