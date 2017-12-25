@@ -71,7 +71,7 @@ class GGNewsPipeline(object):
             conn = spider.dbPool.acquire()
             cursor = conn.cursor()
             try:
-                table = config.database['table']
+                table = config.news['db']['table']
 
                 cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
                 row = cursor.fetchone()

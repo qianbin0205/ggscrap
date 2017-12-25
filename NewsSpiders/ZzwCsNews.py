@@ -111,8 +111,8 @@ class ZzwCsSpider(GGNewsSpider):
                     pubtime = pubtime + ':00'
                 item['pubtime'] = pubtime
 
-        i = int(response.css('.artical_c>.page').re_first(r'var\s+?currentPage\s+?=\s+?(\d+)'))  # 当前页号
-        c = int(response.css('.artical_c>.page').re_first(r'var\s+?countPage\s+?=\s+?(\d+)'))  # 总计页数
+        i = int(response.css('.artical_c .page').re_first(r'var\s+?currentPage\s+?=\s+?(\d+)'))  # 当前页号
+        c = int(response.css('.artical_c .page').re_first(r'var\s+?countPage\s+?=\s+?(\d+)'))  # 总计页数
         if i < c - 1:
             rcs.insert(0, {
                 'ch': ch,
