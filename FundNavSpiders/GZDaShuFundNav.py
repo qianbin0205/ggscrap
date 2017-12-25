@@ -8,15 +8,15 @@ from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
 
-class GZDaShuFundNavSpider(GGFundNavSpider):
-    name = 'GZDaShuFundNav'
+class GZDaShuSpider(GGFundNavSpider):
+    name = 'FundNav_GZDaShu'
     sitename = '广州大树投资'
     channel = '投资顾问'
     allowed_domains = ['www.gzdashu.com']
     start_urls = ['http://www.gzdashu.com/cpzx.aspx']
 
     def __init__(self, limit=None, *args, **kwargs):
-        super(GZDaShuFundNavSpider, self).__init__(limit, *args, **kwargs)
+        super(GZDaShuSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
         yield FormRequest(url='http://www.gzdashu.com/login.aspx',

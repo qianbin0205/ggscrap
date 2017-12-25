@@ -7,8 +7,8 @@ from GGScrapy.items import GGNewsItem
 from GGScrapy.ggspider import GGNewsSpider
 
 
-class ZzwCsNewsSpider(GGNewsSpider):
-    name = 'ZzwCsNews'
+class ZzwCsSpider(GGNewsSpider):
+    name = 'News_ZzwCs'
     sitename = '中证网'
     allowed_domains = ['www.cs.com.cn']
     start_urls = ['http://www.cs.com.cn/ssgs/hyzx/']
@@ -18,7 +18,7 @@ class ZzwCsNewsSpider(GGNewsSpider):
     }
 
     def __init__(self, limit=None, *args, **kwargs):
-        super(ZzwCsNewsSpider, self).__init__(limit, *args, **kwargs)
+        super(ZzwCsSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
         cps = [
