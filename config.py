@@ -7,21 +7,25 @@ news = {
         'name': 'SCRAPY_DEBUG_DB',
         'table': 't_scrapy_news',
         'timeout': 60
+    },
+
+    'ufile': {
+        'group': 'Debug'
     }
 }
 
 fund_nav = {
     'db': {
-        # 'host': '192.168.0.139',
-        # 'port': 1433,
-        # 'user': 'sql_scrapy',
-        # 'pswd': 'sql_scrapy123',
-        # 'name': 'funddb',
-        'host': '106.75.32.107',
-        'port': 2433,
-        'user': 'scrapy_debug',
-        'pswd': 'scrapy_debug123',
-        'name': 'SCRAPY_DEBUG_DB',
+        'host': '192.168.0.139',
+        'port': 1433,
+        'user': 'sql_scrapy',
+        'pswd': 'sql_scrapy123',
+        'name': 'funddb',
+        # 'host': '106.75.32.107',
+        # 'port': 2433,
+        # 'user': 'scrapy_debug',
+        # 'pswd': 'scrapy_debug123',
+        # 'name': 'SCRAPY_DEBUG_DB',
         'table': 't_nav_general',
         'timeout': 60
     }
