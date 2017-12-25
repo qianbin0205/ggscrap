@@ -58,6 +58,8 @@ class GZDaShuSpider(GGFundNavSpider):
         fps = response.meta['fps']
         ips = response.meta['ips']
 
+
+
         rows = response.css('table.mychat tr:not(:first-child)')
         for row in rows:
             item = GGFundNavItem()
