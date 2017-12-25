@@ -23,158 +23,158 @@ class CcstockNewsSpider(GGNewsSpider):
 
     def start_requests(self):
         cps = [
-            {
-                'ch': {
-                    'name': '股票频道-最新播报',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/stock/zuixinbobao/',
-                'ref': 'http://www.ccstock.cn/stock/zuixinbobao/'
-            },
-            {
-                'ch': {
-                    'name': '股票频道-公司评级',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/stock/gongsipingji/',
-                'ref': 'http://www.ccstock.cn/stock/gongsipingji/'
-            },
-            {
-                'ch': {
-                    'name': '股票频道-公司研究',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/stock/gongsiyanjiu/',
-                'ref': 'http://www.ccstock.cn/stock/gongsiyanjiu/'
-            },
-            {
-                'ch': {
-                    'name': '新股频道-新股公告',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/ipo/xingugonggao/',
-                'ref': 'http://www.ccstock.cn/ipo/xingugonggao/'
-            },
-            {
-                'ch': {
-                    'name': '新股频道-新股评论',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/ipo/xingupinglun/',
-                'ref': 'http://www.ccstock.cn/ipo/xingupinglun/'
-            },
-            {
-                'ch': {
-                    'name': '新股频道-上市预测',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/ipo/shangshiyuce/',
-                'ref': 'http://www.ccstock.cn/ipo/shangshiyuce/'
-            },
-            {
-                'ch': {
-                    'name': '新股频道-申购指南',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/ipo/shengouzhinan/',
-                'ref': 'http://www.ccstock.cn/ipo/shengouzhinan/'
-            },
-            {
-                'ch': {
-                    'name': '新股频道-申购中签',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/ipo/xinguzhongqian/',
-                'ref': 'http://www.ccstock.cn/ipo/xinguzhongqian/'
-            },
-            {
-                'ch': {
-                    'name': '评论频道-商业评论',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/review/shangyepinglun/',
-                'ref': 'http://www.ccstock.cn/review/shangyepinglun/'
-            },
-            {
-                'ch': {
-                    'name': '股票频道-港股市场分析	',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/HKstock/ganggufenxi/',
-                'ref': 'http://www.ccstock.cn/HKstock/ganggufenxi/'
-            },
-            {
-                'ch': {
-                    'name': '美股频道',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/usstock/',
-                'ref': 'http://www.ccstock.cn/usstock/'
-            },
-            {
-                'ch': {
-                    'name': '基金频道-基金动态',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/fund/jijindongtai/',
-                'ref': 'http://www.ccstock.cn/fund/jijindongtai/'
-            },
-            {
-                'ch': {
-                    'name': '基金频道-基金论市',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/fund/jijinlunshi/',
-                'ref': 'http://www.ccstock.cn/fund/jijinlunshi/'
-            },
-            {
-                'ch': {
-                    'name': '基金频道-持仓动向',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/fund/chicangdongxiang/',
-                'ref': 'http://www.ccstock.cn/fund/chicangdongxiang/'
-            },
-            {
-                'ch': {
-                    'name': '基金频道-基金点评',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/fund/jijindiaoping/',
-                'ref': 'http://www.ccstock.cn/fund/jijindiaoping/'
-            },
-            {
-                'ch': {
-                    'name': '私募频道-私募持仓',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/simu/chicang/',
-                'ref': 'http://www.ccstock.cn/simu/chicang/'
-            },
-            {
-                'ch': {
-                    'name': '私募频道-私募论市',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/simu/lunshi/',
-                'ref': 'http://www.ccstock.cn/simu/lunshi/'
-            },
-            {
-                'ch': {
-                    'name': '私募频道-私募动态',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/simu/dongtai/',
-                'ref': 'http://www.ccstock.cn/simu/dongtai/'
-            },
-            {
-                'ch': {
-                    'name': '基金频道-基金经理访谈',
-                    'count': 0
-                },
-                'url': 'http://www.ccstock.cn/fund/jijinfangtan/',
-                'ref': 'http://www.ccstock.cn/fund/jijinfangtan/'
-            },
+            # {
+            #     'ch': {
+            #         'name': '股票频道-最新播报',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/stock/zuixinbobao/',
+            #     'ref': 'http://www.ccstock.cn/stock/zuixinbobao/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '股票频道-公司评级',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/stock/gongsipingji/',
+            #     'ref': 'http://www.ccstock.cn/stock/gongsipingji/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '股票频道-公司研究',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/stock/gongsiyanjiu/',
+            #     'ref': 'http://www.ccstock.cn/stock/gongsiyanjiu/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '新股频道-新股公告',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/ipo/xingugonggao/',
+            #     'ref': 'http://www.ccstock.cn/ipo/xingugonggao/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '新股频道-新股评论',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/ipo/xingupinglun/',
+            #     'ref': 'http://www.ccstock.cn/ipo/xingupinglun/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '新股频道-上市预测',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/ipo/shangshiyuce/',
+            #     'ref': 'http://www.ccstock.cn/ipo/shangshiyuce/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '新股频道-申购指南',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/ipo/shengouzhinan/',
+            #     'ref': 'http://www.ccstock.cn/ipo/shengouzhinan/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '新股频道-申购中签',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/ipo/xinguzhongqian/',
+            #     'ref': 'http://www.ccstock.cn/ipo/xinguzhongqian/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '评论频道-商业评论',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/review/shangyepinglun/',
+            #     'ref': 'http://www.ccstock.cn/review/shangyepinglun/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '股票频道-港股市场分析	',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/HKstock/ganggufenxi/',
+            #     'ref': 'http://www.ccstock.cn/HKstock/ganggufenxi/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '美股频道',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/usstock/',
+            #     'ref': 'http://www.ccstock.cn/usstock/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '基金频道-基金动态',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/fund/jijindongtai/',
+            #     'ref': 'http://www.ccstock.cn/fund/jijindongtai/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '基金频道-基金论市',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/fund/jijinlunshi/',
+            #     'ref': 'http://www.ccstock.cn/fund/jijinlunshi/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '基金频道-持仓动向',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/fund/chicangdongxiang/',
+            #     'ref': 'http://www.ccstock.cn/fund/chicangdongxiang/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '基金频道-基金点评',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/fund/jijindiaoping/',
+            #     'ref': 'http://www.ccstock.cn/fund/jijindiaoping/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '私募频道-私募持仓',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/simu/chicang/',
+            #     'ref': 'http://www.ccstock.cn/simu/chicang/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '私募频道-私募论市',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/simu/lunshi/',
+            #     'ref': 'http://www.ccstock.cn/simu/lunshi/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '私募频道-私募动态',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/simu/dongtai/',
+            #     'ref': 'http://www.ccstock.cn/simu/dongtai/'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '基金频道-基金经理访谈',
+            #         'count': 0
+            #     },
+            #     'url': 'http://www.ccstock.cn/fund/jijinfangtan/',
+            #     'ref': 'http://www.ccstock.cn/fund/jijinfangtan/'
+            # },
             {
                 'ch': {
                     'name': '理财频道-期货',
