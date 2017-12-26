@@ -276,6 +276,8 @@ class P5wNewsSpider(GGNewsSpider):
                 item['source'] = response.xpath("//div[@class='source']/span/text()").re_first(r'来源：(\S+)\s*发布时间：')
             if item['source'] is None:
                 item['source'] = response.xpath("//div[@class='title_3']/ins/text()").extract_first()
+            if item['source'] is None:
+                item['source'] = response.xpath("//div[@class='title_3']/ins/a/text()").extract_first()
             author = response.xpath("//span[@class='left']/i[3]/text()").extract_first()
             if author is None:
                 author = response.xpath("//div[@class='source']/span").re_first(r"作者：(\S+)\s*")
