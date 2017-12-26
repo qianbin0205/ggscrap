@@ -399,7 +399,8 @@ class CcstockNewsSpider(GGNewsSpider):
         else:
             base = get_base_url(response)
 
-            urls = response.xpath("//div[@class='listMain']/ul/li/a/@href|//div[@class='list-left left']/ul/li/a/@href").extract()
+            urls = response.xpath(
+                "//div[@class='listMain']/ul/li/a/@href|//div[@class='list-left left']/ul/li/a/@href").extract()
             for url in urls:
                 url = urljoin(base, url)
                 rcs.append({
@@ -426,7 +427,8 @@ class CcstockNewsSpider(GGNewsSpider):
         rcs = response.meta['rcs']
         nps = response.meta['nps']
         ext = response.meta['ext']
-        ls = response.css("#newscontent>*:not(p[align='center']):not(.pagebox):not(iframe), #newscontent::text").extract()
+        ls = response.css(
+            "#newscontent>*:not(p[align='center']):not(.pagebox):not(iframe), #newscontent::text").extract()
         if len(ls) < 1:
             ls = response.css(".content>*, .content::text").extract()
         content = ''.join(ls)
