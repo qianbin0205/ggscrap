@@ -7,18 +7,14 @@ from GGScrapy.items import GGNewsItem
 from GGScrapy.ggspider import GGNewsSpider
 
 
-class ZzwCsSpider(GGNewsSpider):
+class ZzwCsNewsSpider(GGNewsSpider):
     name = 'News_ZzwCs'
     sitename = '中证网'
     allowed_domains = ['www.cs.com.cn']
-    start_urls = ['http://www.cs.com.cn/ssgs/hyzx/']
-
-    custom_settings = {
-        'DOWNLOAD_DELAY': 1,
-    }
+    start_urls = []
 
     def __init__(self, limit=None, *args, **kwargs):
-        super(ZzwCsSpider, self).__init__(limit, *args, **kwargs)
+        super(ZzwCsNewsSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
         cps = [
@@ -121,13 +117,143 @@ class ZzwCsSpider(GGNewsSpider):
                 'url': lambda pg: 'http://www.cs.com.cn/zqxw/zspl/index'
                                   + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
                 'ref': 'http://www.cs.com.cn/zqxw/zspl/'
-            }
+            },
+            {
+                'ch': {
+                    'name': '基金',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/tzjj/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/tzjj/'
+            },
+            {
+                'ch': {
+                    'name': '基金-公募基金',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/tzjj/jjdt/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/tzjj/jjdt/'
+            },
+            {
+                'ch': {
+                    'name': '基金-基金视点',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/tzjj/jjks/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/tzjj/jjks/'
+            },
+            {
+                'ch': {
+                    'name': '基金-基金持仓',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/tzjj/jjcs/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/tzjj/jjcs/'
+            },
+            {
+                'ch': {
+                    'name': '基金-私募基金',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/tzjj/smjj/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/tzjj/smjj/'
+            },
+            {
+                'ch': {
+                    'name': '基金-投基天地',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/tzjj/tjdh/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/tzjj/tjdh/'
+            },
+            {
+                'ch': {
+                    'name': '期市',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/zzqh/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/zzqh/'
+            },
+            {
+                'ch': {
+                    'name': '期市-商品期货',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/zzqh/spqh/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/zzqh/spqh/'
+            },
+            {
+                'ch': {
+                    'name': '期市-金融衍生品',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/zzqh/ysp/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/zzqh/ysp/'
+            },
+            {
+                'ch': {
+                    'name': '市场-行业研究',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/gppd/hyyj/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/gppd/hyyj/'
+            },
+            {
+                'ch': {
+                    'name': '新闻-海外消息',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/xwzx/hwxx/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/xwzx/hwxx/'
+            },
+            {
+                'ch': {
+                    'name': '新闻',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/xwzx/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/xwzx/'
+            },
+            {
+                'ch': {
+                    'name': '新闻-民生视角',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://www.cs.com.cn/xwzx/ms/index'
+                                  + (('_' + str(pg)) if pg >= 1 else '') + '.shtml',
+                'ref': 'http://www.cs.com.cn/xwzx/ms/'
+            },
         ]
         # url = 'http://www.cs.com.cn/gg/hgt/201512/t20151211_4860111.html'
-        # cp = cps[0]
+        # cp = cps[2]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
-        # yield self.request_next(cps, [], [])
+        yield self.request_next(cps, [], [])
 
     def parse_link(self, response):
         ch = response.meta['ch']
