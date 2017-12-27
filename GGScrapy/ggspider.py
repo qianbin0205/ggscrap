@@ -167,24 +167,6 @@ class GGFundNavSpider(GGSpider):
         super(GGFundNavSpider, self).__init__(*args, **kwargs)
 
     def request_next(self, fps, ips):
-        while len(fps) >= 1:
-            fp = fps.pop(0)
-            ext = fp['ext'] if 'ext' in fp else {}
-
-            pg = fp['pg'] if 'pg' in fp else None
-            url = fp['url'] if 'url' in fp else None
-            url = url(pg) if callable(url) else url
-
-            cookies = fp['cookies'] if 'cookies' in fp else None
-            cookies = parse_cookies(cookies)
-
-            return Request(url, priority=1,
-                           headers={'Referer': fp['ref']},
-                           cookies=cookies,
-                           meta={'pg': pg, 'url': fp['url'],
-                                 'fps': fps, 'ips': ips, 'ext': ext},
-                           callback=self.parse_fund)
-
         while len(ips) >= 1:
             ip = ips.pop(0)
             ext = ip['ext'] if 'ext' in ip else {}
@@ -202,6 +184,24 @@ class GGFundNavSpider(GGSpider):
                            meta={'pg': pg, 'url': ip['url'],
                                  'fps': fps, 'ips': ips, 'ext': ext},
                            callback=self.parse_item)
+
+        while len(fps) >= 1:
+            fp = fps.pop(0)
+            ext = fp['ext'] if 'ext' in fp else {}
+
+            pg = fp['pg'] if 'pg' in fp else None
+            url = fp['url'] if 'url' in fp else None
+            url = url(pg) if callable(url) else url
+
+            cookies = fp['cookies'] if 'cookies' in fp else None
+            cookies = parse_cookies(cookies)
+
+            return Request(url, priority=1,
+                           headers={'Referer': fp['ref']},
+                           cookies=cookies,
+                           meta={'pg': pg, 'url': fp['url'],
+                                 'fps': fps, 'ips': ips, 'ext': ext},
+                           callback=self.parse_fund)
 
     def parse_fund(self, response):
         pass
