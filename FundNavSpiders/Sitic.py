@@ -14,6 +14,10 @@ class SiticSpider(GGFundNavSpider):
     allowed_domains = ['www.sitic.com.cn']
     start_urls = ['http://www.sitic.com.cn/plus/list.php?tid=74']
 
+    custom_settings = {
+        'DOWNLOAD_DELAY': 5,
+    }
+
     def __init__(self, limit=None, *args, **kwargs):
         super(SiticSpider, self).__init__(limit, *args, **kwargs)
 
@@ -72,7 +76,9 @@ class SiticSpider(GGFundNavSpider):
             item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
             item['nav'] = float(row.css('.p_at::text').extract_first())
-            item['added_nav'] = float(row.css('.p_state::text').extract_first())
+
+            added_nav = row.css('.p_state::text').extract_first()
+            item['added_nav'] = float(added_nav) if added_nav is not None else None
 
             yield item
 
