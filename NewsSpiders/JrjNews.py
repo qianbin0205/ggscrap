@@ -754,286 +754,286 @@ class JrjNewsSpider(GGNewsSpider):
             #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
             #     'ref': 'http://hk.jrj.com.cn/list/qqsc.shtml'
             # },
-            {
-                'ch': {
-                    'name': '银行频道-银行行业动态',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/hydt' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/hydt.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-中资银行',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/zzyh' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/zzyh.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-外资银行',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/wzyh' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/wzyh.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-银行监管动态',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/jgdt' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/jgdt.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-观点评论',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/plyj' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/plyj.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-银行卡',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/yhk' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/yhk.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-电子银行',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/dzyh' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/dzyh.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-银行家',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/yhj' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/yhj.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-理财资讯',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/yhxp' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/yhxp.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-理财诊所',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/lczs' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/lczs.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-个人信贷',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/grxd' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/grxd.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-银行股评',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/yygp' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/yygp.shtml'
-            },
-            {
-                'ch': {
-                    'name': '银行频道-上市杂谈',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://bank.jrj.com.cn/list/yygsszt' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://bank.jrj.com.cn/list/yygsszt.shtml'
-            },
-            {
-                'ch': {
-                    'name': '保险频道-行业动态',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://insurance.jrj.com.cn/list/hyzx' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://insurance.jrj.com.cn/list/hyzx.shtml'
-            },
-            {
-                'ch': {
-                    'name': '保险频道-保险资讯',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://insurance.jrj.com.cn/list/gdxw' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://insurance.jrj.com.cn/list/gdxw.shtml'
-            },
-            {
-                'ch': {
-                    'name': '保险频道-监督动态',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://insurance.jrj.com.cn/list/jgdt' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://insurance.jrj.com.cn/list/jgdt.shtml'
-            },
-            {
-                'ch': {
-                    'name': '保险频道-行业数据',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://insurance.jrj.com.cn/list/hysj' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://insurance.jrj.com.cn/list/hysj.shtml'
-            },
-            {
-                'ch': {
-                    'name': '保险频道-人事变动',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://insurance.jrj.com.cn/list/rsbd' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://insurance.jrj.com.cn/list/rsbd.shtml'
-            },
-            {
-                'ch': {
-                    'name': '保险频道-公司新闻',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://insurance.jrj.com.cn/list/gsxw' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://insurance.jrj.com.cn/list/gsxw.shtml'
-            },
-            {
-                'ch': {
-                    'name': '保险频道-高管对话',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://insurance.jrj.com.cn/list/bxmdm' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://insurance.jrj.com.cn/list/bxmdm.shtml'
-            },
-            {
-                'ch': {
-                    'name': '信托频道-行业动态',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://trust.jrj.com.cn/list/hydt' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://trust.jrj.com.cn/list/hydt.shtml'
-            },
-            {
-                'ch': {
-                    'name': '信托频道-信托理财',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://trust.jrj.com.cn/list/xtlc' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://trust.jrj.com.cn/list/xtlc.shtml'
-            },
-            {
-                'ch': {
-                    'name': '信托频道-评论研究',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://trust.jrj.com.cn/list/yjfx' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://trust.jrj.com.cn/list/yjfx.shtml'
-            },
-            {
-                'ch': {
-                    'name': '信托频道-信托公告',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://trust.jrj.com.cn/list/xtgg' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://trust.jrj.com.cn/list/xtgg.shtml'
-            },
-            {
-                'ch': {
-                    'name': '信托频道-案例解读',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://trust.jrj.com.cn/list/aljd' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://trust.jrj.com.cn/list/aljd.shtml'
-            },
-            {
-                'ch': {
-                    'name': '黄金频道-市场快讯',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://gold.jrj.com.cn/list/sckx' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://gold.jrj.com.cn/list/sckx.shtml'
-            },
-            {
-                'ch': {
-                    'name': '贵金属频道-白银资讯',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://gold.jrj.com.cn/list/byzx' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://gold.jrj.com.cn/list/byzx.shtml'
-            },
-            {
-                'ch': {
-                    'name': '贵金属频道-交易策略',
-                    'count': 0
-                },
-                'pg': 1,
-                'url': lambda pg: 'http://gold.jrj.com.cn/list/jycl' + (
-                    ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
-                'ref': 'http://gold.jrj.com.cn/list/jycl.shtml'
-            },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-银行行业动态',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/hydt' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/hydt.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-中资银行',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/zzyh' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/zzyh.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-外资银行',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/wzyh' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/wzyh.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-银行监管动态',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/jgdt' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/jgdt.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-观点评论',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/plyj' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/plyj.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-银行卡',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/yhk' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/yhk.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-电子银行',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/dzyh' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/dzyh.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-银行家',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/yhj' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/yhj.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-理财资讯',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/yhxp' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/yhxp.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-理财诊所',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/lczs' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/lczs.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-个人信贷',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/grxd' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/grxd.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-银行股评',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/yygp' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/yygp.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '银行频道-上市杂谈',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://bank.jrj.com.cn/list/yygsszt' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://bank.jrj.com.cn/list/yygsszt.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '保险频道-行业动态',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://insurance.jrj.com.cn/list/hyzx' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://insurance.jrj.com.cn/list/hyzx.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '保险频道-保险资讯',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://insurance.jrj.com.cn/list/gdxw' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://insurance.jrj.com.cn/list/gdxw.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '保险频道-监督动态',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://insurance.jrj.com.cn/list/jgdt' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://insurance.jrj.com.cn/list/jgdt.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '保险频道-行业数据',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://insurance.jrj.com.cn/list/hysj' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://insurance.jrj.com.cn/list/hysj.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '保险频道-人事变动',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://insurance.jrj.com.cn/list/rsbd' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://insurance.jrj.com.cn/list/rsbd.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '保险频道-公司新闻',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://insurance.jrj.com.cn/list/gsxw' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://insurance.jrj.com.cn/list/gsxw.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '保险频道-高管对话',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://insurance.jrj.com.cn/list/bxmdm' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://insurance.jrj.com.cn/list/bxmdm.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '信托频道-行业动态',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://trust.jrj.com.cn/list/hydt' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://trust.jrj.com.cn/list/hydt.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '信托频道-信托理财',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://trust.jrj.com.cn/list/xtlc' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://trust.jrj.com.cn/list/xtlc.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '信托频道-评论研究',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://trust.jrj.com.cn/list/yjfx' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://trust.jrj.com.cn/list/yjfx.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '信托频道-信托公告',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://trust.jrj.com.cn/list/xtgg' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://trust.jrj.com.cn/list/xtgg.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '信托频道-案例解读',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://trust.jrj.com.cn/list/aljd' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://trust.jrj.com.cn/list/aljd.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '黄金频道-市场快讯',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://gold.jrj.com.cn/list/sckx' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://gold.jrj.com.cn/list/sckx.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '贵金属频道-白银资讯',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://gold.jrj.com.cn/list/byzx' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://gold.jrj.com.cn/list/byzx.shtml'
+            # },
+            # {
+            #     'ch': {
+            #         'name': '贵金属频道-交易策略',
+            #         'count': 0
+            #     },
+            #     'pg': 1,
+            #     'url': lambda pg: 'http://gold.jrj.com.cn/list/jycl' + (
+            #         ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
+            #     'ref': 'http://gold.jrj.com.cn/list/jycl.shtml'
+            # },
 
         ]
 
@@ -1074,7 +1074,7 @@ class JrjNewsSpider(GGNewsSpider):
                 "| //div[@class='grid-w630 grid-mr10']/ul/li/a/@href | //div[@class='blue list']/ul/li/a/@href | //ul[@class='ls3']/li/label/a/@href | //div[@class='md-0 pa-2']/ul/li/label/a/@href"
                 "| //div[@class='left']/ul/li/span/a/@href | //div[@class='win2 nl ht10']/ul/li/a/@href | //div[@class='leftCon']/ul/li/label/a/@href | //div[@class='con']/ul/li/span/a/@href"
                 "| //div[@class='newlist']/ul/li/span/a/@href | //div[@class='in']/ul/li/label/a/@href | //div[@class='p10']/ul/li/a/@href | //div[@class='divfl']/div[@class='modle']/p/a/@href"
-                "| //div[@class='newslist']/ul/li/span/a/@href").extract()
+                "| //div[@class='newslist']/ul/li/span/a/@href | //dl[@id='news']/dt/strong/a/@href").extract()
         for u in urls:
             u = urljoin(base, u)
             rcs.append({
@@ -1083,13 +1083,12 @@ class JrjNewsSpider(GGNewsSpider):
                 'ref': response.url
             })
 
-        nps.append({
-            'ch': ch,
-            'pg': pg + 1,
-            'url': url,
-            'ref': response.url
-        })
-
+            nps.append({
+                'ch': ch,
+                'pg': pg + 1,
+                'url': url,
+                'ref': response.url
+            })
         yield self.request_next(cps, rcs, nps)
 
     def parse_item(self, response):
