@@ -1,4 +1,5 @@
 from scrapy import Request
+from scrapy import FormRequest
 from scrapy.spiders import CrawlSpider
 
 from ggmssql.pool import Pool
@@ -178,12 +179,21 @@ class GGFundNavSpider(GGSpider):
             cookies = ip['cookies'] if 'cookies' in ip else None
             cookies = parse_cookies(cookies)
 
-            return Request(url, dont_filter=True,
-                           headers={'Referer': ip['ref']},
-                           cookies=cookies,
-                           meta={'pg': pg, 'url': ip['url'],
-                                 'fps': fps, 'ips': ips, 'ext': ext},
-                           callback=self.parse_item)
+            form = ip['form'] if 'form' in ip else None
+            if form is not None:
+                return FormRequest(url=url, formdata=form, dont_filter=True,
+                                   headers={'Referer': ip['ref']},
+                                   cookies=cookies,
+                                   meta={'pg': pg, 'url': ip['url'],
+                                         'fps': fps, 'ips': ips, 'ext': ext},
+                                   callback=self.parse_item)
+            else:
+                return Request(url, dont_filter=True,
+                               headers={'Referer': ip['ref']},
+                               cookies=cookies,
+                               meta={'pg': pg, 'url': ip['url'],
+                                     'fps': fps, 'ips': ips, 'ext': ext},
+                               callback=self.parse_item)
 
         while len(fps) >= 1:
             fp = fps.pop(0)
@@ -196,12 +206,21 @@ class GGFundNavSpider(GGSpider):
             cookies = fp['cookies'] if 'cookies' in fp else None
             cookies = parse_cookies(cookies)
 
-            return Request(url, priority=1,
-                           headers={'Referer': fp['ref']},
-                           cookies=cookies,
-                           meta={'pg': pg, 'url': fp['url'],
-                                 'fps': fps, 'ips': ips, 'ext': ext},
-                           callback=self.parse_fund)
+            form = fp['form'] if 'form' in fp else None
+            if form is not None:
+                return FormRequest(url=url, formdata=form, priority=1,
+                                   headers={'Referer': fp['ref']},
+                                   cookies=cookies,
+                                   meta={'pg': pg, 'url': fp['url'],
+                                         'fps': fps, 'ips': ips, 'ext': ext},
+                                   callback=self.parse_fund)
+            else:
+                return Request(url, priority=1,
+                               headers={'Referer': fp['ref']},
+                               cookies=cookies,
+                               meta={'pg': pg, 'url': fp['url'],
+                                     'fps': fps, 'ips': ips, 'ext': ext},
+                               callback=self.parse_fund)
 
     def parse_fund(self, response):
         pass
