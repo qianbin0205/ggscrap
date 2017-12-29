@@ -6,12 +6,13 @@ from scrapy.utils.response import get_base_url
 from urllib.parse import urljoin
 from GGScrapy.items import GGNewsItem
 from GGScrapy.ggspider import GGNewsSpider
+import json
 
 
 class SinaFinanceNewsSpider(GGNewsSpider):
     name = 'News_SinaFinance'
     sitename = '新浪财经'
-    allowed_domains = ['finance.sina.com.cn', 'rool.finance.sina.com.cn']
+    allowed_domains = ['finance.sina.com.cn', 'rool.finance.sina.com.cn', 'feed.mix.sina.com.cn']
     start_urls = []
 
     def __init__(self, limit=None, *args, **kwargs):
@@ -591,6 +592,46 @@ class SinaFinanceNewsSpider(GGNewsSpider):
                 'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq1/hgyj/index_' + str(pg) + '.shtml',
                 'ref': 'http://roll.finance.sina.com.cn/finance/zq1/hgyj/index.shtml'
             },
+            {
+                'ch': {
+                    'name': '国内财经',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://feed.mix.sina.com.cn/api/roll/get?pageid=155&lid=1686&num=10&callback=&page='
+                                  + str(pg),
+                'ref': 'http://finance.sina.com.cn/china/'
+            },
+            {
+                'ch': {
+                    'name': '券商',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://feed.mix.sina.com.cn/api/roll/get?pageid=186&lid=1746&num=10&callback=&page='
+                                  + str(pg),
+                'ref': 'http://finance.sina.com.cn/stock/quanshang/'
+            },
+            {
+                'ch': {
+                    'name': '产经',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://feed.mix.sina.com.cn/api/roll/get?pageid=164&lid=1693&num=10&callback=&page='
+                                  + str(pg),
+                'ref': 'http://finance.sina.com.cn/chanjing/'
+            },
+            {
+                'ch': {
+                    'name': '新股',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://feed.mix.sina.com.cn/api/roll/get?pageid=205&lid=1789&num=10&callback=&page='
+                                  + str(pg),
+                'ref': 'http://finance.sina.com.cn/stock/newstock/'
+            },
 
         ]
         url = 'http://finance.sina.com.cn/world/ozjj/20151106/010023691119.shtml'
@@ -614,8 +655,11 @@ class SinaFinanceNewsSpider(GGNewsSpider):
         cps = response.meta['cps']
         rcs = response.meta['rcs']
         nps = response.meta['nps']
-
-        urls = response.xpath(
+        if 'feed.mix.sina.com.cn' in response.url:
+            data = json.loads(response.text)['result']['data']
+            urls = [i['url'] for i in data]
+        else:
+            urls = response.xpath(
             "//div[@class='listBlk']/ul/li/a/@href | //td[@width='476']/table/tr/td/a/@href | //div[@id='d_list']/ul/li/span[@class='c_tit']/a/@href").extract()
         base = get_base_url(response)
         for u in urls:
