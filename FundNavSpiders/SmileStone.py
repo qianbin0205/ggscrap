@@ -54,15 +54,18 @@ class SmileStoneSpider(GGFundNavSpider):
             item = GGFundNavItem()
             item['sitename'] = self.sitename
             item['channel'] = self.channel
-            item['url'] = response.url
+            item['url'] = response.request.headers['Referer']
 
             item['fund_name'] = row['pname']
 
             statistic_date = row['valuetime']
             item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-            item['nav'] = row['value']
-            item['added_nav'] = row['totalvalue']
+            nav = row['value']
+            item['nav'] = float(nav) if nav is not None else None
+
+            added_nav = row['totalvalue']
+            item['added_nav'] = float(added_nav) if added_nav is not None else None
             yield item
 
         yield self.request_next(fps, ips)
