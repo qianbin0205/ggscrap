@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import re
 import json
 from datetime import datetime
-from urllib.parse import urljoin
-from scrapy.utils.response import get_base_url
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -50,20 +47,6 @@ class FengZangSpider(GGFundNavSpider):
         ]
 
         yield self.request_next([], ips)
-
-    def parse_fund(self, response):
-        fps = response.meta['fps']
-        ips = response.meta['ips']
-
-        funds = response.css(r'.list_product_box>ul>li>a::attr(href)').extract()
-        for fund in funds:
-            url = urljoin(get_base_url(response), fund)
-            ips.append({
-                'url': url,
-                'ref': response.url
-            })
-
-        yield self.request_next(fps, ips)
 
     def parse_item(self, response):
         fps = response.meta['fps']
