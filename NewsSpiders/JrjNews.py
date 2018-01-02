@@ -32,7 +32,16 @@ class JrjNewsSpider(GGNewsSpider):
                     ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
                 'ref': 'http://stock.jrj.com.cn/invest/hgck.shtml'
             },
-
+            {
+                'ch': {
+                    'name': '股票频道-市况直击',
+                    'count': 0
+                },
+                'pg': 0,
+                'url': lambda pg: 'http://stock.jrj.com.cn/skzj/skzj' + date.isoformat(
+                    date.today() - timedelta(days=pg)) + '.js',
+                'ref': 'http://stock.jrj.com.cn/skzj/'
+            },
             {
                 'ch': {
                     'name': '7*24小时上市公司新闻',
@@ -1049,7 +1058,7 @@ class JrjNewsSpider(GGNewsSpider):
         # url = 'http://fund.jrj.com.cn/2015/10/21143119957298.shtml'
         # url = 'http://bank.jrj.com.cn/2012/05/23092213234432.shtml'
         # url = 'http://bank.jrj.com.cn/2012/04/23071812863578.shtml'
-        # cp = cps[1]
+        # cp = cps[0]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
         yield self.request_next(cps, [], [])
@@ -1067,6 +1076,8 @@ class JrjNewsSpider(GGNewsSpider):
             urls = re.findall(r'"infourl":"(.*?)","detail"', response.text, re.S)
         elif ch['name'] == '特殊资讯数据-机会早知道' or ch['name'] == '特色资讯数据-涨跌停揭秘':
             urls = re.findall(r'"infourl":"(.*?)","keyword"', response.text, re.S)
+        elif ch['name'] == '股票频道-市况直击':
+            urls = re.findall(r'http://stock.jrj.com.cn/\d+/\d+/\d+.shtml', response.text, re.S)
         else:
             urls = response.xpath(
                 "//div[@class='list-main']/ul/li/a/@href | //div[@class='lf2 fl']/ul/li/a/@href | //div[@class='list-s1']/ul/li/a/@href | //div[@class='clm']/ul/li/a/@href"
