@@ -18,33 +18,40 @@ class ZjblzgSpider(GGFundNavSpider):
         super(ZjblzgSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-        ips = [
+        fps = [
             {
-                'pg': 1,
-                'url': 'http://www.zjblzg.com/front/getValueInfo',
-                'form': {'pageNo': lambda pg: str(pg)},
-                'ref': 'http://www.zjblzg.com/value',
+                'url': 'http://www.zjblzg.com/value',
                 'username': '13083790899',
                 'password': '123456',
-                'cookies': 'JSESSIONID=5D93FC091E7CDAFF3D47F7029CC0003A; td_cookie=11049235'
+                'cookies': 'td_cookie=11049236; JSESSIONID=9B4AFDB9BB0E0E0128CA691860F0D9CE',
+                'ref': 'http://www.zjblzg.com/'
             }
         ]
 
-        yield self.request_next([], ips)
+        yield self.request_next(fps, [])
+
+    def parse_fund(self, response):
+        fps = response.meta['fps']
+        ips = response.meta['ips']
+
+        statistic_date = response.css('p').re_first(r'白鹭产品每周净值\((\d+)\)')
+        statistic_date = datetime.strptime(statistic_date, '%Y%m%d')
+
+        for i in range(1, 3):
+            ips.append({
+                'pg': i,
+                'url': 'http://www.zjblzg.com/front/getValueInfo',
+                'form': {'pageNo': lambda pg: str(pg)},
+                'ref': response.url,
+                'ext': {'statistic_date': statistic_date}
+            })
+
+        yield self.request_next(fps, ips)
 
     def parse_item(self, response):
         fps = response.meta['fps']
         ips = response.meta['ips']
-
-        # pg = response.meta['pg']
-        url = response.meta['url']
-        form = response.meta['form']
-        ips.append({
-            'pg': 2,
-            'url': url,
-            'form': form,
-            'ref': response.request.headers['Referer']
-        })
+        ext = response.meta['ext']
 
         rows = json.loads(response.text)
         for row in rows:
@@ -55,8 +62,9 @@ class ZjblzgSpider(GGFundNavSpider):
 
             item['fund_name'] = row['name']
 
-            statistic_date = row['value_time']
-            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d %H:%M:%S')
+            # statistic_date = row['value_time']
+            # item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d %H:%M:%S')
+            item['statistic_date'] = ext['statistic_date']
 
             nav = row['new_value']
             item['nav'] = float(nav) if nav is not None else None
