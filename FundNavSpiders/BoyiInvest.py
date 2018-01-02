@@ -22,7 +22,9 @@ class BoyiInvestSpider(GGFundNavSpider):
             {
                 'url': 'http://www.boyiinvest.com/index.asp?product.html',
                 'ref': 'http://www.boyiinvest.com/',
-                'cookies': '%5Fi18n=OK; %5FS%5FRESOURCE=zh%2Dcn; %5FS%5FTEMPLATEDIR=%2Ftemplate%2Fdefault; %5FS%5FLANG%5FDIR=; %5FS%5FLANG=zh%2Dcn; ASPSESSIONIDSCCASCDB=NKDJHOHBNBHBPPCBJOKCJNDO; closeclick=closeclick; td_cookie=11049206'
+                'username': 'by123',
+                'password': 'by123456',
+                'cookies': '%5Fi18n=OK; %5FS%5FRESOURCE=zh%2Dcn; %5FS%5FTEMPLATEDIR=%2Ftemplate%2Fdefault; %5FS%5FLANG%5FDIR=; %5FS%5FLANG=zh%2Dcn; ASPSESSIONIDSCCASCDB=NKDJHOHBNBHBPPCBJOKCJNDO; closeclick=closeclick; td_cookie=11049217; ASPSESSIONIDSCBBQDCB=KKFJMCDBPDGEKFHGOFCPGABN'
             }
         ]
 

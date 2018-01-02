@@ -23,7 +23,9 @@ class GlqhSpider(GGFundNavSpider):
             {
                 'url': 'http://www.glqh.com/zcgljzplyxz.htm',
                 'ref': 'http://www.glqh.com/',
-                'cookies': 'td_cookie=11049128; _glqh_=xDKxicFmNZ; UM_distinctid=1609b8b0b8a34e-0c27bab557c9df-5f19331c-1aeaa0-1609b8b0b8b96a; td_cookie=11049120; CNZZDATA1256302135=895841349-1514433905-http%253A%252F%252Fwww.glqh.com%252F%7C1514438322; JSESSIONID=558F4758A50255EB3E35F9B503EE4B33'
+                'username': '15838535216',
+                'password': '050835',
+                'cookies': '_glqh_=xDKxicFmNZ; UM_distinctid=1609b8b0b8a34e-0c27bab557c9df-5f19331c-1aeaa0-1609b8b0b8b96a; td_cookie=11049120; CNZZDATA1256302135=895841349-1514433905-http%253A%252F%252Fwww.glqh.com%252F%7C1514856361; JSESSIONID=12AAFE12135D1E3E78D5D40B2D8A53E0'
             }
         ]
 

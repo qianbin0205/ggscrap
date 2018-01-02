@@ -196,16 +196,16 @@ class GGFundNavPipeline(object):
             statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
 
             nav = item['nav'] if 'nav' in item else None
-            assert nav is None or isinstance(nav, float)
+            assert nav is None or isinstance(nav, float) or isinstance(nav, int)
 
             added_nav = item['added_nav'] if 'added_nav' in item else None
-            assert added_nav is None or isinstance(added_nav, float)
+            assert added_nav is None or isinstance(added_nav, float) or isinstance(nav, int)
 
             nav_2 = item['nav_2'] if 'nav_2' in item else None
-            assert nav_2 is None or isinstance(nav_2, float)
+            assert nav_2 is None or isinstance(nav_2, float) or isinstance(nav, int)
 
             added_nav_2 = item['added_nav_2'] if 'added_nav_2' in item else None
-            assert added_nav_2 is None or isinstance(added_nav_2, float)
+            assert added_nav_2 is None or isinstance(added_nav_2, float) or isinstance(nav, int)
 
             md5 = hashlib.md5()
             seed = 'sitename=' + quote(sitename)
