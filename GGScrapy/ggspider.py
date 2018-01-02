@@ -181,17 +181,21 @@ class GGFundNavSpider(GGSpider):
 
             form = ip['form'] if 'form' in ip else None
             if form is not None:
-                return FormRequest(url=url, formdata=form, dont_filter=True,
+                formdata = {}
+                for (k, v) in form.items():
+                    v = v(pg) if callable(v) else v
+                    formdata[k] = v
+                return FormRequest(url=url, formdata=formdata, dont_filter=True,
                                    headers={'Referer': ip['ref']},
                                    cookies=cookies,
-                                   meta={'pg': pg, 'url': ip['url'],
+                                   meta={'pg': pg, 'url': ip['url'], 'form': form,
                                          'fps': fps, 'ips': ips, 'ext': ext},
                                    callback=self.parse_item)
             else:
                 return Request(url, dont_filter=True,
                                headers={'Referer': ip['ref']},
                                cookies=cookies,
-                               meta={'pg': pg, 'url': ip['url'],
+                               meta={'pg': pg, 'url': ip['url'], 'form': None,
                                      'fps': fps, 'ips': ips, 'ext': ext},
                                callback=self.parse_item)
 
@@ -208,17 +212,21 @@ class GGFundNavSpider(GGSpider):
 
             form = fp['form'] if 'form' in fp else None
             if form is not None:
-                return FormRequest(url=url, formdata=form, priority=1,
+                formdata = {}
+                for (k, v) in form.items():
+                    v = v(pg) if callable(v) else v
+                    formdata[k] = v
+                return FormRequest(url=url, formdata=formdata, priority=1,
                                    headers={'Referer': fp['ref']},
                                    cookies=cookies,
-                                   meta={'pg': pg, 'url': fp['url'],
+                                   meta={'pg': pg, 'url': fp['url'], 'form': form,
                                          'fps': fps, 'ips': ips, 'ext': ext},
                                    callback=self.parse_fund)
             else:
                 return Request(url, priority=1,
                                headers={'Referer': fp['ref']},
                                cookies=cookies,
-                               meta={'pg': pg, 'url': fp['url'],
+                               meta={'pg': pg, 'url': fp['url'], 'form': None,
                                      'fps': fps, 'ips': ips, 'ext': ext},
                                callback=self.parse_fund)
 
