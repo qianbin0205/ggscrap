@@ -3,8 +3,6 @@
 import re
 import json
 from datetime import datetime
-from urllib.parse import urljoin
-from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
@@ -25,6 +23,8 @@ class SmileStoneSpider(GGFundNavSpider):
                 'url': 'http://www.smilestone.com.cn/Router.php?action=MemberController/searchHotProduct/tableQuery',
                 'form': {'hot_type': '1', 'pageNum': '1', 'rowCount': '100'},
                 'ref': 'http://www.smilestone.com.cn/member',
+                'username': '410325197710121425',
+                'password': '123456',
                 'cookies': 'PHPSESSID=fvalg5f50pagd1c6aoafp0p824; lczc_cpbg_new=0; lczc_wdtw_new=0; td_cookie=11049181'
             }
         ]

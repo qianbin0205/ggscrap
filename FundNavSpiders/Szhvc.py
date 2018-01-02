@@ -25,7 +25,9 @@ class SzhvcSpider(GGFundNavSpider):
                 'pg': 1,
                 'url': lambda pg: 'http://www.szhvc.com/api/pc/product/list?pageNum=' + str(pg),
                 'ref': 'http://www.szhvc.com/memberCenter/recommend',
-                'cookies': 'SESSIONID=93308f14-bcd7-4401-af34-2551cd3e14de; SESSIONID=93308f14-bcd7-4401-af34-2551cd3e14de; userinfo=s%3AqdOOYbMflDVuaH3WwaG0LTWEB7h3F_iP.H4ta0QyTlBHB5AstbPKXBHF71eCOCFTYw6MXmPaW3B0'
+                'username': '18602199319',
+                'passowrd': 'yadan0319',
+                'cookies': 'td_cookie=11049207; td_cookie=11049224; SESSIONID=b67c14de-5627-40be-a32e-950086a4cca2; userinfo=s%3ALEjGVc7P6Ale8ydZWaIB6WRiXjwI_EIp.45uSNrSO0%2BA7Hn69FDrNwsWF8bEfxGwzXKXBsjdY%2FbQ'
             }
         ]
 
