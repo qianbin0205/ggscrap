@@ -1058,6 +1058,7 @@ class JrjNewsSpider(GGNewsSpider):
         # url = 'http://fund.jrj.com.cn/2015/10/21143119957298.shtml'
         # url = 'http://bank.jrj.com.cn/2012/05/23092213234432.shtml'
         # url = 'http://bank.jrj.com.cn/2012/04/23071812863578.shtml'
+        # url = 'http://stock.jrj.com.cn/ipo/2017/09/20203823145168.shtml'
         # cp = cps[0]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
@@ -1108,7 +1109,7 @@ class JrjNewsSpider(GGNewsSpider):
         nps = response.meta['nps']
         ext = response.meta['ext']
         ls = response.css(
-            ".texttit_m1>*:not(div[align='center']):not(.table-text-one):not(div[style='WIDTH: 600px; MARGIN: 0px auto']):not(#itougu):not(.foucs_impor.mt30):not(.linknew):not(p:nth-last-child(2)[align='center']):not(.pnf):not(#addnextpagelinkbegin):not(.table-sone.mt30):not(p[sizset='17']):not(strong)").extract()
+            ".texttit_m1>*:not(div[align='center']):not(.table-text-one):not(div[style='MARGIN: 0px auto; WIDTH: 600px']):not(#itougu):not(.foucs_impor.mt30):not(.linknew):not(p:nth-last-child(2)[align='center']):not(.pnf):not(#addnextpagelinkbegin):not(.table-sone.mt30):not(p[sizset='17']):not(strong)").extract()
         if len(ls) < 1:
             ls = response.css('.textmain.tmf14.jrj-clear>*:not(.jj_more_new):not(.textimg.text-n1)').extract()
         if len(ls) < 1:
