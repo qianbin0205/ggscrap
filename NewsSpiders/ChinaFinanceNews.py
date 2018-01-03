@@ -189,6 +189,7 @@ class ChinaFinanceNewsSpider(GGNewsSpider):
         # url = 'http://www.china.com.cn/news/local/2013-06/20/content_29178516.htm'
         # url = 'http://news.china.com.cn/world/2018-01/02/content_50183456.htm'
         # url = 'http://local.china.com.cn/2013-07/02/content_29291539.htm'
+        # url = 'http://news.china.com.cn/world/2018-01/03/content_50186120.htm'
         # cp = cps[0]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
@@ -250,13 +251,11 @@ class ChinaFinanceNewsSpider(GGNewsSpider):
             ls = response.css("#artibody>*").extract()
         if len(ls) < 1:
             ls = response.xpath("//div[@class='p1']/p").extract()
+        if len(ls) < 1:
+            ls = response.css("#bigpic>*:not(#autopage)").extract()
         content = ''.join(ls)
 
-        if 'quote' in response.url or 'symbol' in response.url or 'index.shtml' in response.url:
-            pass
-        elif response.url == 'http://finance.china.com.cn/stock/qsdt/20120912/1013759.shtml':
-            pass
-        elif 'item' in ext:
+        if 'item' in ext:
             item = ext['item']
             item['content'] = item['content'] + content
         else:
@@ -278,6 +277,8 @@ class ChinaFinanceNewsSpider(GGNewsSpider):
                 title = response.xpath("//h1[@class='fb24']/text()").extract_first()
             if title is None:
                 title = response.xpath("//h1[@class='tittle']/text()").extract_first()
+            if title is None:
+                title = response.xpath("//div[@id='contit']/h1/text()").extract_first()
             item['title'] = title
 
             source = response.xpath("//span[@class='fl time2']/a/text()").extract_first()

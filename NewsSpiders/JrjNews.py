@@ -1108,7 +1108,7 @@ class JrjNewsSpider(GGNewsSpider):
         nps = response.meta['nps']
         ext = response.meta['ext']
         ls = response.css(
-            ".texttit_m1>*:not(div[align='center']):not(#itougu):not(.foucs_impor.mt30):not(.linknew):not(p:nth-last-child(2)[align='center']):not(.pnf):not(#addnextpagelinkbegin):not(.table-sone.mt30):not(p[sizset='17']):not(strong)").extract()
+            ".texttit_m1>*:not(div[align='center']):not(.table-text-one):not(div[style='WIDTH: 600px; MARGIN: 0px auto']):not(#itougu):not(.foucs_impor.mt30):not(.linknew):not(p:nth-last-child(2)[align='center']):not(.pnf):not(#addnextpagelinkbegin):not(.table-sone.mt30):not(p[sizset='17']):not(strong)").extract()
         if len(ls) < 1:
             ls = response.css('.textmain.tmf14.jrj-clear>*:not(.jj_more_new):not(.textimg.text-n1)').extract()
         if len(ls) < 1:
@@ -1171,18 +1171,18 @@ class JrjNewsSpider(GGNewsSpider):
                     pubtime = pubtime.strftime('%Y-%m-%d %H:%M:%S')
             item['pubtime'] = pubtime
 
-        next_url = response.xpath("//div[@class='pnf']//a[text()='下一页']/@href | //a[text()='下一页>>']/@href").extract_first()
-        # i = response.xpath("//input[@id='curpage']/@value").extract_first()
-        # c = response.xpath("//input[@id='countpage']/@value").extract_first()
+        i = response.xpath("//input[@id='curpage']/@value").extract_first()
+        c = response.xpath("//input[@id='countpage']/@value").extract_first()
 
-        if next_url is None or next_url == response.url:
+        if i == c or i is None or c is None:
             yield item
             ch['count'] = ch['count'] + 1
 
         else:
             rcs.insert(0, {
                 'ch': ch,
-                'url': urljoin(get_base_url(response), next_url),
+                'url': re.sub(r'(/[0-9]+?/[0-9]+?/[0-9]+?)(-[0-9]+?|)(?=\.shtml)', r'\1-' + i, response.url,
+                              ),
                 'ref': response.url,
                 'ext': {'item': item}
             })

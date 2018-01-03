@@ -25,8 +25,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1591&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://news.cnfol.com/zhengquanyaowen/'
             },
             {
                 'ch': {
@@ -35,8 +35,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1590&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://news.cnfol.com/toutiaojinghua/'
             },
             {
                 'ch': {
@@ -45,8 +45,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1285&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://sc.stock.cnfol.com/shichangceping/'
             },
             {
                 'ch': {
@@ -55,8 +55,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1455&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://sc.stock.cnfol.com/gushijujiao/'
             },
             {
                 'ch': {
@@ -65,8 +65,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4040&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://sc.stock.cnfol.com/zldongxiang/'
             },
             {
                 'ch': {
@@ -75,8 +75,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4039&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://sc.stock.cnfol.com/bkjujiao/'
             },
             {
                 'ch': {
@@ -86,7 +86,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'pg': 1,
                 'url': lambda pg: "http://hkstock.cnfol.com/A+Hzixun/index" + (
                     ('0' + str(pg)) if pg >= 2 else '') + ".shtml",
-                'ref': None
+                'ref': 'http://hkstock.cnfol.com/A+Hzixun/'
             },
             {
                 'ch': {
@@ -97,7 +97,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'url': lambda pg: "http://shell.cnfol.com/article/hk_article.php?classid=4057&start="
                                   + (str(pg * 10 + 1) if pg >= 1 else '1') +
                                   "&end=10&pathurl=http://www.cnfol.hk/news/ganggujujiao/&jsoncallback=",
-                'ref': None
+                'ref': 'http://www.cnfol.hk/news/ganggujujiao/'
             },
             {
                 'ch': {
@@ -108,7 +108,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'url': lambda pg: "http://shell.cnfol.com/article/hk_article.php?classid=4061&start="
                                   + (str(pg * 10 + 1) if pg >= 1 else '1')
                                   + "&end=10&pathurl=http://www.cnfol.hk/news/jishisk/&jsoncallback=",
-                'ref': None
+                'ref': 'http://www.cnfol.hk/news/jishisk/'
             },
             {
                 'ch': {
@@ -119,7 +119,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'url': lambda pg: "http://shell.cnfol.com/article/hk_article.php?classid=4072&start="
                                   + (str(pg * 10 + 1) if pg >= 1 else '1')
                                   + "&end=10&pathurl=http://www.cnfol.hk/news/gncaijing/&jsoncallback=",
-                'ref': None
+                'ref': 'http://www.cnfol.hk/news/gncaijing/'
             },
             {
                 'ch': {
@@ -130,7 +130,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'url': lambda pg: "http://shell.cnfol.com/article/hk_article.php?classid=4080&start="
                                   + (str(pg * 10 + 1) if pg >= 1 else '1')
                                   + "&end=10&pathurl=http://www.cnfol.hk/ipo/&jsoncallback=",
-                'ref': None
+                'ref': 'http://www.cnfol.hk/ipo/'
             },
             {
                 'ch': {
@@ -141,7 +141,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'url': lambda pg: "http://shell.cnfol.com/article/hk_article.php?classid=4071,4075,4076&start="
                                   + (str(pg * 10 + 1) if pg >= 1 else '1')
                                   + "&end=10&pathurl=http://www.cnfol.hk/shhkc/&jsoncallback=",
-                'ref': None
+                'ref': 'http://www.cnfol.hk/shhkc/'
             },
             {
                 'ch': {
@@ -152,7 +152,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'url': lambda pg: "http://shell.cnfol.com/article/hk_article.php?classid=4077,4078,4079&start="
                                   + (str(pg * 10 + 1) if pg >= 1 else '1')
                                   + "&end=10&pathurl=http://www.cnfol.hk/warrants/&jsoncallback=",
-                'ref': None
+                'ref': 'http://www.cnfol.hk/warrants/'
             },
             {
                 'ch': {
@@ -161,8 +161,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1302&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://fund.cnfol.com/jijindongtai/'
             },
             {
                 'ch': {
@@ -171,8 +171,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=2025&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://fund.cnfol.com/hongguanjingji/'
             },
             {
                 'ch': {
@@ -181,8 +181,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=2191&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://fund.cnfol.com/smjj/simudongtai/'
             },
             {
                 'ch': {
@@ -191,8 +191,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4047&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://money.cnfol.com/zqzixun/'
             },
             {
                 'ch': {
@@ -202,7 +202,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/qualityarticles/qualityarticles.php?CatId=133&starttime=1514509821&endtime=1514524221&num=30&page="
                                   + str(pg) + "&record=1&jsoncallback=",
-                'ref': None
+                'ref': 'http://futures.cnfol.com/'
             },
             {
                 'ch': {
@@ -211,8 +211,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4108&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://futures.cnfol.com/qishidongtai/'
             },
             {
                 'ch': {
@@ -221,8 +221,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1921&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://futures.cnfol.com/jigoulunshi/'
             },
             {
                 'ch': {
@@ -231,8 +231,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1615&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://futures.cnfol.com/mingjialunshi/'
             },
             {
                 'ch': {
@@ -241,8 +241,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4131&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://futures.cnfol.com/jinrongqihuo/'
             },
             {
                 'ch': {
@@ -251,8 +251,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4133&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://futures.cnfol.com/ny/'
             },
             {
                 'ch': {
@@ -261,8 +261,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4130&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://futures.cnfol.com/huagong/'
             },
             {
                 'ch': {
@@ -271,7 +271,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=1816&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://gold.cnfol.com/guojiyuanyousc/'
             },
             {
                 'ch': {
@@ -280,8 +280,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4129&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://futures.cnfol.com/nongfu/'
             },
             {
                 'ch': {
@@ -290,8 +290,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=4132&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://futures.cnfol.com/js/'
             },
             {
                 'ch': {
@@ -300,7 +300,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=1383&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/jingjiyaowen/'
             },
             {
                 'ch': {
@@ -309,7 +309,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=3579&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/hyzx/'
             },
             {
                 'ch': {
@@ -318,7 +318,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=1381&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/huishizhibo/'
             },
             {
                 'ch': {
@@ -327,7 +327,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=1504&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/zhuanjiajianyi/'
             },
             {
                 'ch': {
@@ -336,7 +336,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=1503&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/jigouhuiping/'
             },
             {
                 'ch': {
@@ -345,7 +345,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=1382&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/bizhongfenxi/'
             },
             {
                 'ch': {
@@ -354,7 +354,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=1507&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/waihuilicai/'
             },
             {
                 'ch': {
@@ -363,7 +363,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=3574&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/eyqq/'
             },
             {
                 'ch': {
@@ -372,8 +372,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1280&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://news.cnfol.com/chanyejingji/'
             },
             {
                 'ch': {
@@ -382,8 +382,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1603&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://news.cnfol.com/xiaofei/'
             },
             {
                 'ch': {
@@ -392,8 +392,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1587&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://news.cnfol.com/it/'
             },
             {
                 'ch': {
@@ -402,8 +402,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1469&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://hy.stock.cnfol.com/hangyezonghe/'
             },
             {
                 'ch': {
@@ -412,8 +412,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1329&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://hy.stock.cnfol.com/bankuaijujiao/'
             },
             {
                 'ch': {
@@ -422,8 +422,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1331&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://hy.stock.cnfol.com/hangyeshuju/'
             },
             {
                 'ch': {
@@ -432,8 +432,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/qualityarticles/Insurance_content_api.php?catid=124&limit=10&page="
-                                  + str(pg) + "&callback=callback",
-                'ref': None
+                                  + str(pg) + "&callback=",
+                'ref': 'http://hy.stock.cnfol.com/'
             },
             {
                 'ch': {
@@ -442,8 +442,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1277&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://news.cnfol.com/guoneicaijing/'
             },
             {
                 'ch': {
@@ -452,8 +452,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1609&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://news.cnfol.com/shangyeyaowen/'
             },
             {
                 'ch': {
@@ -462,8 +462,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1278&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://news.cnfol.com/guojicaijing/'
             },
             {
                 'ch': {
@@ -472,8 +472,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1410&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://bank.cnfol.com/yinhangyeneidongtai/'
             },
             {
                 'ch': {
@@ -482,8 +482,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/test/newlist_api.php?catid=1387&page=" + str(
-                    pg) + "&callback=callback",
-                'ref': None
+                    pg) + "&callback=",
+                'ref': 'http://insurance.cnfol.com/baoxiandongtai/'
             },
             {
                 'ch': {
@@ -492,7 +492,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': "http://shell.cnfol.com/article/gold_article.php?classid=1710&title=&start=0&end=250&apikey=&jsoncallback=",
-                'ref': None
+                'ref': 'http://gold.cnfol.com/jinshizhibo/'
             },
             {
                 'ch': {
@@ -502,7 +502,7 @@ class CnfolNewsSpider(GGNewsSpider):
                 'pg': 1,
                 'url': lambda pg: "http://app.cnfol.com/dataapi/index.php/hotlable/selectArticle?keywords=%E5%90%8D%E5%AE%B6%E6%9C%BA%E6%9E%84&page="
                                   + str(pg) + "&num=10&type=%E5%A4%96%E6%B1%87&jsoncallback=",
-                'ref': None
+                'ref': 'http://forex.cnfol.com/keyword/mjjg.shtml'
             },
         ]
         # url = 'http://sc.stock.cnfol.com/shichangjuejin/20171228/25831775.shtml'
@@ -530,7 +530,7 @@ class CnfolNewsSpider(GGNewsSpider):
             data = json.loads(response.text)
             urls = [i['Url'] for i in data]
         else:
-            urls = re.findall(r'"Url":"(.*?)","CreatedTime"', response.text, re.S)
+            urls = re.findall(r'http:\\/\\/\w+.cnfol.com\\/\w+\\/\d+\\/\d+.shtml', response.text, re.S)
         for u in urls:
             u = u.replace("\\", "")
             rcs.append({
