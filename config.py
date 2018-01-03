@@ -1,10 +1,10 @@
 news = {
     'db': {
-        'host': '106.75.32.107',
-        'port': 2433,
-        'user': 'scrapy_debug',
-        'pswd': 'scrapy_debug123',
-        'name': 'SCRAPY_DEBUG_DB',
+        'host': '192.168.0.53',
+        'port': 1433,
+        'user': 'sql_scrapy',
+        'pswd': 'sql_scrapy123',
+        'name': 'scrapy_debug_db',
         'table': 't_scrapy_news',
         'timeout': 60
     },
@@ -21,11 +21,11 @@ fund_nav = {
         # 'user': 'sql_scrapy',
         # 'pswd': 'sql_scrapy123',
         # 'name': 'funddb',
-        'host': '106.75.32.107',
-        'port': 2433,
-        'user': 'scrapy_debug',
-        'pswd': 'scrapy_debug123',
-        'name': 'SCRAPY_DEBUG_DB',
+        'host': '192.168.0.53',
+        'port': 1433,
+        'user': 'sql_scrapy',
+        'pswd': 'sql_scrapy123',
+        'name': 'scrapy_debug_db',
         'table': 't_nav_general',
         'timeout': 60
     }
