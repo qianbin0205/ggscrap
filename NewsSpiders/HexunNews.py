@@ -1027,7 +1027,8 @@ class HexunNewsSpider(GGNewsSpider):
                     '#artibody>*:not(:nth-last-child(1)):not(.showAll):not(.author):not(.btnlist):not(#yued):not(.clear):not(hexunnocommandread):not(#bqshengming20070928), #artibody::text').extract()
             if len(ls) < 1:
                 ls = response.css(".detail_cnt>*, .detail_cnt::text").extract()
-            item["content"] = ''.join(ls)
+            content = ''.join(ls)
+            item['content'] = content
             yield item
 
             ch['count'] = ch['count'] + 1

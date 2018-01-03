@@ -634,14 +634,14 @@ class SinaFinanceNewsSpider(GGNewsSpider):
             },
 
         ]
-        url = 'http://finance.sina.com.cn/world/ozjj/20151106/010023691119.shtml'
-        url = 'http://finance.sina.com.cn/stock/hkstock/warrants/2017-10-24/doc-ifymzqpq3745530.shtml'
-        url = 'http://finance.sina.com.cn/money/future/agri/2017-12-28/doc-ifyqchnr6585381.shtml'
-        url = 'http://finance.sina.com.cn/stock/hkstock/marketalerts/2017-12-28/doc-ifypyuve0259352.shtml'
-        url = 'http://finance.sina.com.cn/world/mzjj/20151029/094823617257.shtml'
-        url = 'http://finance.sina.com.cn/money/forex/hbfx/2017-12-28/doc-ifyqchnr6505642.shtml'
-        url = 'http://finance.sina.com.cn/stock/marketresearch/20130419/182815211089.shtml'
-        url = 'http://finance.sina.com.cn/trust/20151209/082823970185.shtml'
+        # url = 'http://finance.sina.com.cn/world/ozjj/20151106/010023691119.shtml'
+        # url = 'http://finance.sina.com.cn/stock/hkstock/warrants/2017-10-24/doc-ifymzqpq3745530.shtml'
+        # url = 'http://finance.sina.com.cn/money/future/agri/2017-12-28/doc-ifyqchnr6585381.shtml'
+        # url = 'http://finance.sina.com.cn/stock/hkstock/marketalerts/2017-12-28/doc-ifypyuve0259352.shtml'
+        # url = 'http://finance.sina.com.cn/world/mzjj/20151029/094823617257.shtml'
+        # url = 'http://finance.sina.com.cn/money/forex/hbfx/2017-12-28/doc-ifyqchnr6505642.shtml'
+        # url = 'http://finance.sina.com.cn/stock/marketresearch/20130419/182815211089.shtml'
+        # url = 'http://finance.sina.com.cn/trust/20151209/082823970185.shtml'
         # url = 'http://finance.sina.com.cn/money/nmetal/hjzx/2017-05-10/doc-ifyfecvz0796554.shtml'
         # cp = cps[0]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
