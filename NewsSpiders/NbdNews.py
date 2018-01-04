@@ -18,110 +18,110 @@ class NbdNewsSpider(GGNewsSpider):
 
     def start_requests(self):
         cps = [
-            # {
-            #     'ch': {
-            #         'name': '要闻',
-            #         'count': 0
-            #     },
-            #     'url': 'http://www.nbd.com.cn/columns/3',
-            #     'ref': 'http://www.nbd.com.cn/columns/3'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-重磅推荐',
-            #         'count': 0
-            #     },
-            #     'url': 'http://stocks.nbd.com.cn/columns/318',
-            #     'ref': 'http://stocks.nbd.com.cn/columns/318'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-两融龙虎榜',
-            #         'count': 0
-            #     },
-            #     'url': 'http://stocks.nbd.com.cn/columns/402',
-            #     'ref': 'http://stocks.nbd.com.cn/columns/402'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-A股动态',
-            #         'count': 0
-            #     },
-            #     'url': 'http://stocks.nbd.com.cn/columns/275',
-            #     'ref': 'http://stocks.nbd.com.cn/columns/275'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-公告速递',
-            #         'count': 0
-            #     },
-            #     'url': 'http://stocks.nbd.com.cn/columns/28',
-            #     'ref': 'http://stocks.nbd.com.cn/columns/28'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '公司-热点公司',
-            #         'count': 0
-            #     },
-            #     'url': 'http://industry.nbd.com.cn/columns/346',
-            #     'ref': 'http://industry.nbd.com.cn/columns/346'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '公司-重磅调查',
-            #         'count': 0
-            #     },
-            #     'url': 'http://industry.nbd.com.cn/columns/587',
-            #     'ref': 'http://industry.nbd.com.cn/columns/587'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-海外市场',
-            #         'count': 0
-            #     },
-            #     'url': 'http://stocks.nbd.com.cn/columns/405',
-            #     'ref': 'http://stocks.nbd.com.cn/columns/405'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '理财-重磅原创',
-            #         'count': 0
-            #     },
-            #     'url': 'http://money.nbd.com.cn/columns/440',
-            #     'ref': 'http://money.nbd.com.cn/columns/440'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '理财-基金投资',
-            #         'count': 0
-            #     },
-            #     'url': 'http://money.nbd.com.cn/columns/441',
-            #     'ref': 'http://money.nbd.com.cn/columns/441'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '公司-产业趋势',
-            #         'count': 0
-            #     },
-            #     'url': 'http://industry.nbd.com.cn/columns/585',
-            #     'ref': 'http://industry.nbd.com.cn/columns/585'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '公司-商业人物',
-            #         'count': 0
-            #     },
-            #     'url': 'http://industry.nbd.com.cn/columns/418',
-            #     'ref': 'http://industry.nbd.com.cn/columns/418'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '公司-区域经济',
-            #         'count': 0
-            #     },
-            #     'url': 'http://industry.nbd.com.cn/columns/586',
-            #     'ref': 'http://industry.nbd.com.cn/columns/586'
-            # },
+            {
+                'ch': {
+                    'name': '要闻',
+                    'count': 0
+                },
+                'url': 'http://www.nbd.com.cn/columns/3',
+                'ref': 'http://www.nbd.com.cn/columns/3'
+            },
+            {
+                'ch': {
+                    'name': '证券-重磅推荐',
+                    'count': 0
+                },
+                'url': 'http://stocks.nbd.com.cn/columns/318',
+                'ref': 'http://stocks.nbd.com.cn/columns/318'
+            },
+            {
+                'ch': {
+                    'name': '证券-两融龙虎榜',
+                    'count': 0
+                },
+                'url': 'http://stocks.nbd.com.cn/columns/402',
+                'ref': 'http://stocks.nbd.com.cn/columns/402'
+            },
+            {
+                'ch': {
+                    'name': '证券-A股动态',
+                    'count': 0
+                },
+                'url': 'http://stocks.nbd.com.cn/columns/275',
+                'ref': 'http://stocks.nbd.com.cn/columns/275'
+            },
+            {
+                'ch': {
+                    'name': '证券-公告速递',
+                    'count': 0
+                },
+                'url': 'http://stocks.nbd.com.cn/columns/28',
+                'ref': 'http://stocks.nbd.com.cn/columns/28'
+            },
+            {
+                'ch': {
+                    'name': '公司-热点公司',
+                    'count': 0
+                },
+                'url': 'http://industry.nbd.com.cn/columns/346',
+                'ref': 'http://industry.nbd.com.cn/columns/346'
+            },
+            {
+                'ch': {
+                    'name': '公司-重磅调查',
+                    'count': 0
+                },
+                'url': 'http://industry.nbd.com.cn/columns/587',
+                'ref': 'http://industry.nbd.com.cn/columns/587'
+            },
+            {
+                'ch': {
+                    'name': '证券-海外市场',
+                    'count': 0
+                },
+                'url': 'http://stocks.nbd.com.cn/columns/405',
+                'ref': 'http://stocks.nbd.com.cn/columns/405'
+            },
+            {
+                'ch': {
+                    'name': '理财-重磅原创',
+                    'count': 0
+                },
+                'url': 'http://money.nbd.com.cn/columns/440',
+                'ref': 'http://money.nbd.com.cn/columns/440'
+            },
+            {
+                'ch': {
+                    'name': '理财-基金投资',
+                    'count': 0
+                },
+                'url': 'http://money.nbd.com.cn/columns/441',
+                'ref': 'http://money.nbd.com.cn/columns/441'
+            },
+            {
+                'ch': {
+                    'name': '公司-产业趋势',
+                    'count': 0
+                },
+                'url': 'http://industry.nbd.com.cn/columns/585',
+                'ref': 'http://industry.nbd.com.cn/columns/585'
+            },
+            {
+                'ch': {
+                    'name': '公司-商业人物',
+                    'count': 0
+                },
+                'url': 'http://industry.nbd.com.cn/columns/418',
+                'ref': 'http://industry.nbd.com.cn/columns/418'
+            },
+            {
+                'ch': {
+                    'name': '公司-区域经济',
+                    'count': 0
+                },
+                'url': 'http://industry.nbd.com.cn/columns/586',
+                'ref': 'http://industry.nbd.com.cn/columns/586'
+            },
             {
                 'ch': {
                     'name': '国际-头条',
