@@ -12,9 +12,9 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Jiuxi168', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Jroyal', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_SmileStone', '-a', 'jobId=0L'])
-# cmdline.execute(['scrapy', 'crawl', 'FundNav_Szhvc', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_Szhvc', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sztrhj', '-a', 'jobId=0L'])
-cmdline.execute(['scrapy', 'crawl', 'FundNav_YeFengZc', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_YeFengZc', '-a', 'jobId=0L'])
 
 # 原始网站有误
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Zjblzg', '-a', 'jobId=0L'])
