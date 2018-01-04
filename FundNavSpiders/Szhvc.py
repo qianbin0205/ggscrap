@@ -29,19 +29,19 @@ class SzhvcSpider(GGFundNavSpider):
             }
         ]
 
-        product_id = 276
-        product_name = '丰岭稳健成长6期证券投资基金'
-        ips = [
-            {
-                'pg': 1,
-                'url': lambda pg: 'http://www.szhvc.com/api/pc/product/' + str(
-                    product_id) + '/netValues?pageNum=' + str(
-                    pg),
-                'ref': 'http://www.szhvc.com/memberCenter/recommend?productDetails=' + str(product_id),
-                'ext': {'fund_name': product_name},
-                'cookies': cookies
-            }
-        ]
+        # product_id = 276
+        # product_name = '丰岭稳健成长6期证券投资基金'
+        # ips = [
+        #     {
+        #         'pg': 1,
+        #         'url': lambda pg: 'http://www.szhvc.com/api/pc/product/' + str(
+        #             product_id) + '/netValues?pageNum=' + str(
+        #             pg),
+        #         'ref': 'http://www.szhvc.com/memberCenter/recommend?productDetails=' + str(product_id),
+        #         'ext': {'fund_name': product_name},
+        #         'cookies': cookies
+        #     }
+        # ]
         # yield self.request_next([], ips)
 
         yield self.request_next(fps, [])
