@@ -17,7 +17,7 @@ class SzhvcSpider(GGFundNavSpider):
         super(SzhvcSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-        cookies = 'td_cookie=11049207; td_cookie=11049224; SESSIONID=48b1f78d-6265-4c58-b1a7-a5ecf557345f; userinfo=s%3AkMxNBcQcpDuFOn3HQKAWTNoUsMl-ChBc.NvR5QCH%2B%2BSMgBUxDFsYwhKxZo4qWMsFySoh9Bop7PBw'
+        cookies = 'td_cookie=11049207; td_cookie=11049224; SESSIONID=48b1f78d-6265-4c58-b1a7-a5ecf557345f; userinfo=s%3AxU5h3EpfB9xugfJfINM_3ufHBAZPWswD.rWugI2Swrjjkc5buFzsvYSZCuD3tmLS%2Br%2B3pY5WvR%2Fw'
         fps = [
             {
                 'pg': 1,
@@ -28,6 +28,7 @@ class SzhvcSpider(GGFundNavSpider):
                 'cookies': cookies
             }
         ]
+        yield self.request_next(fps, [])
 
         # product_id = 276
         # product_name = '丰岭稳健成长6期证券投资基金'
@@ -43,8 +44,6 @@ class SzhvcSpider(GGFundNavSpider):
         #     }
         # ]
         # yield self.request_next([], ips)
-
-        yield self.request_next(fps, [])
 
     def parse_fund(self, response):
         fps = response.meta['fps']
