@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import re
 import json
 from datetime import datetime
-from urllib.parse import urljoin
-from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
@@ -20,6 +17,7 @@ class SzhvcSpider(GGFundNavSpider):
         super(SzhvcSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
+        cookies = 'td_cookie=11049207; td_cookie=11049224; SESSIONID=48b1f78d-6265-4c58-b1a7-a5ecf557345f; userinfo=s%3AxU5h3EpfB9xugfJfINM_3ufHBAZPWswD.rWugI2Swrjjkc5buFzsvYSZCuD3tmLS%2Br%2B3pY5WvR%2Fw'
         fps = [
             {
                 'pg': 1,
@@ -27,11 +25,25 @@ class SzhvcSpider(GGFundNavSpider):
                 'ref': 'http://www.szhvc.com/memberCenter/recommend',
                 'username': '18602199319',
                 'passowrd': 'yadan0319',
-                'cookies': 'td_cookie=11049207; td_cookie=11049224; SESSIONID=b67c14de-5627-40be-a32e-950086a4cca2; userinfo=s%3ALEjGVc7P6Ale8ydZWaIB6WRiXjwI_EIp.45uSNrSO0%2BA7Hn69FDrNwsWF8bEfxGwzXKXBsjdY%2FbQ'
+                'cookies': cookies
             }
         ]
-
         yield self.request_next(fps, [])
+
+        # product_id = 276
+        # product_name = '丰岭稳健成长6期证券投资基金'
+        # ips = [
+        #     {
+        #         'pg': 1,
+        #         'url': lambda pg: 'http://www.szhvc.com/api/pc/product/' + str(
+        #             product_id) + '/netValues?pageNum=' + str(
+        #             pg),
+        #         'ref': 'http://www.szhvc.com/memberCenter/recommend?productDetails=' + str(product_id),
+        #         'ext': {'fund_name': product_name},
+        #         'cookies': cookies
+        #     }
+        # ]
+        # yield self.request_next([], ips)
 
     def parse_fund(self, response):
         fps = response.meta['fps']
@@ -41,9 +53,9 @@ class SzhvcSpider(GGFundNavSpider):
         funds = resp['collection']
         for fund in funds:
             ips.append({
-                'pg': 1,
-                'url': lambda pg: 'http://www.szhvc.com/api/pc/product/' + str(
-                    fund['productId']) + '/netValues?pageNum=' + str(pg),
+                'pg': {'page': 1, 'pid': fund['productId']},
+                'url': lambda pg: 'http://www.szhvc.com/api/pc/product/' + str(pg['pid']) + '/netValues?pageNum=' + str(
+                    pg['page']),
                 'ref': 'http://www.szhvc.com/memberCenter/recommend?productDetails=' + str(fund['productId']),
                 'ext': {'fund_name': fund['productShortName']}
             })
@@ -69,33 +81,36 @@ class SzhvcSpider(GGFundNavSpider):
 
         resp = json.loads(response.text)
         rows = resp['collection']
-        for row in rows:
-            item = GGFundNavItem()
-            item['sitename'] = self.sitename
-            item['channel'] = self.channel
-            item['url'] = response.request.headers['Referer']
+        if rows is not None:
+            for row in rows:
+                item = GGFundNavItem()
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.request.headers['Referer']
 
-            item['fund_name'] = fund_name
+                item['fund_name'] = fund_name
 
-            statistic_date = row['netDate']
-            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+                statistic_date = row['netDate']
+                item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-            nav = row['netValue']
-            item['nav'] = float(nav) if nav is not None else None
+                nav = row['netValue']
+                item['nav'] = float(nav) if nav is not None else None
 
-            added_nav = row['accumulatedNet']
-            item['added_nav'] = float(added_nav) if added_nav is not None else None
-            yield item
+                added_nav = row['accumulatedNet']
+                item['added_nav'] = float(added_nav) if added_nav is not None else None
+                yield item
 
-        pages = resp['property']['pages']
-        page = response.meta['pg']
-        url = response.meta['url']
-        if page < pages:
-            ips.append({
-                'pg': page + 1,
-                'url': url,
-                'ref': response.request.headers['Referer'],
-                'ext': {'fund_name': fund_name}
-            })
+        if 'property' in resp:
+            pages = resp['property']['pages']
+            pg = response.meta['pg']
+            url = response.meta['url']
+            if pg['page'] < pages:
+                pg['page'] += 1
+                ips.append({
+                    'pg': pg,
+                    'url': url,
+                    'ref': response.request.headers['Referer'],
+                    'ext': {'fund_name': fund_name}
+                })
 
         yield self.request_next(fps, ips)
