@@ -12,7 +12,7 @@ class AshnAssetSpider(GGFundNavSpider):
     sitename = '上海奥索灏纳资产'
     channel = '投顾净值'
     allowed_domains = ['www.ashnasset.com.cn']
-    start_urls = ['http://www.ashnasset.com.cn/index.php?m=content&c=index&a=show&catid=15&id=2']
+    start_urls = []
 
     def __init__(self, limit=None, *args, **kwargs):
         super(AshnAssetSpider, self).__init__(limit, *args, **kwargs)
@@ -24,7 +24,7 @@ class AshnAssetSpider(GGFundNavSpider):
                 'ref': 'http://www.ashnasset.com.cn/',
                 'username': 'zym',
                 'password': '13916427906',
-                'cookies': 'PHPSESSID=e9df475bbfa5b16a3fe29be23ce527ca; ZWEZy_auth=61cdVpwZSWQ0aT5sdlydnxsTONfj549B12l-7HXKq6gxGrC1JB7UhvQcpWLLMQkV7eF1qgOZYWlP5Fgufu4PbEVY5U--zHR5JEgd6mPy5Mi5lv-fOYzm3XTmX_EaWlTTMch963UEkDGNlWv2OhdM7tb_xg; ZWEZy__userid=7add0oSQ4fQwhnyWilcEO9R6uu4ZVDYBxh-ByFQx-A; ZWEZy__username=69d2Qfag3RTfncCO-PoYkNh87Ikcv4Qp0ZQJB0KREeE; ZWEZy__groupid=9f43gxEq04-Q4I5aBE4HWF0bfb6tMqfUjNnzOzj9; ZWEZy__nickname=2a05R2BukgytvwIzkhRPtt17zEdwiDNPjmWrZbVKkbM; sdmenu_menu_zzjs_net=01000; td_cookie=11049327'
+                'cookies': 'td_cookie=11049344; sdmenu_menu_zzjs_net=01000; PHPSESSID=94ed371f37b438c7a98c81c3f1e2980e; ZWEZy_auth=dd76pUyBb_Qh2GwJCNmz3OVAyV3VA784m_tTQaYcM6pjFWPjiOsmxbJ6g4oqnpAjaKvll0bXYZcGl6Kgpz4mjRUdXGpTd37hvfqwvr9Bu6z2MlbZGHBAbYxkJTpwDpsd6UfVyfUGxaqWHDtHu1j6SCH34w; ZWEZy__userid=3d2cyR0k_2JDphXv7HX4oVkKwOe5w7faoFy21FqRtA; ZWEZy__username=fb60Uz6JaPIlo-PVaKKCIVAG4_7XGJvhUuEpyb0pyK8; ZWEZy__groupid=87e9_vpParv0gmHKQDu68fuCDQ4A94QuwWX5Py9i; ZWEZy__nickname=0560SF-9qARGPcc2gB6zTP8aBFzK5KWELwtHB1KlSa0'
             }
         ]
 
