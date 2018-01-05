@@ -255,7 +255,7 @@ class SinaFinanceNewsSpider(GGNewsSpider):
                     'count': 0
                 },
                 'pg': 1,
-                'url': lambda pg: 'http://finance.sina.com.cn/futuremarket/oilroll.shtml',
+                'url': lambda pg: 'http://finance.sina.com.cn/futuremarket/oilroll.html',
                 'ref': 'http://finance.sina.com.cn/futuremarket/oilroll.html'
             },
             {
@@ -282,9 +282,9 @@ class SinaFinanceNewsSpider(GGNewsSpider):
                     'count': 0
                 },
                 'pg': 1,
-                'url': lambda
-                    pg: 'http://finance.sina.com.cn/roll/rollnews.shtml#pageid=384&lid=2487&k=&num=50&page=' + str(pg),
-                'ref': 'http://finance.sina.com.cn/roll/rollnews.shtml#pageid=384&lid=2487&k=&num=50&page=1'
+                'url': lambda pg: 'http://feed.mix.sina.com.cn/api/roll/get?pageid=384&lid=2519&k=&num=50&callback=&page='
+                                  + str(pg),
+                'ref': 'http://finance.sina.com.cn/roll/rollnews.shtml'
             },
             {
                 'ch': {
@@ -728,8 +728,9 @@ class SinaFinanceNewsSpider(GGNewsSpider):
                     pubtime = datetime.strptime(pubtime, '%Y年%m月%d日%H:%M')
                     pubtime = pubtime.strftime('%Y-%m-%d %H:%M:%S')
             item['pubtime'] = pubtime
-
-            ls = response.css(
+            ls = response.css('#artibody>blockquote+div').extract()
+            if len(ls) < 1:
+                ls = response.css(
                 '#artibody>*:not(blockquote):not(.live-finance-banner-wrap):not([data-sudaclick]):not(.xb_new_finance_app):not(font):not(.finance_app_zqtg):not(.artical-player-wrap):not(link):not(.hqimg_related):not(tbody):not(.blkComment.otherContent_01):not(.corrTxt_01):not(.blkComment):not(.moduleSingleImg01):not(iframe)'
                 ':not(#PublicRelation13):not(#PublicRelation5):not(#PublicRelation11):not(.sinaads):not(style):not(script):not(div[style]):not(.tb-ad0):not(#lcs1_w):not(#relatedNewsWrap):not(#sinaads_box):not(#bottomTools):not(#lcs_wrap):not(#most_read):not(.article-info.clearfix):not(.sv_cont_c14)').extract()
             if len(ls) < 1:

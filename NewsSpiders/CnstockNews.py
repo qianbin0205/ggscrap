@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import re
-import html
 from urllib import parse
 from scrapy.utils.response import get_base_url
 from urllib.parse import urljoin

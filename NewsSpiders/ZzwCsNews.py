@@ -10,7 +10,7 @@ from GGScrapy.ggspider import GGNewsSpider
 class ZzwCsNewsSpider(GGNewsSpider):
     name = 'News_ZzwCs'
     sitename = '中证网'
-    allowed_domains = ['www.cs.com.cn']
+    allowed_domains = ['cs.com.cn']
     start_urls = []
 
     def __init__(self, limit=None, *args, **kwargs):
@@ -297,7 +297,7 @@ class ZzwCsNewsSpider(GGNewsSpider):
         if len(ls) < 1:
             ls = response.css(".Dtext>*").extract()
         if len(ls) < 1:
-            ls = response.css("#js_content>*").extract()
+            ls = response.css("#js_content>*:not(p)").extract()
         content = ''.join(ls)
 
         if 'item' in ext:
@@ -314,7 +314,7 @@ class ZzwCsNewsSpider(GGNewsSpider):
             title = response.xpath(
                 "//div[@class='artical_t']/h1/text()|//div[@class='column-box']/h1/text()").extract_first()
             if title is None:
-                title = response.css("#img-content>h2::text").extract_first()
+                title = response.css("#img-content>h2::text").re_first(r'\S+')
             item['title'] = title
 
             source = response.xpath(

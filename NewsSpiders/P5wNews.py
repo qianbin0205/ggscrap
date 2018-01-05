@@ -181,6 +181,7 @@ class P5wNewsSpider(GGNewsSpider):
         # url = 'http://www.p5w.net/stock/news/zonghe/201712/t20171222_2049563.htm'
         # url = 'http://www.p5w.net/fund/dcjh/201601/t20160118_1330271.htm'
         # url = 'http://www.p5w.net/forex/news/201701/t20170105_1685546.htm'
+        # url = 'http://www.p5w.net/fund/dcjh/201602/t20160225_1364565.htm'
         # cp = cps[0]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
@@ -227,7 +228,7 @@ class P5wNewsSpider(GGNewsSpider):
         if len(ls) < 1:
             ls = response.css(".text>.TRS_Editor>*, .text>.TRS_Editor::text").extract()
         if len(ls) < 1:
-            ls = response.css(".text>*, .kchart>.new_content_pic>*, .text::text").extract()
+            ls = response.css(".text>*:not(.content-tail), .kchart>.new_content_pic>*, .text::text").extract()
         if len(ls) < 1:
             ls = response.css(".article_content2>*:not(.headAd.contentAdv_3), .article_content2::text").extract()
         content = ''.join(ls)

@@ -34,7 +34,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '新股-新股申购中签	',
+                    'name': '新股-新股申购中签',
                     'count': 0
                 },
                 'pg': 1,
@@ -44,7 +44,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '新股-拟上市公司新闻	',
+                    'name': '新股-拟上市公司新闻',
                     'count': 0
                 },
                 'pg': 1,
@@ -74,7 +74,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '基金评论-基金市场评论	',
+                    'name': '基金评论-基金市场评论',
                     'count': 0
                 },
                 'pg': 1,
@@ -84,7 +84,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '基金评论-持仓分析	',
+                    'name': '基金评论-持仓分析',
                     'count': 0
                 },
                 'pg': 1,
@@ -124,7 +124,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '债市分析-海外及周边债市	',
+                    'name': '债市分析-海外及周边债市',
                     'count': 0
                 },
                 'pg': 1,
@@ -144,7 +144,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '股指期货要闻	',
+                    'name': '股指期货要闻',
                     'count': 0
                 },
                 'pg': 1,
@@ -164,7 +164,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '期指市场日评	',
+                    'name': '期指市场日评',
                     'count': 0
                 },
                 'pg': 1,
@@ -174,7 +174,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '股指期货研究报告	',
+                    'name': '股指期货研究报告',
                     'count': 0
                 },
                 'pg': 1,
@@ -234,7 +234,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '期货资讯-农副资讯	',
+                    'name': '期货资讯-农副资讯',
                     'count': 0
                 },
                 'pg': 1,
@@ -244,7 +244,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '期货资讯-金属资讯	',
+                    'name': '期货资讯-金属资讯',
                     'count': 0
                 },
                 'pg': 1,
@@ -560,7 +560,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://futures.hexun.com/integratednews/index'
-                                  + (('-' + str(107 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(110 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://futures.hexun.com/integratednews/index.html'
             },
             {
@@ -570,7 +570,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://futures.hexun.com/domestic/index'
-                                  + (('-' + str(116 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(122 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://futures.hexun.com/domestic/index.html'
             },
             {
@@ -580,7 +580,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://futures.hexun.com/focus/index'
-                                  + (('-' + str(93 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(96 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://futures.hexun.com/focus/index.html'
             },
             {
@@ -620,7 +620,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/fxobservation/index'
-                                  + (('-' + str(1249 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(1253 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/fxobservation/index.html'
             },
             {
@@ -630,7 +630,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/market/index'
-                                  + (('-' + str(6482 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(6506 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/market/index.html'
             },
             {
@@ -640,7 +640,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/currency/index'
-                                  + (('-' + str(1168 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(1172 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/currency/index.html'
             },
             {
@@ -650,7 +650,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/rmbhotnews/index'
-                                  + (('-' + str(1168 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(88 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/rmbhotnews/index.html'
             },
             {
@@ -710,7 +710,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/institution/index'
-                                  + (('-' + str(2533 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(2537 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/institution/index.html'
             },
             {
@@ -730,7 +730,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://auto.hexun.com/qcyw/index'
-                                  + (('-' + str(3348 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(3353 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://auto.hexun.com/qcyw/index.html'
             },
             {
@@ -740,7 +740,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://auto.hexun.com/cheqidt/index'
-                                  + (('-' + str(192 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(193 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://auto.hexun.com/cheqidt/index.html'
             },
 
@@ -751,7 +751,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://tech.hexun.com/highlights/index'
-                                  + (('-' + str(14519 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(14529 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://tech.hexun.com/highlights/index.html'
             },
             {
@@ -771,7 +771,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://insurance.hexun.com/bxhyzx/index'
-                                  + (('-' + str(516 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(517 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://insurance.hexun.com/bxhyzx/index.html'
             },
             {
@@ -831,7 +831,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://trust.hexun.com/trust_industry/index'
-                                  + (('-' + str(494 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(495 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://trust.hexun.com/trust_industry/index.html'
             },
             {
@@ -891,7 +891,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://stock.hexun.com/qsrw/index'
-                                  + (('-' + str(pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(5 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://stock.hexun.com/qsrw/index.html'
             },
             {
@@ -913,6 +913,7 @@ class HexunNewsSpider(GGNewsSpider):
         # url = 'http://stock.hexun.com/2010-08-06/124502994.html'
         # url = 'http://futures.hexun.com/2017-12-25/192074489.html'
         # url = 'http://hk.stock.hexun.com/2014-05-03/164441425.html'
+        # url = 'http://stock.hexun.com/2018-01-02/192138769.html'
         # cp = cps[2]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 

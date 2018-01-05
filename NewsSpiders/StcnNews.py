@@ -62,58 +62,8 @@ class StcnNewsSpider(GGNewsSpider):
                 'url': 'http://finance.stcn.com/xintuo/index.shtml',
                 'ref': 'http://finance.stcn.com/xintuo/index.shtml'
             },
-            # {
-            #     'ch': {
-            #         'name': '7×24小时滚动',
-            #         'count': 0
-            #     },
-            #     'url': 'http://kuaixun.stcn.com/index.shtml',
-            #     'ref': 'http://kuaixun.stcn.com/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '公司产经-产经新闻',
-            #         'count': 0
-            #     },
-            #     'url': 'http://company.stcn.com/cjnews/index.shtml',
-            #     'ref': 'http://company.stcn.com/cjnews/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '股票-板块',
-            #         'count': 0
-            #     },
-            #     'url': 'http://stock.stcn.com/bankuai/index.shtml',
-            #     'ref': 'http://stock.stcn.com/bankuai/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '股票-大盘',
-            #         'count': 0
-            #     },
-            #     'url': 'http://stock.stcn.com/dapan/index.shtml',
-            #     'ref': 'http://stock.stcn.com/dapan/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '股票-主力动向',
-            #         'count': 0
-            #     },
-            #     'url': 'http://stock.stcn.com/zhuli/index.shtml',
-            #     'ref': 'http://stock.stcn.com/zhuli/index.shtml'
-            # }
-
         ]
 
-        # url = 'http://stock.stcn.com/2017/1124/13789450.shtml'
-        # cp = cps[1]
-
-        # url = 'http://company.stcn.com/2017/1206/13813687.shtml'
-        # cp = cps[2]
-
-        # url = 'http://data.stcn.com/2017/1211/13822838.shtml'
-        # url = 'http://kuaixun.stcn.com/2017/1211/13825605.shtml'
-        # url = 'http://kuaixun.stcn.com/2017/1212/13828000.shtml'
         # url = 'http://data.stcn.com/2017/1213/13831061.shtml'
         # cp = cps[3]
 
