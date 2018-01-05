@@ -79,14 +79,14 @@ class CnstockNewsSpider(GGNewsSpider):
             rcs.append({
                 'ch': ch,
                 'url': u,
-                'ref': response.url
+                'ref': response.request.headers['Referer']
             })
 
         nps.append({
             'ch': ch,
             'pg': pg+1,
             'url': url,
-            'ref': response.url
+            'ref': response.request.headers['Referer']
         })
 
         yield self.request_next(cps, rcs, nps)
