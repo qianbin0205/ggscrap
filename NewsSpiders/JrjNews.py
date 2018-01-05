@@ -138,7 +138,7 @@ class JrjNewsSpider(GGNewsSpider):
                     'count': 0
                 },
                 'pg': 1,
-                'url': lambda pg: 'http://hk.jrj.com.cn/list/cpbd.shtml' + (
+                'url': lambda pg: 'http://hk.jrj.com.cn/list/cpbd' + (
                     ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
                 'ref': 'http://hk.jrj.com.cn/list/cpbd.shtml'
             },
@@ -178,7 +178,7 @@ class JrjNewsSpider(GGNewsSpider):
                     'count': 0
                 },
                 'pg': 1,
-                'url': lambda pg: 'http://usstock.jrj.com.cn/list/mgyw.shtml' + (
+                'url': lambda pg: 'http://usstock.jrj.com.cn/list/mgyw' + (
                     ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
                 'ref': 'http://usstock.jrj.com.cn/list/mgyw.shtml'
             },
@@ -709,7 +709,7 @@ class JrjNewsSpider(GGNewsSpider):
                 },
                 'pg': 1,
                 'url': lambda pg: 'http://finance.jrj.com.cn/people' + (
-                    ('rool-' + str(pg)+'.shtml') if pg >= 2 else '/'),
+                    ('rool-' + str(pg) + '.shtml') if pg >= 2 else '/'),
                 'ref': 'http://finance.jrj.com.cn/people/'
             },
             {
@@ -1042,7 +1042,51 @@ class JrjNewsSpider(GGNewsSpider):
                     ('-' + str(pg)) if pg >= 2 else '') + '.shtml',
                 'ref': 'http://gold.jrj.com.cn/list/jycl.shtml'
             },
-
+            {
+                'ch': {
+                    'name': '贵金属频道-行业动态',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': 'http://gold.jrj.com.cn/list/hydt.shtml',
+                'ref': 'http://gold.jrj.com.cn/list/hydt.shtml'
+            },
+            {
+                'ch': {
+                    'name': '贵金属频道-原油市场',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': 'http://gold.jrj.com.cn/list/yysc.shtml',
+                'ref': 'http://gold.jrj.com.cn/list/yysc.shtml'
+            },
+            {
+                'ch': {
+                    'name': '贵金属频道-外汇市场',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': 'http://gold.jrj.com.cn/list/whsc.shtml',
+                'ref': 'http://gold.jrj.com.cn/list/whsc.shtml'
+            },
+            {
+                'ch': {
+                    'name': '贵金属频道-黄金资讯',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': 'http://gold.jrj.com.cn/list/hjzx.shtml',
+                'ref': 'http://gold.jrj.com.cn/list/hjzx.shtml'
+            },
+            {
+                'ch': {
+                    'name': '贵金属频道-宏观经济',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': 'http://gold.jrj.com.cn/list/hqcj.shtml',
+                'ref': 'http://gold.jrj.com.cn/list/hqcj.shtml'
+            },
         ]
 
         # url = 'http://stock.jrj.com.cn/hotstock/2017/12/11112623771727.shtml'
@@ -1059,7 +1103,7 @@ class JrjNewsSpider(GGNewsSpider):
         # url = 'http://bank.jrj.com.cn/2012/05/23092213234432.shtml'
         # url = 'http://bank.jrj.com.cn/2012/04/23071812863578.shtml'
         # url = 'http://stock.jrj.com.cn/ipo/2017/09/20203823145168.shtml'
-        # cp = cps[0]
+        # cp = cps[-1]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
         yield self.request_next(cps, [], [])
@@ -1071,6 +1115,7 @@ class JrjNewsSpider(GGNewsSpider):
         cps = response.meta['cps']
         rcs = response.meta['rcs']
         nps = response.meta['nps']
+        ext = response.meta['ext']
 
         base = get_base_url(response)
         if ch['name'] == '7*24小时上市公司新闻':
@@ -1079,6 +1124,11 @@ class JrjNewsSpider(GGNewsSpider):
             urls = re.findall(r'"infourl":"(.*?)","keyword"', response.text, re.S)
         elif ch['name'] == '股票频道-市况直击':
             urls = re.findall(r'http://stock.jrj.com.cn/\d+/\d+/\d+.shtml', response.text, re.S)
+        elif 'news.jrj.com.cn/json' in response.url:
+            urls = re.findall(r'"pcinfourl":"(.*?)","makedate"', response.text, re.S)
+            iiids = re.findall(r'"iiid":(\d+),"title"', response.text, re.S)
+            iiid = iiids[-1]
+            infoCls = ext['infoCls']
         else:
             urls = response.xpath(
                 "//div[@class='list-main']/ul/li/a/@href | //div[@class='lf2 fl']/ul/li/a/@href | //div[@class='list-s1']/ul/li/a/@href | //div[@class='clm']/ul/li/a/@href"
@@ -1086,6 +1136,8 @@ class JrjNewsSpider(GGNewsSpider):
                 "| //div[@class='left']/ul/li/span/a/@href | //div[@class='win2 nl ht10']/ul/li/a/@href | //div[@class='leftCon']/ul/li/label/a/@href | //div[@class='con']/ul/li/span/a/@href"
                 "| //div[@class='newlist']/ul/li/span/a/@href | //div[@class='in']/ul/li/label/a/@href | //div[@class='p10']/ul/li/a/@href | //div[@class='divfl']/div[@class='modle']/p/a/@href"
                 "| //div[@class='newslist']/ul/li/span/a/@href | //dl[@id='news']/dt/strong/a/@href").extract()
+            iiid = response.xpath("//input[@id='lastId']/@value").extract_first()
+            infoCls = response.xpath("//input[@id='infoCls']/@value").extract_first()
         for u in urls:
             u = urljoin(base, u)
             rcs.append({
@@ -1093,7 +1145,16 @@ class JrjNewsSpider(GGNewsSpider):
                 'url': u,
                 'ref': response.url
             })
-
+        if ch['name'] == '贵金属频道-行业动态' or ch['name'] == '贵金属频道-原油市场' or ch['name'] == '贵金属频道-黄金资讯' or ch['name'] == '贵金属频道-外汇市场' or ch['name'] == '贵金属频道-宏观经济':
+            nps.append({
+                'ch': ch,
+                'pg': pg + 1,
+                'ext': {'infoCls': infoCls},
+                'url': 'http://news.jrj.com.cn/json/news/getNews?sort=makedate&iiid=' + iiid + '&size=10&d=f&chanNum=108&infoCls='
+                       + infoCls + '&vname=contents&field=iiid,title,pcinfourl,makedate,detail',
+                'ref': response.url
+            })
+        else:
             nps.append({
                 'ch': ch,
                 'pg': pg + 1,
@@ -1127,13 +1188,16 @@ class JrjNewsSpider(GGNewsSpider):
             item['url'] = response.url
             title = response.css('.titmain>h1').re_first(r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
             if title is None:
-                title = response.css('.texttitbox>h1').re_first(r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
+                title = response.css('.texttitbox>h1').re_first(
+                    r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
             if title is None:
-                title = response.css('.texttitbox>h2').re_first(r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
+                title = response.css('.texttitbox>h2').re_first(
+                    r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
             if title is None:
                 title = response.css('.text-col>h1').re_first(r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
             if title is None:
-                title = response.css('.newsConTit>h1').re_first(r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
+                title = response.css('.newsConTit>h1').re_first(
+                    r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
             item['title'] = title
 
             source = response.css(".inftop>.mh-title>.urladd>a::text").extract_first()

@@ -34,7 +34,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '新股-新股申购中签	',
+                    'name': '新股-新股申购中签',
                     'count': 0
                 },
                 'pg': 1,
@@ -44,7 +44,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '新股-拟上市公司新闻	',
+                    'name': '新股-拟上市公司新闻',
                     'count': 0
                 },
                 'pg': 1,
@@ -74,7 +74,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '基金评论-基金市场评论	',
+                    'name': '基金评论-基金市场评论',
                     'count': 0
                 },
                 'pg': 1,
@@ -84,7 +84,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '基金评论-持仓分析	',
+                    'name': '基金评论-持仓分析',
                     'count': 0
                 },
                 'pg': 1,
@@ -124,7 +124,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '债市分析-海外及周边债市	',
+                    'name': '债市分析-海外及周边债市',
                     'count': 0
                 },
                 'pg': 1,
@@ -144,7 +144,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '股指期货要闻	',
+                    'name': '股指期货要闻',
                     'count': 0
                 },
                 'pg': 1,
@@ -164,7 +164,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '期指市场日评	',
+                    'name': '期指市场日评',
                     'count': 0
                 },
                 'pg': 1,
@@ -174,7 +174,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '股指期货研究报告	',
+                    'name': '股指期货研究报告',
                     'count': 0
                 },
                 'pg': 1,
@@ -234,7 +234,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '期货资讯-农副资讯	',
+                    'name': '期货资讯-农副资讯',
                     'count': 0
                 },
                 'pg': 1,
@@ -244,7 +244,7 @@ class HexunNewsSpider(GGNewsSpider):
             },
             {
                 'ch': {
-                    'name': '期货资讯-金属资讯	',
+                    'name': '期货资讯-金属资讯',
                     'count': 0
                 },
                 'pg': 1,
@@ -913,6 +913,7 @@ class HexunNewsSpider(GGNewsSpider):
         # url = 'http://stock.hexun.com/2010-08-06/124502994.html'
         # url = 'http://futures.hexun.com/2017-12-25/192074489.html'
         # url = 'http://hk.stock.hexun.com/2014-05-03/164441425.html'
+        # url = 'http://stock.hexun.com/2018-01-02/192138769.html'
         # cp = cps[2]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 

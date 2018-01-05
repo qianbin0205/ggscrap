@@ -20,362 +20,362 @@ class SinaFinanceNewsSpider(GGNewsSpider):
 
     def start_requests(self):
         cps = [
-            # {
-            #     'ch': {
-            #         'name': '股价异动',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': 'http://finance.sina.com.cn/column/gujiayidong.shtml',
-            #     'ref': 'http://finance.sina.com.cn/column/gujiayidong.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-行情要闻',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': 'http://finance.sina.com.cn/stock/hangqing/',
-            #     'ref': 'http://finance.sina.com.cn/stock/hangqing/'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '市场研究',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': 'http://finance.sina.com.cn/column/marketresearch.shtml',
-            #     'ref': 'http://finance.sina.com.cn/column/marketresearch.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-公司研究',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq1/gsyj/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/zq1/gsyj/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-股市评论',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq1/gspl/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/zq1/gspl/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '港股-市场快讯及分析',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gg/sckx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gg/sckx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '港股-香港权证资讯',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gg/xgqzzx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gg/xgqzzx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '港股-港股IPO',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gg/ggipo/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gg/ggipo/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '港股-公司新闻',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gg/gsxw/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gg/gsxw/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '滚动首页-港股',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda
-            #         pg: 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=52&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=' + str(
-            #         pg),
-            #     'ref': 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=52&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=1'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '滚动首页-美股',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda
-            #         pg: 'http://roll.finance.sina.com.cn/s/channel.php?gupiao&ch=03#col=49&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=' + str(
-            #         pg),
-            #     'ref': 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=49&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=1'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '基金',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/jj4/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/jj4/index_1.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '基金-基金业界',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/jj4/jjyj/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/jj4/jjyj/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '债券-债市市场动态',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq2/zsscdt/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/zq2/zsscdt/index_1.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '债券-债市研究',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq2/zsyj/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/zq2/zsyj/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '债券',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq2/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/zq2/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-期市要闻',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/qsyw/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/qh/qsyw/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-评论汇总',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://finance.sina.com.cn/roll/index.d.html?lid=1001&page=' + str(pg),
-            #     'ref': 'http://finance.sina.com.cn/roll/index.d.html?lid=1001&page=1'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-美国农业报告',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://finance.sina.com.cn/roll/index.d.html?cid=207786&page=' + str(pg),
-            #     'ref': 'http://finance.sina.com.cn/roll/index.d.html?cid=207786&page=1'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-农产品资讯',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/ncpzx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/qh/ncpzx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-机构看盘-农产品',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/jgkp__ncp/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/qh/jgkp__ncp/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-工业品资讯',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/gypzx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/qh/gypzx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-机构看盘-工业品',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/jgkp__gyp/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/qh/jgkp__gyp/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '股指期货-金融衍生品资讯',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gzqh/gzqhzxzx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gzqh/gzqhzxzx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '机构看盘-股指期货',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gzqh/jgkp__gzqh/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gzqh/jgkp__gzqh/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-能源石化资讯',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://finance.sina.com.cn/futuremarket/oilroll.html',
-            #     'ref': 'http://finance.sina.com.cn/futuremarket/oilroll.html'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '期货-机构看盘-能源石化',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/jgkp__nysh/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/qh/jgkp__nysh/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '外汇',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/wh/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '滚动新闻',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://feed.mix.sina.com.cn/api/roll/get?pageid=384&lid=2519&k=&num=50&callback=&page='
-            #                       + str(pg),
-            #     'ref': 'http://finance.sina.com.cn/roll/rollnews.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '外汇-数据分析',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/sjfx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/wh/sjfx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '外汇-货币分析',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/hbfx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/wh/hbfx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '外汇-机构观点',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/fxyc/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/wh/fxyc/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '外汇-汇市信息',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/hsxx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/wh/hsxx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '外汇-专家观点',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/hsfx/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/wh/hsfx/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '外汇-银行观点',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/jggd/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/wh/jggd/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '证券-行业研究',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq1/xyyj/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/zq1/xyyj/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '国际新浪财经-国际经济',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gjcj/gjjj/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gjcj/gjjj/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '国际新浪财经-亚洲经济',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gjcj/yzjj/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gjcj/yzjj/index.shtml'
-            # },
-            # {
-            #     'ch': {
-            #         'name': '国际新浪财经-欧洲经济',
-            #         'count': 0
-            #     },
-            #     'pg': 1,
-            #     'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gjcj/ozjj/index_' + str(pg) + '.shtml',
-            #     'ref': 'http://roll.finance.sina.com.cn/finance/gjcj/ozjj/index.shtml'
-            # },
+            {
+                'ch': {
+                    'name': '股价异动',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': 'http://finance.sina.com.cn/column/gujiayidong.shtml',
+                'ref': 'http://finance.sina.com.cn/column/gujiayidong.shtml'
+            },
+            {
+                'ch': {
+                    'name': '证券-行情要闻',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': 'http://finance.sina.com.cn/stock/hangqing/',
+                'ref': 'http://finance.sina.com.cn/stock/hangqing/'
+            },
+            {
+                'ch': {
+                    'name': '市场研究',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': 'http://finance.sina.com.cn/column/marketresearch.shtml',
+                'ref': 'http://finance.sina.com.cn/column/marketresearch.shtml'
+            },
+            {
+                'ch': {
+                    'name': '证券-公司研究',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq1/gsyj/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/zq1/gsyj/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '证券-股市评论',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq1/gspl/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/zq1/gspl/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '港股-市场快讯及分析',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gg/sckx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gg/sckx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '港股-香港权证资讯',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gg/xgqzzx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gg/xgqzzx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '港股-港股IPO',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gg/ggipo/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gg/ggipo/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '港股-公司新闻',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gg/gsxw/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gg/gsxw/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '滚动首页-港股',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda
+                    pg: 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=52&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=' + str(
+                    pg),
+                'ref': 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=52&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=1'
+            },
+            {
+                'ch': {
+                    'name': '滚动首页-美股',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda
+                    pg: 'http://roll.finance.sina.com.cn/s/channel.php?gupiao&ch=03#col=49&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=' + str(
+                    pg),
+                'ref': 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=49&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=1'
+            },
+            {
+                'ch': {
+                    'name': '基金',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/jj4/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/jj4/index_1.shtml'
+            },
+            {
+                'ch': {
+                    'name': '基金-基金业界',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/jj4/jjyj/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/jj4/jjyj/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '债券-债市市场动态',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq2/zsscdt/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/zq2/zsscdt/index_1.shtml'
+            },
+            {
+                'ch': {
+                    'name': '债券-债市研究',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq2/zsyj/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/zq2/zsyj/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '债券',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq2/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/zq2/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '期货-期市要闻',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/qsyw/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/qh/qsyw/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '期货-评论汇总',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://finance.sina.com.cn/roll/index.d.html?lid=1001&page=' + str(pg),
+                'ref': 'http://finance.sina.com.cn/roll/index.d.html?lid=1001&page=1'
+            },
+            {
+                'ch': {
+                    'name': '期货-美国农业报告',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://finance.sina.com.cn/roll/index.d.html?cid=207786&page=' + str(pg),
+                'ref': 'http://finance.sina.com.cn/roll/index.d.html?cid=207786&page=1'
+            },
+            {
+                'ch': {
+                    'name': '期货-农产品资讯',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/ncpzx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/qh/ncpzx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '期货-机构看盘-农产品',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/jgkp__ncp/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/qh/jgkp__ncp/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '期货-工业品资讯',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/gypzx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/qh/gypzx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '期货-机构看盘-工业品',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/jgkp__gyp/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/qh/jgkp__gyp/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '股指期货-金融衍生品资讯',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gzqh/gzqhzxzx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gzqh/gzqhzxzx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '机构看盘-股指期货',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gzqh/jgkp__gzqh/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gzqh/jgkp__gzqh/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '期货-能源石化资讯',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://finance.sina.com.cn/futuremarket/oilroll.html',
+                'ref': 'http://finance.sina.com.cn/futuremarket/oilroll.html'
+            },
+            {
+                'ch': {
+                    'name': '期货-机构看盘-能源石化',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/qh/jgkp__nysh/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/qh/jgkp__nysh/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '外汇',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/wh/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '滚动新闻',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://feed.mix.sina.com.cn/api/roll/get?pageid=384&lid=2519&k=&num=50&callback=&page='
+                                  + str(pg),
+                'ref': 'http://finance.sina.com.cn/roll/rollnews.shtml'
+            },
+            {
+                'ch': {
+                    'name': '外汇-数据分析',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/sjfx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/wh/sjfx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '外汇-货币分析',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/hbfx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/wh/hbfx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '外汇-机构观点',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/fxyc/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/wh/fxyc/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '外汇-汇市信息',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/hsxx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/wh/hsxx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '外汇-专家观点',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/hsfx/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/wh/hsfx/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '外汇-银行观点',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/wh/jggd/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/wh/jggd/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '证券-行业研究',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/zq1/xyyj/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/zq1/xyyj/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '国际新浪财经-国际经济',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gjcj/gjjj/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gjcj/gjjj/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '国际新浪财经-亚洲经济',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gjcj/yzjj/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gjcj/yzjj/index.shtml'
+            },
+            {
+                'ch': {
+                    'name': '国际新浪财经-欧洲经济',
+                    'count': 0
+                },
+                'pg': 1,
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/finance/gjcj/ozjj/index_' + str(pg) + '.shtml',
+                'ref': 'http://roll.finance.sina.com.cn/finance/gjcj/ozjj/index.shtml'
+            },
             {
                 'ch': {
                     'name': '国际新浪财经-美洲经济',
