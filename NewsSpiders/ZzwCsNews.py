@@ -263,12 +263,15 @@ class ZzwCsNewsSpider(GGNewsSpider):
         rcs = response.meta['rcs']
         nps = response.meta['nps']
 
-        urls = response.css('body>.box1000>.box740.fl>dl>dt>a::attr(href)').extract()
-        for u in urls:
+        dls = response.css('body>.box1000>.box740.fl>dl')
+        for dl in dls:
+            u = dl.xpath("./dt/a/@href").extract_first()
             u = urljoin(get_base_url(response), u)
+            pubtime = dl.xpath("./dd/span/text()").extract_first()
             rcs.append({
                 'ch': ch,
                 'url': u,
+                'ext': {'pubtime':pubtime},
                 'ref': response.url
             })
 
@@ -297,7 +300,7 @@ class ZzwCsNewsSpider(GGNewsSpider):
         if len(ls) < 1:
             ls = response.css(".Dtext>*").extract()
         if len(ls) < 1:
-            ls = response.css("#js_content>*:not(p)").extract()
+            ls = response.css("#js_content>*").extract()
         content = ''.join(ls)
 
         if 'item' in ext:
@@ -329,15 +332,17 @@ class ZzwCsNewsSpider(GGNewsSpider):
                 author = response.xpath("//div[@class='column-sub']/em[1]/text()").re_first(r'作者：(\S+)')
             item['author'] = author
 
-            pubtime = response.xpath("//div[@class='artical_t']/span/text()").re_first(r'\d+-\d+-\d+\s*\d+:\d+')
-            if pubtime is None:
-                pubtime = response.xpath("//div[@class='column-sub']/span/text()").re_first(r'\d+-\d+-\d+\s*\d+:\d+')
-            if pubtime is None:
-                pubtime = response.css("#meta_content>#post-date::text").extract_first()
-            if pubtime is not None:
-                if len(pubtime) == 16:
-                    pubtime = pubtime + ':00'
-                item['pubtime'] = pubtime
+            if ext['pubtime'] is not None:
+                item['pubtime'] = '20' + ext['pubtime']
+            # pubtime = response.xpath("//div[@class='artical_t']/span/text()").re_first(r'\d+-\d+-\d+\s*\d+:\d+')
+            # if pubtime is None:
+            #     pubtime = response.xpath("//div[@class='column-sub']/span/text()").re_first(r'\d+-\d+-\d+\s*\d+:\d+')
+            # if pubtime is None:
+            #     pubtime = response.css("#meta_content>#post-date::text").extract_first()
+            # if pubtime is not None:
+            #     if len(pubtime) == 16:
+            #         pubtime = pubtime + ':00'
+            #     item['pubtime'] = pubtime
 
         i = response.css('.artical_c .page, .z_list_page').re_first(r'var\s+?currentPage\s+?=\s+?(\d+)')  # 当前页号
         c = response.css('.artical_c .page, .z_list_page').re_first(r'var\s+?countPage\s+?=\s+?(\d+)')  # 总计页数

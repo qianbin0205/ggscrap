@@ -1143,7 +1143,7 @@ class JrjNewsSpider(GGNewsSpider):
             rcs.append({
                 'ch': ch,
                 'url': u,
-                'ref': response.url
+                'ref': response.request.headers['Referer']
             })
         if ch['name'] == '贵金属频道-行业动态' or ch['name'] == '贵金属频道-原油市场' or ch['name'] == '贵金属频道-黄金资讯' or ch['name'] == '贵金属频道-外汇市场' or ch['name'] == '贵金属频道-宏观经济':
             nps.append({
@@ -1152,14 +1152,14 @@ class JrjNewsSpider(GGNewsSpider):
                 'ext': {'infoCls': infoCls},
                 'url': 'http://news.jrj.com.cn/json/news/getNews?sort=makedate&iiid=' + iiid + '&size=10&d=f&chanNum=108&infoCls='
                        + infoCls + '&vname=contents&field=iiid,title,pcinfourl,makedate,detail',
-                'ref': response.url
+                'ref': response.request.headers['Referer']
             })
         else:
             nps.append({
                 'ch': ch,
                 'pg': pg + 1,
                 'url': url,
-                'ref': response.url
+                'ref': response.request.headers['Referer']
             })
         yield self.request_next(cps, rcs, nps)
 
