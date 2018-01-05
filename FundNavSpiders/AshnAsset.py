@@ -12,7 +12,7 @@ class AshnAssetSpider(GGFundNavSpider):
     sitename = '上海奥索灏纳资产'
     channel = '投顾净值'
     allowed_domains = ['www.ashnasset.com.cn']
-    start_urls = []
+    start_urls = ['http://www.ashnasset.com.cn/index.php?m=content&c=index&a=show&catid=15&id=2']
 
     def __init__(self, limit=None, *args, **kwargs):
         super(AshnAssetSpider, self).__init__(limit, *args, **kwargs)
