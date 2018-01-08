@@ -20,7 +20,7 @@ class ZhTrustSpider(GGFundNavSpider):
         super(ZhTrustSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-        yield Request(url='http://www.zhtrust.com/product/', callback=self.parse_login)
+        yield Request(url='http://www.zhtrust.com/product/index.shtml', callback=self.parse_login)
 
     def parse_login(self, response):
         fps = [
@@ -28,7 +28,7 @@ class ZhTrustSpider(GGFundNavSpider):
                 'pg': 1,
                 'url': lambda pg: 'http://www.zhtrust.com/front/fund/Product/findProductBySearch.do?gotoPage=' + str(
                     pg),
-                'ref': 'http://www.zhtrust.com/product/',
+                'ref': response.url,
             }
         ]
         yield self.request_next(fps, [])
