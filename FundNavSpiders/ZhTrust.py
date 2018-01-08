@@ -16,8 +16,6 @@ class ZhTrustSpider(GGFundNavSpider):
     allowed_domains = ['www.zhtrust.com']
     start_urls = ['http://www.zhtrust.com/product/']
 
-    download_timeout = 120
-
     def __init__(self, limit=None, *args, **kwargs):
         super(ZhTrustSpider, self).__init__(limit, *args, **kwargs)
 
@@ -51,7 +49,7 @@ class ZhTrustSpider(GGFundNavSpider):
 
         n = response.css('.yue>.page a#next').xpath(r'self::a[re:test(text(), "\s*下一页\s*")]').xpath(
             r'self::a[re:test(@href, "javascript:loadQaPage\(\d+\);")]')
-        if n is not None:
+        if n is not None and n:
             pg = n.css('::attr(href)').re_first(r'javascript:loadQaPage\((\d+)\);')
             fps.append({
                 'pg': int(pg),
