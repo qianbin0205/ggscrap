@@ -42,7 +42,7 @@ CONCURRENT_REQUESTS = 1
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 DOWNLOAD_DELAY = 1
-DOWNLOAD_TIMEOUT = 60
+DOWNLOAD_TIMEOUT = 180
 
 RETRY_ENABLED = True
 RETRY_TIMES = 3

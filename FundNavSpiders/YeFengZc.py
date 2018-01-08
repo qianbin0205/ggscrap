@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import re
-import json
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
