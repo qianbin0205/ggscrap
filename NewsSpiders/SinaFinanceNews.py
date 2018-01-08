@@ -107,9 +107,7 @@ class SinaFinanceNewsSpider(GGNewsSpider):
                     'count': 0
                 },
                 'pg': 1,
-                'url': lambda
-                    pg: 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=52&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=' + str(
-                    pg),
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=52&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=' + str(pg),
                 'ref': 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=52&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=1'
             },
             {
@@ -118,9 +116,7 @@ class SinaFinanceNewsSpider(GGNewsSpider):
                     'count': 0
                 },
                 'pg': 1,
-                'url': lambda
-                    pg: 'http://roll.finance.sina.com.cn/s/channel.php?gupiao&ch=03#col=49&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=' + str(
-                    pg),
+                'url': lambda pg: 'http://roll.finance.sina.com.cn/s/channel.php?gupiao&ch=03#col=49&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=' + str(pg),
                 'ref': 'http://roll.finance.sina.com.cn/s/channel.php?ch=03#col=49&spec=&type=&ch=03&k=&offset_page=0&offset_num=0&num=60&asc=&page=1'
             },
             {
