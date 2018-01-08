@@ -23,7 +23,7 @@ class ZjblzgSpider(GGFundNavSpider):
                 'url': 'http://www.zjblzg.com/value',
                 'username': '13083790899',
                 'password': '123456',
-                'cookies': 'td_cookie=11049236; JSESSIONID=9B4AFDB9BB0E0E0128CA691860F0D9CE',
+                'cookies': 'JSESSIONID=ED735EBF70F6DD3C07C409A87B47D4D8; td_cookie=11049086',
                 'ref': 'http://www.zjblzg.com/'
             }
         ]

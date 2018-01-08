@@ -17,7 +17,7 @@ class SzhvcSpider(GGFundNavSpider):
         super(SzhvcSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-        cookies = 'td_cookie=11049207; td_cookie=11049224; SESSIONID=48b1f78d-6265-4c58-b1a7-a5ecf557345f; userinfo=s%3AxU5h3EpfB9xugfJfINM_3ufHBAZPWswD.rWugI2Swrjjkc5buFzsvYSZCuD3tmLS%2Br%2B3pY5WvR%2Fw'
+        cookies = 'td_cookie=11049207; td_cookie=11049224; SESSIONID=af6ce226-7c10-466d-99d0-ead8c5c4cb6c; userinfo=s%3AyP5zs3FNHTuqnoVr-4P50KH0TvLh2XGs.2NXo7lDrjWb9ethzW2w2lvtLndY3u3DW5NwUxLZJ25I'
         fps = [
             {
                 'pg': 1,

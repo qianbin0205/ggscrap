@@ -24,7 +24,7 @@ class SmileStoneSpider(GGFundNavSpider):
                 'ref': 'http://www.smilestone.com.cn/member',
                 'username': '410325197710121425',
                 'password': '123456',
-                'cookies': 'PHPSESSID=fvalg5f50pagd1c6aoafp0p824; lczc_cpbg_new=0; lczc_wdtw_new=0; td_cookie=11049181'
+                'cookies': 'lczc_cpbg_new=0; lczc_wdtw_new=0; td_cookie=11049181; PHPSESSID=k07ekilj7q7q2rhmdkp4q0gqn1'
             }
         ]
 
