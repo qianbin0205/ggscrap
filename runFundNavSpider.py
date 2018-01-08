@@ -17,7 +17,8 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Szhvc', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sztrhj', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_YeFengZc', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhTrust', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Zjblzg', '-a', 'jobId=0L'])
 
-# 抓取比较耗时
+# 耗时爬虫
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sitic', '-a', 'jobId=0L'])
