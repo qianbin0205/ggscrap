@@ -16,11 +16,6 @@ news = {
 
 fund_nav = {
     'db': {
-        # 'host': '192.168.0.139',
-        # 'port': 1433,
-        # 'user': 'sql_scrapy',
-        # 'pswd': 'sql_scrapy123',
-        # 'name': 'funddb',
         'host': '192.168.0.53',
         'port': 1433,
         'user': 'sql_scrapy',
