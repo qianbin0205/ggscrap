@@ -24,4 +24,4 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_Qhhuabin', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Zjblzg', '-a', 'jobId=0L'])
 
 # 耗时爬虫
-# cmdline.execute(['scrapy', 'crawl', 'FundNav_Sitic', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_Sitic', '-a', 'jobId=0L'])
