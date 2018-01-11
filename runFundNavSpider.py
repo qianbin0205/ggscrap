@@ -32,5 +32,8 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_HualianFutures', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhTrust', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Zjblzg', '-a', 'jobId=0L'])
 
-# 耗时爬虫
+# 自动登录
+cmdline.execute(['scrapy', 'crawl', 'FundNav_DeyaInvest', '-a', 'jobId=0L'])
+
+# 耗时抓取
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sitic', '-a', 'jobId=0L'])

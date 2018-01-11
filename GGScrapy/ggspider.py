@@ -172,12 +172,16 @@ class GGFundNavSpider(GGSpider):
             ip = ips.pop(0)
             ext = ip['ext'] if 'ext' in ip else {}
 
-            pg = ip['pg'] if 'pg' in ip else None
-            url = ip['url'] if 'url' in ip else None
-            url = url(pg) if callable(url) else url
+            headers = ip['headers'] if 'headers' in ip else {}
+            headers = headers if isinstance(headers, dict) else {}
+            headers['Referer'] = ip['ref']
 
             cookies = ip['cookies'] if 'cookies' in ip else None
             cookies = parse_cookies(cookies)
+
+            pg = ip['pg'] if 'pg' in ip else None
+            url = ip['url'] if 'url' in ip else None
+            url = url(pg) if callable(url) else url
 
             form = ip['form'] if 'form' in ip else None
             if form is not None:
@@ -186,15 +190,13 @@ class GGFundNavSpider(GGSpider):
                     v = v(pg) if callable(v) else v
                     formdata[k] = v
                 return FormRequest(url=url, formdata=formdata, dont_filter=True,
-                                   headers={'Referer': ip['ref']},
-                                   cookies=cookies,
+                                   headers=headers, cookies=cookies,
                                    meta={'pg': pg, 'url': ip['url'], 'form': form,
                                          'fps': fps, 'ips': ips, 'ext': ext},
                                    callback=self.parse_item)
             else:
                 return Request(url, dont_filter=True,
-                               headers={'Referer': ip['ref']},
-                               cookies=cookies,
+                               headers=headers, cookies=cookies,
                                meta={'pg': pg, 'url': ip['url'], 'form': None,
                                      'fps': fps, 'ips': ips, 'ext': ext},
                                callback=self.parse_item)
@@ -203,12 +205,16 @@ class GGFundNavSpider(GGSpider):
             fp = fps.pop(0)
             ext = fp['ext'] if 'ext' in fp else {}
 
-            pg = fp['pg'] if 'pg' in fp else None
-            url = fp['url'] if 'url' in fp else None
-            url = url(pg) if callable(url) else url
+            headers = fp['headers'] if 'headers' in fp else {}
+            headers = headers if isinstance(headers, dict) else {}
+            headers['Referer'] = fp['ref']
 
             cookies = fp['cookies'] if 'cookies' in fp else None
             cookies = parse_cookies(cookies)
+
+            pg = fp['pg'] if 'pg' in fp else None
+            url = fp['url'] if 'url' in fp else None
+            url = url(pg) if callable(url) else url
 
             form = fp['form'] if 'form' in fp else None
             if form is not None:
@@ -217,15 +223,13 @@ class GGFundNavSpider(GGSpider):
                     v = v(pg) if callable(v) else v
                     formdata[k] = v
                 return FormRequest(url=url, formdata=formdata, priority=1,
-                                   headers={'Referer': fp['ref']},
-                                   cookies=cookies,
+                                   headers=headers, cookies=cookies,
                                    meta={'pg': pg, 'url': fp['url'], 'form': form,
                                          'fps': fps, 'ips': ips, 'ext': ext},
                                    callback=self.parse_fund)
             else:
                 return Request(url, priority=1,
-                               headers={'Referer': fp['ref']},
-                               cookies=cookies,
+                               headers=headers, cookies=cookies,
                                meta={'pg': pg, 'url': fp['url'], 'form': None,
                                      'fps': fps, 'ips': ips, 'ext': ext},
                                callback=self.parse_fund)
