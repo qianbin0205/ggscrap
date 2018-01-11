@@ -24,10 +24,12 @@ class RishengsimuSpider(GGFundNavSpider):
     #                                 'acct': '本易',
     #                                 'pwd': 'ZYYXSM123',
     #                                 'captcha': '',
-    #                                 'autoLogin': 'false'},
+    #                                 'autoLogin': 'false',
+    #                                 },
     #                       callback=self.parse_login)
     #
     # def parse_login(self, response):
+    #
     #     fps = [
     #         {
     #             'url': 'http://www.rishengsimu.com/col.jsp?id=110',
@@ -43,7 +45,7 @@ class RishengsimuSpider(GGFundNavSpider):
                 'ref': 'http://www.rishengsimu.com',
                 'username': '本易',
                 'password': 'ZYYXSM123',
-                'cookies': '_cliid=FyoIBcoCQbLAkCzw; loginMemberCacct=rswealth; loginMemberAcct=%E6%9C%AC%E6%98%93; _lastEnterDay=2018-01-08; _siteStatId=d4f9e912-4090-4141-bd5d-b05554f5629c; _siteStatDay=20180108; _siteStatRedirectUv=redirectUv_7599919; _siteStatVisit=visit_7599919; lastLoginTime75999198=2018-01-08; www.rishengsimu.com__VSIGN=AIjbzNIFCgQ4alQ0ELj4wbQG; _siteStatReVisit=reVisit_7599919; td_cookie=11049215; _FSESSIONID=0-yZtH-mbR852wfO; _siteStatVisitTime=1515401982634'
+                'cookies': '_cliid=FyoIBcoCQbLAkCzw; loginMemberCacct=rswealth; loginMemberAcct=%E6%9C%AC%E6%98%93; _siteStatVisitorType=visitorType_7599919; _siteStatRedirectUv=redirectUv_7599919; td_cookie=11049169; _lastEnterDay=2018-01-11; _siteStatId=abc569e0-8504-4890-9bd0-08cadc83ba79; _siteStatDay=20180111; _siteStatVisit=visit_7599919; _siteStatReVisit=reVisit_7599919; _siteStatVisitTime=1515638121799; loginIntegralTip75999198=true; lastLoginTime75999198=2018-01-11; _FSESSIONID=upXormU665lOOubT'
             }
         ]
 

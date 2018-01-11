@@ -29,30 +29,31 @@ class SanlueSpider(GGFundNavSpider):
                           callback=self.parse_login)
 
     def parse_login(self, response):
+        cookies = 'td_cookie=11049123; JSESSIONID=6AF597D9CE837282D5A9081E1C396845; slzgrd=rdok'
         fps = [
             {
                 'url': 'http://www.san-lue.com/pro/8/1',
                 'ref': 'http://www.san-lue.com/pro/1/1',
                 'ext': {'fund_name': '三略趋势精选证券投资基金'},
-                'cookies': 'td_cookie=11049158; slzgrd=rdok; td_cookie=11049154; JSESSIONID=7994B312157D56F0F2432E0F13024F2D'
+                'cookies': cookies
             },
             {
                 'url': 'http://www.san-lue.com/pro/7/1',
                 'ref': 'http://www.san-lue.com/pro/1/1',
                 'ext': {'fund_name': '三略价值成长证券投资基金'},
-                'cookies': 'td_cookie=11049158; slzgrd=rdok; td_cookie=11049154; JSESSIONID=7994B312157D56F0F2432E0F13024F2D'
+                'cookies': cookies
             },
             {
                 'url': 'http://www.san-lue.com/pro/6/1',
                 'ref': 'http://www.san-lue.com/pro/1/1',
                 'ext': {'fund_name': '三略稳健增值证券投资基金'},
-                'cookies': 'td_cookie=11049158; slzgrd=rdok; td_cookie=11049154; JSESSIONID=7994B312157D56F0F2432E0F13024F2D'
+                'cookies': cookies
             },
             {
                 'url': 'http://www.san-lue.com/pro/9/1',
                 'ref': 'http://www.san-lue.com/pro/1/1',
                 'ext': {'fund_name': '价值成长3号'},
-                'cookies': 'td_cookie=11049158; slzgrd=rdok; td_cookie=11049154; JSESSIONID=7994B312157D56F0F2432E0F13024F2D'
+                'cookies': cookies
             }
         ]
 
@@ -106,6 +107,5 @@ class SanlueSpider(GGFundNavSpider):
                 'ref': response.url,
                 'ext': ext,
             })
-
 
         yield self.request_next(fps, ips)
