@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from urllib.parse import urljoin
-from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
@@ -78,11 +76,11 @@ class SczqSpider(GGFundNavSpider):
 
             yield item
         pg = response.meta['pg']
-        # pg = response.xpath("//input[@class='pagenum']/@value").extract_first()
+        # page = response.xpath("//input[@class='pagenum']/@value").extract_first()
         pages = response.xpath("//a[@class='gocss']/@href").re_first(r'val\(\),(\d+)')
         if pg['page'] < int(pages):
             pg['page'] += 1
-            ips.append({
+            ips.insert(0, {
                 'pg': pg,
                 'url': url,
                 'ref': response.url,
