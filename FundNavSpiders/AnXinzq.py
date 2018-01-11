@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from urllib.parse import urljoin
-from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 import json
@@ -24,8 +22,10 @@ class AnXinzqSpider(GGFundNavSpider):
                 'pg': 1,
                 'url': 'https://mall.essence.com.cn/servlet/json',
                 'form': {'funcNo': '1000050', 'product_shelf': '1', 'fina_belongs': '1', 'page': lambda pg: str(pg),
-                         'numPerPage': '10', 'risk_level': '', 'profit_type': '','product_expires_start': '', 'product_expires_end': '',
-                         'fina_type': '0', 'per_buy_limit_start': '', 'per_buy_limit_end': '', 'search_value': '', 'user_id': '', 'asset_busin_type': ''},
+                         'numPerPage': '500', 'risk_level': '', 'profit_type': '', 'product_expires_start': '',
+                         'product_expires_end': '',
+                         'fina_type': '0', 'per_buy_limit_start': '', 'per_buy_limit_end': '', 'search_value': '',
+                         'user_id': '', 'asset_busin_type': ''},
                 'ref': 'https://mall.essence.com.cn/mall/views/financial/zigIndex.html',
             }
         ]
@@ -55,7 +55,8 @@ class AnXinzqSpider(GGFundNavSpider):
             ips.append({
                 'pg': 1,
                 'url': 'https://mall.essence.com.cn/servlet/json',
-                'form': {'funcNo': '1000055', 'product_code': fund_code, 'page': lambda pg: str(pg), 'numPerPage': '10',
+                'form': {'funcNo': '1000055', 'product_code': fund_code, 'page': lambda pg: str(pg),
+                         'numPerPage': '500',
                          'start_date': '', 'end_date': '', 'fund_type': '0'},
                 'ref': response.url,
                 'ext': {'fund_name': fund_name}

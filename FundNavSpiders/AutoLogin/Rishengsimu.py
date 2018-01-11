@@ -9,7 +9,7 @@ from GGScrapy.ggspider import GGFundNavSpider
 
 
 class RishengsimuSpider(GGFundNavSpider):
-    name = 'FundNav_Risheng'
+    name = 'FundNav_Rishengsimu'
     sitename = '天津日昇昌资产'
     channel = '投资顾问'
     allowed_domains = ['www.rishengsimu.com']
@@ -18,37 +18,26 @@ class RishengsimuSpider(GGFundNavSpider):
     def __init__(self, limit=None, *args, **kwargs):
         super(RishengsimuSpider, self).__init__(limit, *args, **kwargs)
 
-    # def start_requests(self):
-    #     yield FormRequest(url='http://www.rishengsimu.com/ajax/login_h.jsp',
-    #                       formdata={'cmd': 'loginMember',
-    #                                 'acct': '本易',
-    #                                 'pwd': 'ZYYXSM123',
-    #                                 'captcha': '',
-    #                                 'autoLogin': 'false',
-    #                                 },
-    #                       callback=self.parse_login)
-    #
-    # def parse_login(self, response):
-    #
-    #     fps = [
-    #         {
-    #             'url': 'http://www.rishengsimu.com/col.jsp?id=110',
-    #             'ref': 'http://www.rishengsimu.com',
-    #         }
-    #     ]
-    #     yield self.request_next(fps, [])
-
     def start_requests(self):
+        yield FormRequest(url='http://www.rishengsimu.com/ajax/login_h.jsp',
+                          formdata={'cmd': 'loginMember',
+                                    'acct': '本易',
+                                    'pwd': '4b945bbfdea5a65abfea85e49d1558a8',
+                                    'captcha': '',
+                                    'autoLogin': 'false',
+                                    },
+                          callback=self.parse_login)
+
+    def parse_login(self, response):
+
         fps = [
             {
                 'url': 'http://www.rishengsimu.com/col.jsp?id=110',
                 'ref': 'http://www.rishengsimu.com',
                 'username': '本易',
                 'password': 'ZYYXSM123',
-                'cookies': '_cliid=FyoIBcoCQbLAkCzw; loginMemberCacct=rswealth; loginMemberAcct=%E6%9C%AC%E6%98%93; _siteStatVisitorType=visitorType_7599919; _siteStatRedirectUv=redirectUv_7599919; td_cookie=11049169; _lastEnterDay=2018-01-11; _siteStatId=abc569e0-8504-4890-9bd0-08cadc83ba79; _siteStatDay=20180111; _siteStatVisit=visit_7599919; _siteStatReVisit=reVisit_7599919; _siteStatVisitTime=1515638121799; loginIntegralTip75999198=true; lastLoginTime75999198=2018-01-11; _FSESSIONID=upXormU665lOOubT'
             }
         ]
-
         yield self.request_next(fps, [])
 
     def parse_fund(self, response):
