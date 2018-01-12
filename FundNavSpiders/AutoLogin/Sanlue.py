@@ -3,6 +3,7 @@
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
+from scrapy import Request
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -14,14 +15,14 @@ class SanlueSpider(GGFundNavSpider):
     channel = '投顾净值'
     allowed_domains = ['www.san-lue.com']
     start_urls = ['http://www.san-lue.com/']
-    custom_settings = {
-        'METAREFRESH_ENABLED': False
-    }
 
     def __init__(self, limit=None, *args, **kwargs):
         super(SanlueSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
+        yield Request(url='http://www.san-lue.com/zgrd?id=1', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         yield FormRequest(url='http://www.san-lue.com/user/checklogin',
                           formdata={'backtourl': '/index',
                                     'username': 'ZYYXSM',
@@ -29,31 +30,10 @@ class SanlueSpider(GGFundNavSpider):
                           callback=self.parse_login)
 
     def parse_login(self, response):
-        cookies = 'td_cookie=11049123; JSESSIONID=6AF597D9CE837282D5A9081E1C396845; slzgrd=rdok'
         fps = [
             {
-                'url': 'http://www.san-lue.com/pro/8/1',
-                'ref': 'http://www.san-lue.com/pro/1/1',
-                'ext': {'fund_name': '三略趋势精选证券投资基金'},
-                'cookies': cookies
-            },
-            {
-                'url': 'http://www.san-lue.com/pro/7/1',
-                'ref': 'http://www.san-lue.com/pro/1/1',
-                'ext': {'fund_name': '三略价值成长证券投资基金'},
-                'cookies': cookies
-            },
-            {
-                'url': 'http://www.san-lue.com/pro/6/1',
-                'ref': 'http://www.san-lue.com/pro/1/1',
-                'ext': {'fund_name': '三略稳健增值证券投资基金'},
-                'cookies': cookies
-            },
-            {
-                'url': 'http://www.san-lue.com/pro/9/1',
-                'ref': 'http://www.san-lue.com/pro/1/1',
-                'ext': {'fund_name': '价值成长3号'},
-                'cookies': cookies
+                'url': 'http://www.san-lue.com/pro/1/1',
+                'ref': None,
             }
         ]
 
@@ -62,15 +42,17 @@ class SanlueSpider(GGFundNavSpider):
     def parse_fund(self, response):
         fps = response.meta['fps']
         ips = response.meta['ips']
-        ext = response.meta['ext']
 
-        url = response.xpath("//div[@class='gscp_br_tit']/table/tr/td[2]/a/@href").extract_first()
-        url = urljoin(get_base_url(response), url)
-        ips.append({
-            'url': url,
-            'ref': response.url,
-            'ext': ext,
-        })
+        funds = response.css('.jijinxx_body>.gscp_b_left>ul>li a').xpath(r'self::a[re:test(@href, "/pro/\d+/1")]')
+        for fund in funds:
+            fund_name = fund.css('::text').extract_first()
+            url = fund.css('::attr(href)').re_first(r'(/pro/\d+/)1')
+            url = urljoin(get_base_url(response), url + '2')
+            ips.append({
+                'url': url,
+                'ref': response.url,
+                'ext': {'fund_name': fund_name},
+            })
 
         yield self.request_next(fps, ips)
 
