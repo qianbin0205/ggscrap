@@ -31,7 +31,7 @@ from scrapy import cmdline
 # 自动登录
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_DeyaInvest', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Qhhuabin', '-a', 'jobId=0L'])
-cmdline.execute(['scrapy', 'crawl', 'FundNav_HuaYinCaiFu', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_Qhhy', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Rishengsimu', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sanlue', '-a', 'jobId=0L'])
 
