@@ -36,5 +36,5 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_XinPuAsset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sanlue', '-a', 'jobId=0L'])
 
 # 耗时抓取
-cmdline.execute(['scrapy', 'crawl', 'FundNav_Sczq', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_Sczq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sitic', '-a', 'jobId=0L'])
