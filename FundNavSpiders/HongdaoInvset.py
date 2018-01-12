@@ -11,7 +11,7 @@ from GGScrapy.ggspider import GGFundNavSpider
 class HongdaoInvsetSpider(GGFundNavSpider):
     name = 'FundNav_HongdaoInvset'
     sitename = '鸿道投资'
-    channel = '投资净值'
+    channel = '投顾净值'
     allowed_domains = ['www.suncapital.com.cn']
     start_urls = ['http://www.suncapital.com.cn/pc/login']
 

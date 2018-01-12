@@ -1,7 +1,7 @@
 from scrapy import cmdline
 
 
-cmdline.execute(['scrapy', 'crawl', 'FundNav_AnXinzq', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_AnXinzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_AshnAsset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BotongInvset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BoyiInvest', '-a', 'jobId=0L'])
@@ -25,7 +25,7 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_AnXinzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sczq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_SmileStone', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Szhvc', '-a', 'jobId=0L'])
-# cmdline.execute(['scrapy', 'crawl', 'FundNav_SZXinhenghui', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_SZXinhenghui', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sztrhj', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_SZyuanwangjiao', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_YeFengZc', '-a', 'jobId=0L'])
