@@ -18,23 +18,23 @@ class XinPuAssetSpider(GGFundNavSpider):
     def __init__(self, limit=None, *args, **kwargs):
         super(XinPuAssetSpider, self).__init__(limit, *args, **kwargs)
 
+    # def parse_pre_login(self, response):
+    #     yield Request(url='http://www.xinpibao.com/sso/api/users/login',
+    #                   method='POST',
+    #                   headers={'Content-Type': 'application/x-www-form-urlencoded',
+    #                            'Referer': 'http://www.xinpibao.com/sso/'},
+    #                   body=b'{"mobile":"13916427906","password":"ZYYXSM123"}',
+    #                   callback=self.parse_login)
+    #
+    # def parse_login(self, response):
+    #     pass
+
     def start_requests(self):
         # yield Request(url='http://www.xinpibao.com/sso/api/users/random', callback=self.parse_pre_login)
 
         cookies = self.parse_cookies('td_cookie=11049239; JSESSIONID=83E585FFB36F48C49A2227DC43333A81; Hm_lvt_bd5f74e276d37b338277623405760296=1514455130,1516003028,1516003103; xpbtoken=128068db2nlq4fmuhg88rthg9eeoc; Hm_lpvt_bd5f74e276d37b338277623405760296=1516014521')
         yield Request(url='http://www.xinpibao.com/web/api/idmapping/?id=M11451', cookies=cookies,
                       callback=self.parse_map)
-
-    def parse_pre_login(self, response):
-        yield Request(url='http://www.xinpibao.com/sso/api/users/login',
-                      method='POST',
-                      headers={'Content-Type': 'application/x-www-form-urlencoded',
-                               'Referer': 'http://www.xinpibao.com/sso/'},
-                      body=b'{"mobile":"13916427906","password":"eef87e7a685b7e5b7e0cc5aa7c58efd9bd5d1b9b3d610bf85e7f63a64cc365b7"}',
-                      callback=self.parse_login)
-
-    def parse_login(self, response):
-        pass
 
     def parse_map(self, response):
         flt = '{"managerCompanyId":"' + eval(response.text)['data'] + '"}'
