@@ -19,7 +19,7 @@ class HualianFuturesSpider(GGFundNavSpider):
         super(HualianFuturesSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-        cookies = 'UM_distinctid=160e4ad4e3d576-0b6d493255421c-393d5c04-15f900-160e4ad4e3e7ae; _cnzz_CV4130363=toJSONString%7C%7C; ECS[display]=grid; noHint=1; ECS[history]=223%2C220%2C221%2C224; td_cookie=11049098; real_ipd=203.110.179.245; ECS_ID=ea69a64c78a18066d3249dff2eda1c3d44d5084b; CNZZDATA4130363=cnzz_eid%3D295074612-1515661889-http%253A%252F%252Fwww.hlqh.com%252F%26ntime%3D1515718869'
+        cookies = 'td_cookie=11049146; UM_distinctid=160e95cb88f89-04accda377420c-393d5c04-15f900-160e95cb8903cc; _cnzz_CV4130363=toJSONString%7C%7C; ECS[display]=grid; real_ipd=203.110.179.245; ECS_ID=7b01d4741a6ae4f85531e9b0c3af6fac1c78be52; CNZZDATA4130363=cnzz_eid%3D685787141-1515741960-http%253A%252F%252Fwww.hlqh.com%252F%26ntime%3D1515978405'
         fps = [
             {
                 'url': 'http://www.hlqh.com/product.php',
