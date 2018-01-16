@@ -126,8 +126,7 @@ class XinPuAssetSpider(GGFundNavSpider):
             item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
             item['nav'] = float(row['shareUnitValue']) if row['shareUnitValue'] is not None else None
-            item['added_nav'] = float(row['shareUnitAccumulateValue']) if row[
-                                                                              'shareUnitAccumulateValue'] is not None else None
+            item['added_nav'] = float(row['shareUnitAccumulateValue']) if row['shareUnitAccumulateValue'] is not None else None
 
             yield item
         total = json.loads(response.text)['total']

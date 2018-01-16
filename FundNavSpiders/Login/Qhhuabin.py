@@ -83,7 +83,7 @@ class QhhuabinSpider(GGFundNavSpider):
             nav = data['n']
             item['nav'] = float(nav)
 
-            added_nav = data['cn']
+            added_nav = data['cnw']
             item['added_nav'] = float(added_nav)
             yield item
 
