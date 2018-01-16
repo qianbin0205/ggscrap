@@ -13,9 +13,6 @@ class SimuPaipaiSpider(GGFundNavSpider):
     channel = '第三方净值'
     allowed_domains = ['simuwang.com']
     start_urls = ['http://www.simuwang.com/?utm_source=8']
-    custom_settings = {
-        'DOWNLOAD_DELAY': 2,
-    }
 
     def __init__(self, limit=None, *args, **kwargs):
         super(SimuPaipaiSpider, self).__init__(limit, *args, **kwargs)
