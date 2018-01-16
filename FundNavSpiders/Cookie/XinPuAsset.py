@@ -12,8 +12,8 @@ class XinPuAssetSpider(GGFundNavSpider):
     name = 'FundNav_XinPuAsset'
     sitename = '信普资产'
     channel = '投顾净值'
-    allowed_domains = ['www.xinpibao.com', '.xinpibao.com', 'xinpibao.com']
-    start_urls = ['http://www.xinpibao.com/company/M11451.html']
+    allowed_domains = ['www.xp-fund.com', 'www.xinpibao.com', '.xinpibao.com', 'xinpibao.com']
+    start_urls = ['http://www.xp-fund.com/', 'http://www.xinpibao.com/company/M11451.html']
 
     username = '13916427906'
     password = 'ZYYXSM123'
@@ -92,11 +92,10 @@ class XinPuAssetSpider(GGFundNavSpider):
             statistic_date = statistic_date[0:4] + '-' + statistic_date[4:6] + '-' + statistic_date[6:8]
             item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-            item['nav'] = float(row['shareUnitValue']) if row['shareUnitValue'] is not None else None
-            item['added_nav'] = float(row['shareUnitAccumulateValue']) if row[
-                                                                              'shareUnitAccumulateValue'] is not None else None
-
+            item['nav'] = float(row['shareUnitValue']) / 10000 if row['shareUnitValue'] is not None else None
+            item['added_nav'] = float(row['shareUnitAccumulateValue']) / 10000 if row['shareUnitAccumulateValue'] is not None else None
             yield item
+
         total = json.loads(response.text)['total']
         pg = response.meta['pg']
         if 6 * pg['page'] < total:
