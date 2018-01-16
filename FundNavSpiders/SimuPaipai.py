@@ -21,19 +21,22 @@ class SimuPaipaiSpider(GGFundNavSpider):
         super(SimuPaipaiSpider, self).__init__(limit, *args, **kwargs)
 
     def parse(self, response):
-        yield FormRequest(url='http://passport.simuwang.com/index.php?m=Passport&c=auth&a=login&&rz_cback=jQuery11130020065956082853775_1516063850007&type=login&name=18637946652&pass=870301&reme=1&rn=1',
-                          callback=self.parse_login)
+        yield FormRequest(
+            url='http://passport.simuwang.com/index.php?m=Passport&c=auth&a=login&&rz_cback=jQuery11130020065956082853775_1516063850007&type=login&name=18637946652&pass=870301&reme=1&rn=1',
+            callback=self.parse_login)
 
     def parse_login(self, response):
         fps = [
             {
                 'pg': 1,
-                'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(pg) + '&condition=fund_type%3A1%2C6%2C4%2C3%2C8%2C2%3Bret%3A9%3Brating_year%3A1%3Bistiered%3A0%3Bcompany_type%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
+                'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(
+                    pg) + '&condition=fund_type%3A1%2C6%2C4%2C3%2C8%2C2%3Bret%3A9%3Brating_year%3A1%3Bistiered%3A0%3Bcompany_type%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
                 'ref': 'http://dc.simuwang.com/',
             },
             {
                 'pg': 1,
-                'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page='+ str(pg) +'&condition=newBoard%3A4%3Bret%3A9%3Brating_year%3A1%3Bistiered%3A0%3Bcompany_type%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
+                'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(
+                    pg) + '&condition=newBoard%3A4%3Bret%3A9%3Brating_year%3A1%3Bistiered%3A0%3Bcompany_type%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
                 'ref': 'http://dc.simuwang.com/',
             },
         ]
@@ -93,7 +96,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
             item['nav'] = float(nav) if nav is not None else None
 
             added_nav = data['cnw']
-            item['added_nav'] = float(added_nav)if added_nav is not None else None
+            item['added_nav'] = float(added_nav) if added_nav is not None else None
             yield item
 
         form = response.meta['form']
