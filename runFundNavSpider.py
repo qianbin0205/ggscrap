@@ -47,6 +47,8 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_PinzhengFund', '-a', 'jobId=0L'])
 
 # 耗时抓取
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sczq', '-a', 'jobId=0L'])
+
+# 耗时抓取(自动登录)
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_SimuPaipai', '-a', 'jobId=0L'])
 
 # 耗时抓取(Cookie认证)
