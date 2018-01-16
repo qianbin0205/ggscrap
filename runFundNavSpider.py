@@ -1,6 +1,7 @@
 from scrapy import cmdline
 
 
+# 免认证
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_AnXinzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BeijingTrust', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_HNGTrust', '-a', 'jobId=0L'])
@@ -41,7 +42,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_XinPuAsset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Zjblzg', '-a', 'jobId=0L'])
 
-# 耗时抓取
+# 耗时抓取(免认证)
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sczq', '-a', 'jobId=0L'])
 
 # 耗时抓取(自动登录)
