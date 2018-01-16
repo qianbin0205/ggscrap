@@ -6,19 +6,6 @@ from ggmssql.pool import Pool
 import config
 
 
-def parse_cookies(cookies):
-    if cookies is not None:
-        ret = {}
-        cks = cookies.split(';')
-        for ck in cks:
-            ck = ck.split('=', 1)
-            key = ck[0].strip()
-            value = ck[1].strip()
-            ret[key] = value
-        cookies = ret
-    return cookies
-
-
 # 公共Spider基类
 class GGSpider(CrawlSpider):
     channel = None
@@ -33,6 +20,19 @@ class GGSpider(CrawlSpider):
 
     def __init__(self, *args, **kwargs):
         super(GGSpider, self).__init__(*args, **kwargs)
+
+    @staticmethod
+    def parse_cookies(cookies):
+        if cookies is not None:
+            ret = {}
+            cks = cookies.split(';')
+            for ck in cks:
+                ck = ck.split('=', 1)
+                key = ck[0].strip()
+                value = ck[1].strip()
+                ret[key] = value
+            cookies = ret
+        return cookies
 
 
 # 新闻资讯Spider基类
@@ -87,7 +87,7 @@ class GGNewsSpider(GGSpider):
             url = url(pg) if callable(url) else url
 
             cookies = cp['cookies'] if 'cookies' in cp else None
-            cookies = parse_cookies(cookies)
+            cookies = self.parse_cookies(cookies)
 
             count = cp['ch']['count']
             if self.limit is None or count < self.limit:
@@ -107,7 +107,7 @@ class GGNewsSpider(GGSpider):
             url = url(pg) if callable(url) else url
 
             cookies = rc['cookies'] if 'cookies' in rc else None
-            cookies = parse_cookies(cookies)
+            cookies = self.parse_cookies(cookies)
 
             count = rc['ch']['count']
             if self.limit is None or count < self.limit:
@@ -129,7 +129,7 @@ class GGNewsSpider(GGSpider):
             url = url(pg) if callable(url) else url
 
             cookies = cp['cookies'] if 'cookies' in cp else None
-            cookies = parse_cookies(cookies)
+            cookies = self.parse_cookies(cookies)
 
             count = cp['ch']['count']
             if self.limit is None or count < self.limit:
@@ -177,7 +177,7 @@ class GGFundNavSpider(GGSpider):
             headers['Referer'] = ip['ref']
 
             cookies = ip['cookies'] if 'cookies' in ip else None
-            cookies = parse_cookies(cookies)
+            cookies = self.parse_cookies(cookies)
 
             pg = ip['pg'] if 'pg' in ip else None
             url = ip['url'] if 'url' in ip else None
@@ -210,7 +210,7 @@ class GGFundNavSpider(GGSpider):
             headers['Referer'] = fp['ref']
 
             cookies = fp['cookies'] if 'cookies' in fp else None
-            cookies = parse_cookies(cookies)
+            cookies = self.parse_cookies(cookies)
 
             pg = fp['pg'] if 'pg' in fp else None
             url = fp['url'] if 'url' in fp else None
