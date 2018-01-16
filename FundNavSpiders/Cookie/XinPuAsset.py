@@ -6,7 +6,7 @@ from datetime import datetime
 from scrapy import Request
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
-from scrapy.downloadermiddlewares.cookies import CookiesMiddleware
+
 
 class XinPuAssetSpider(GGFundNavSpider):
     name = 'FundNav_XinPuAsset'
@@ -15,38 +15,7 @@ class XinPuAssetSpider(GGFundNavSpider):
     allowed_domains = ['www.xinpibao.com', '.xinpibao.com', 'xinpibao.com']
     start_urls = ['http://www.xinpibao.com/company/M11451.html']
 
-    cookies = [
-        {
-            'name': 'Hm_lpvt_bd5f74e276d37b338277623405760296',
-            'value': '1516072359',
-            'domain': '.xinpibao.com',
-            'path': '/'
-        },
-        {
-            'name': 'Hm_lvt_bd5f74e276d37b338277623405760296',
-            'value': '1514455130,1516003028,1516003103',
-            'domain': '.xinpibao.com',
-            'path': '/'
-        },
-        {
-            'name': 'JSESSIONID',
-            'value': '0B4E3D5F21F2D3E3D735C94E7BB1F31E',
-            'domain': 'www.xinpibao.com',
-            'path': '/'
-        },
-        {
-            'name': 'td_cookie',
-            'value': '11049289',
-            'domain': 'www.xinpibao.com',
-            'path': '/'
-        },
-        {
-            'name': 'xpbtoken',
-            'value': '128068db2nlq4fmuhg88rthg9eeoc',
-            'domain': '.xinpibao.com',
-            'path': '/'
-        },
-    ]
+    cookies = 'JSESSIONID=1E603BA6C9C55CAD1D1DB5C6282A9126; Hm_lvt_bd5f74e276d37b338277623405760296=1514455130,1516003028,1516003103; xpbtoken=128068db2nlq4fmuhg88rthg9eeoc; Hm_lpvt_bd5f74e276d37b338277623405760296=1516080187'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(XinPuAssetSpider, self).__init__(limit, *args, **kwargs)
@@ -65,9 +34,7 @@ class XinPuAssetSpider(GGFundNavSpider):
     def start_requests(self):
         # yield Request(url='http://www.xinpibao.com/sso/api/users/random', callback=self.parse_pre_login)
 
-        # cookies = self.parse_cookies(self.cookies)
-        yield Request(url='http://www.xinpibao.com/web/api/idmapping/?id=M11451', cookies=self.cookies,
-                      callback=self.parse_map)
+        yield Request(url='http://www.xinpibao.com/web/api/idmapping/?id=M11451', callback=self.parse_map)
 
     def parse_map(self, response):
         flt = '{"managerCompanyId":"' + eval(response.text)['data'] + '"}'
@@ -77,7 +44,6 @@ class XinPuAssetSpider(GGFundNavSpider):
             {
                 'url': 'http://www.xinpibao.com/web/api/funds/computeInfos/?filter=' + flt + '&from=0',
                 'ref': 'http://www.xinpibao.com/company/M11451.html',
-                # 'cookies': self.cookies
             },
         ]
 
@@ -93,14 +59,14 @@ class XinPuAssetSpider(GGFundNavSpider):
             fund_id = fund['id']
             ips.append({
                 'pg': {'page': 0, 'fund_id': fund_id},
-                'url': lambda pg: 'http://www.xinpibao.com/web/api/funds/' + str(pg['fund_id']) + '/netValues?from=' + str(
+                'url': lambda pg: 'http://www.xinpibao.com/web/api/funds/' + str(
+                    pg['fund_id']) + '/netValues?from=' + str(
                     6 * pg['page']),
                 'headers': {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Accept': 'application/json, text/javascript, */*; q=0.01',
                 },
                 'ref': 'http://www.xinpibao.com/fund/' + url_id + '.html',
-                # 'cookies': self.cookies,
                 'ext': {'fund_name': fund_name}
             })
 
@@ -126,7 +92,8 @@ class XinPuAssetSpider(GGFundNavSpider):
             item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
             item['nav'] = float(row['shareUnitValue']) if row['shareUnitValue'] is not None else None
-            item['added_nav'] = float(row['shareUnitAccumulateValue']) if row['shareUnitAccumulateValue'] is not None else None
+            item['added_nav'] = float(row['shareUnitAccumulateValue']) if row[
+                                                                              'shareUnitAccumulateValue'] is not None else None
 
             yield item
         total = json.loads(response.text)['total']
