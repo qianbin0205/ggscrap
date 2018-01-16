@@ -6,7 +6,6 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BeijingTrust', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BotongInvset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Dctstz', '-a', 'jobId=0L'])
-# cmdline.execute(['scrapy', 'crawl', 'FundNav_Dsf', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_FengZang', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_GZDaShu', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_HNGTrust', '-a', 'jobId=0L'])
@@ -16,7 +15,6 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Jhzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_JiuyiFund', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Jiuxi168', '-a', 'jobId=0L'])
-# cmdline.execute(['scrapy', 'crawl', 'FundNav_Jroyal', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_PianfengAsset', '-a', 'jobId=0L'])
 cmdline.execute(['scrapy', 'crawl', 'FundNav_PinzhengFund', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_RabbitFund', '-a', 'jobId=0L'])
@@ -30,6 +28,8 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_PinzhengFund', '-a', 'jobId=0L'])
 
 # 自动登录
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_DeyaInvest', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_Dsf', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_Jroyal', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Qhhuabin', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Qhhy', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Rishengsimu', '-a', 'jobId=0L'])
@@ -42,7 +42,7 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_PinzhengFund', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_HualianFutures', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_SmileStone', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Szhvc', '-a', 'jobId=0L'])
-cmdline.execute(['scrapy', 'crawl', 'FundNav_XinPuAsset', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_XinPuAsset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Zjblzg', '-a', 'jobId=0L'])
 
 # 耗时抓取
