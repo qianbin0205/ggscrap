@@ -13,19 +13,19 @@ class SzhvcSpider(GGFundNavSpider):
     allowed_domains = ['www.szhvc.com']
     start_urls = ['http://www.szhvc.com/memberCenter/recommend']
 
+    username = '18602199319'
+    password = 'yadan0319'
+    cookies = 'td_cookie=11049292; td_cookie=11049224; SESSIONID=5bc4f42e-6a67-4a1f-b707-a9b1156de0a2; userinfo=s%3ALcbcOh1nyLXmVGjkQJ0c7C4DhwV0tpbt.qpjobROygrCVtYmqn0yaHcYRCaHdF0MlEkxtVZ9G%2F14'
+
     def __init__(self, limit=None, *args, **kwargs):
         super(SzhvcSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-        cookies = 'td_cookie=11049292; td_cookie=11049224; SESSIONID=5bc4f42e-6a67-4a1f-b707-a9b1156de0a2; userinfo=s%3ALcbcOh1nyLXmVGjkQJ0c7C4DhwV0tpbt.qpjobROygrCVtYmqn0yaHcYRCaHdF0MlEkxtVZ9G%2F14'
         fps = [
             {
                 'pg': 1,
                 'url': lambda pg: 'http://www.szhvc.com/api/pc/product/list?pageNum=' + str(pg),
-                'ref': 'http://www.szhvc.com/memberCenter/recommend',
-                'username': '18602199319',
-                'passowrd': 'yadan0319',
-                'cookies': cookies
+                'ref': 'http://www.szhvc.com/memberCenter/recommend'
             }
         ]
         yield self.request_next(fps, [])

@@ -15,6 +15,8 @@ class XinPuAssetSpider(GGFundNavSpider):
     allowed_domains = ['www.xinpibao.com', '.xinpibao.com', 'xinpibao.com']
     start_urls = ['http://www.xinpibao.com/company/M11451.html']
 
+    username = '13916427906'
+    password = 'ZYYXSM123'
     cookies = 'JSESSIONID=1E603BA6C9C55CAD1D1DB5C6282A9126; Hm_lvt_bd5f74e276d37b338277623405760296=1514455130,1516003028,1516003103; xpbtoken=128068db2nlq4fmuhg88rthg9eeoc; Hm_lpvt_bd5f74e276d37b338277623405760296=1516080187'
 
     def __init__(self, limit=None, *args, **kwargs):
@@ -39,7 +41,6 @@ class XinPuAssetSpider(GGFundNavSpider):
     def parse_map(self, response):
         flt = '{"managerCompanyId":"' + eval(response.text)['data'] + '"}'
         flt = quote(flt)
-
         fps = [
             {
                 'url': 'http://www.xinpibao.com/web/api/funds/computeInfos/?filter=' + flt + '&from=0',

@@ -14,6 +14,10 @@ class ZjblzgSpider(GGFundNavSpider):
     allowed_domains = ['www.zjblzg.com']
     start_urls = ['http://www.zjblzg.com/value']
 
+    username = '13083790899'
+    password = '123456'
+    cookies = 'td_cookie=11049086; JSESSIONID=097AF9795804B74603B125A78B190653'
+
     def __init__(self, limit=None, *args, **kwargs):
         super(ZjblzgSpider, self).__init__(limit, *args, **kwargs)
 
@@ -21,9 +25,6 @@ class ZjblzgSpider(GGFundNavSpider):
         fps = [
             {
                 'url': 'http://www.zjblzg.com/value',
-                'username': '13083790899',
-                'password': '123456',
-                'cookies': 'td_cookie=11049086; JSESSIONID=097AF9795804B74603B125A78B190653',
                 'ref': 'http://www.zjblzg.com/'
             }
         ]
