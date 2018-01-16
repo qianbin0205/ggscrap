@@ -13,6 +13,10 @@ class SmileStoneSpider(GGFundNavSpider):
     allowed_domains = ['www.smilestone.com.cn']
     start_urls = ['http://www.smilestone.com.cn/member']
 
+    username = '410325197710121425'
+    password = '123456'
+    cookies = 'lczc_cpbg_new=0; lczc_wdtw_new=0; td_cookie=11049256; PHPSESSID=5tsipib8e3v6jmkosabpa2odi7'
+
     def __init__(self, limit=None, *args, **kwargs):
         super(SmileStoneSpider, self).__init__(limit, *args, **kwargs)
 
@@ -21,10 +25,7 @@ class SmileStoneSpider(GGFundNavSpider):
             {
                 'url': 'http://www.smilestone.com.cn/Router.php?action=MemberController/searchHotProduct/tableQuery',
                 'form': {'hot_type': '1', 'pageNum': '1', 'rowCount': '100'},
-                'ref': 'http://www.smilestone.com.cn/member',
-                'username': '410325197710121425',
-                'password': '123456',
-                'cookies': 'lczc_cpbg_new=0; lczc_wdtw_new=0; td_cookie=11049256; PHPSESSID=5tsipib8e3v6jmkosabpa2odi7'
+                'ref': 'http://www.smilestone.com.cn/member'
             }
         ]
 

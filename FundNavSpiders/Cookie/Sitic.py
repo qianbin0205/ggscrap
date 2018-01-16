@@ -18,6 +18,10 @@ class SiticSpider(GGFundNavSpider):
         'DOWNLOAD_DELAY': 5,
     }
 
+    username = 'benyi'
+    password = '123benyi'
+    cookies = 'td_cookie=11049231; td_cookie=11049229; targetEncodinghttp://183100187=2; PHPSESSID=jhe6h7fci0eue7o7stb92m0gg2; DedeUserID=92; DedeUserID__ckMd5=ec602f707aa12cba; DedeLoginTime=1514352366; DedeLoginTime__ckMd5=9c4ef7f6177007b4'
+
     def __init__(self, limit=None, *args, **kwargs):
         super(SiticSpider, self).__init__(limit, *args, **kwargs)
 
@@ -25,10 +29,7 @@ class SiticSpider(GGFundNavSpider):
         fps = [
             {
                 'url': 'http://www.sitic.com.cn/plus/list.php?tid=74',
-                'ref': 'http://www.sitic.com.cn/member/index.php',
-                'username': 'benyi',
-                'password': '123benyi',
-                'cookies': 'td_cookie=11049231; td_cookie=11049229; targetEncodinghttp://183100187=2; PHPSESSID=jhe6h7fci0eue7o7stb92m0gg2; DedeUserID=92; DedeUserID__ckMd5=ec602f707aa12cba; DedeLoginTime=1514352366; DedeLoginTime__ckMd5=9c4ef7f6177007b4'
+                'ref': 'http://www.sitic.com.cn/member/index.php'
             }
         ]
 
