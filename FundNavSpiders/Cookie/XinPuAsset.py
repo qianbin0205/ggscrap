@@ -6,14 +6,47 @@ from datetime import datetime
 from scrapy import Request
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
-
+from scrapy.downloadermiddlewares.cookies import CookiesMiddleware
 
 class XinPuAssetSpider(GGFundNavSpider):
     name = 'FundNav_XinPuAsset'
     sitename = '信普资产'
     channel = '投顾净值'
-    allowed_domains = ['www.xinpibao.com']
+    allowed_domains = ['www.xinpibao.com', '.xinpibao.com', 'xinpibao.com']
     start_urls = ['http://www.xinpibao.com/company/M11451.html']
+
+    cookies = [
+        {
+            'name': 'Hm_lpvt_bd5f74e276d37b338277623405760296',
+            'value': '1516072359',
+            'domain': '.xinpibao.com',
+            'path': '/'
+        },
+        {
+            'name': 'Hm_lvt_bd5f74e276d37b338277623405760296',
+            'value': '1514455130,1516003028,1516003103',
+            'domain': '.xinpibao.com',
+            'path': '/'
+        },
+        {
+            'name': 'JSESSIONID',
+            'value': '0B4E3D5F21F2D3E3D735C94E7BB1F31E',
+            'domain': 'www.xinpibao.com',
+            'path': '/'
+        },
+        {
+            'name': 'td_cookie',
+            'value': '11049289',
+            'domain': 'www.xinpibao.com',
+            'path': '/'
+        },
+        {
+            'name': 'xpbtoken',
+            'value': '128068db2nlq4fmuhg88rthg9eeoc',
+            'domain': '.xinpibao.com',
+            'path': '/'
+        },
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(XinPuAssetSpider, self).__init__(limit, *args, **kwargs)
@@ -32,8 +65,8 @@ class XinPuAssetSpider(GGFundNavSpider):
     def start_requests(self):
         # yield Request(url='http://www.xinpibao.com/sso/api/users/random', callback=self.parse_pre_login)
 
-        cookies = self.parse_cookies('td_cookie=11049239; JSESSIONID=83E585FFB36F48C49A2227DC43333A81; Hm_lvt_bd5f74e276d37b338277623405760296=1514455130,1516003028,1516003103; xpbtoken=128068db2nlq4fmuhg88rthg9eeoc; Hm_lpvt_bd5f74e276d37b338277623405760296=1516014521')
-        yield Request(url='http://www.xinpibao.com/web/api/idmapping/?id=M11451', cookies=cookies,
+        # cookies = self.parse_cookies(self.cookies)
+        yield Request(url='http://www.xinpibao.com/web/api/idmapping/?id=M11451', cookies=self.cookies,
                       callback=self.parse_map)
 
     def parse_map(self, response):
@@ -44,11 +77,7 @@ class XinPuAssetSpider(GGFundNavSpider):
             {
                 'url': 'http://www.xinpibao.com/web/api/funds/computeInfos/?filter=' + flt + '&from=0',
                 'ref': 'http://www.xinpibao.com/company/M11451.html',
-                # 'cookies': 'td_cookie=11049239; JSESSIONID=83E585FFB36F48C49A2227DC43333A81; Hm_lvt_bd5f74e276d37b338277623405760296=1514455130,1516003028,1516003103; xpbtoken=128068db2nlq4fmuhg88rthg9eeoc; Hm_lpvt_bd5f74e276d37b338277623405760296=1516014521'
-                # 'headers': {'Accept': 'application/json, text/javascript, */*; q=0.01',
-                #             'Accept-Encoding': 'gzip, deflate',
-                #             'Accept-Language': 'zh-CN,zh;q=0.9',
-                #             'X-Requested-With': 'XMLHttpRequest'}
+                # 'cookies': self.cookies
             },
         ]
 
@@ -64,13 +93,14 @@ class XinPuAssetSpider(GGFundNavSpider):
             fund_id = fund['id']
             ips.append({
                 'pg': {'page': 0, 'fund_id': fund_id},
-                'url': lambda pg: 'http://xinpibao.com/web/api/funds/' + str(pg['fund_id']) + '/netValues?from=' + str(
+                'url': lambda pg: 'http://www.xinpibao.com/web/api/funds/' + str(pg['fund_id']) + '/netValues?from=' + str(
                     6 * pg['page']),
                 'headers': {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Accept': 'application/json, text/javascript, */*; q=0.01',
                 },
-                'ref': 'http://xinpibao.com/fund/' + url_id + '.html',
+                'ref': 'http://www.xinpibao.com/fund/' + url_id + '.html',
+                # 'cookies': self.cookies,
                 'ext': {'fund_name': fund_name}
             })
 
