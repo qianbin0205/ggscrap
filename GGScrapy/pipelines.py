@@ -72,10 +72,8 @@ class GGNewsPipeline(object):
             cursor = conn.cursor()
             try:
                 table = config.news['db']['table']
-
                 cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
                 row = cursor.fetchone()
-
                 if row is None or spider.update:
                     content = self.__transfer_image(hkey, url, content)
                 if row is None:
@@ -177,14 +175,16 @@ class GGNewsPipeline(object):
 class GGFundNavPipeline(object):
     def process_item(self, item, spider):
         try:
-            sitename = item['sitename']
-            channel = item['channel']
-            url = item['url']
+            sitename = item['sitename'].strip()
+            channel = item['channel'].strip()
 
             if 'groupname' in item:
                 groupname = item['groupname']
             else:
                 groupname = spider.groupname
+
+            url = item['url']
+            url = url.strip() if isinstance(url, str) else None
 
             fund_name = item['fund_name']
             assert isinstance(fund_name, str)
@@ -199,21 +199,52 @@ class GGFundNavPipeline(object):
             assert nav is None or isinstance(nav, float) or isinstance(nav, int)
 
             added_nav = item['added_nav'] if 'added_nav' in item else None
-            assert added_nav is None or isinstance(added_nav, float) or isinstance(nav, int)
+            assert added_nav is None or isinstance(added_nav, float) or isinstance(added_nav, int)
 
             nav_2 = item['nav_2'] if 'nav_2' in item else None
-            assert nav_2 is None or isinstance(nav_2, float) or isinstance(nav, int)
+            assert nav_2 is None or isinstance(nav_2, float) or isinstance(nav_2, int)
 
             added_nav_2 = item['added_nav_2'] if 'added_nav_2' in item else None
-            assert added_nav_2 is None or isinstance(added_nav_2, float) or isinstance(nav, int)
+            assert added_nav_2 is None or isinstance(added_nav_2, float) or isinstance(added_nav_2, int)
+
+            total_nav = item['total_nav'] if 'total_nav' in item else None
+            assert total_nav is None or isinstance(total_nav, float) or isinstance(total_nav, int)
+
+            share = item['share'] if 'share' in item else None
+            assert share is None or isinstance(share, float) or isinstance(share, int)
+
+            income_value_per_ten_thousand = item[
+                'income_value_per_ten_thousand'] if 'income_value_per_ten_thousand' in item else None
+            assert income_value_per_ten_thousand is None or isinstance(income_value_per_ten_thousand,
+                                                                       float) or isinstance(
+                income_value_per_ten_thousand, int)
+
+            d7_annualized_return = item['d7_annualized_return'] if 'd7_annualized_return' in item else None
+            assert d7_annualized_return is None or isinstance(d7_annualized_return, float) or isinstance(
+                d7_annualized_return, int)
 
             md5 = hashlib.md5()
             seed = 'sitename=' + quote(sitename)
             seed += '&channel=' + quote(channel)
             seed += '&fund_name=' + quote(fund_name)
             seed += '&statistic_date=' + quote(statistic_date)
-            seed += '&nav=' + quote(str(nav))
-            seed += '&added_nav=' + quote(str(added_nav))
+
+            if nav is not None:
+                seed += '&nav=' + quote(str(nav))
+            if added_nav is not None:
+                seed += '&added_nav=' + quote(str(added_nav))
+            if nav_2 is not None:
+                seed += '&nav_2=' + quote(str(nav_2))
+            if added_nav_2 is not None:
+                seed += '&added_nav_2=' + quote(str(added_nav_2))
+            if total_nav is not None:
+                seed += '&total_nav=' + quote(str(total_nav))
+            if share is not None:
+                seed += '&share=' + quote(str(share))
+            if income_value_per_ten_thousand is not None:
+                seed += '&income_value_per_ten_thousand=' + quote(str(income_value_per_ten_thousand))
+            if d7_annualized_return is not None:
+                seed += '&d7_annualized_return=' + quote(str(d7_annualized_return))
             md5.update(seed.encode('utf-8'))
             hkey = md5.hexdigest()
 
@@ -221,26 +252,21 @@ class GGFundNavPipeline(object):
             cursor = conn.cursor()
             try:
                 table = config.fund_nav['db']['table']
-
                 cursor.execute(
-                    'select top 1 * from ' + table + ' where sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
+                    'SELECT TOP 1 hkey FROM ' + table + ' WHERE sitename=%s AND channel=%s AND fund_name=%s AND statistic_date=%s ORDER BY tmstamp',
                     (sitename, channel, fund_name, statistic_date,))
                 row = cursor.fetchone()
-
                 if row is None:
                     cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2, added_nav_2) \
-                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2, added_nav_2,))
-                else:
-                    cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
-                    row = cursor.fetchone()
-
-                    if row is None:
-                        cursor.execute(
-                            'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s, nav_2=%s, added_nav_2=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
-                            (hkey, url, groupname, nav, added_nav, nav_2, added_nav_2, sitename, channel, fund_name, statistic_date,))
-
+                        'INSERT INTO ' + table + ' (hkey,sitename,channel,url,groupname,fund_name,statistic_date,nav,added_nav,nav_2,added_nav_2,total_nav,share,income_value_per_ten_thousand,d7_annualized_return) \
+                                             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+                        (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2,
+                         added_nav_2, total_nav, share, income_value_per_ten_thousand, d7_annualized_return,))
+                elif row['hkey'] != hkey:
+                    cursor.execute(
+                        'UPDATE ' + table + ' SET hkey=%s,url=%s,groupname=%s,nav=%s,added_nav=%s,nav_2=%s,added_nav_2=%s,total_nav=%s,share=%s,income_value_per_ten_thousand=%s,d7_annualized_return=%s WHERE hkey=%s',
+                        (hkey, url, groupname, nav, added_nav, nav_2, added_nav_2, total_nav, share,
+                         income_value_per_ten_thousand, d7_annualized_return, row['hkey'],))
             finally:
                 cursor.close()
                 spider.dbPool.release(conn)
