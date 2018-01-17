@@ -72,10 +72,8 @@ class GGNewsPipeline(object):
             cursor = conn.cursor()
             try:
                 table = config.news['db']['table']
-
                 cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
                 row = cursor.fetchone()
-
                 if row is None or spider.update:
                     content = self.__transfer_image(hkey, url, content)
                 if row is None:
@@ -221,23 +219,20 @@ class GGFundNavPipeline(object):
             cursor = conn.cursor()
             try:
                 table = config.fund_nav['db']['table']
-
                 cursor.execute(
-                    'SELECT TOP 1 * FROM ' + table + ' WHERE sitename=%s AND channel=%s AND fund_name=%s AND statistic_date=%s',
+                    'SELECT TOP 1 hkey FROM ' + table + ' WHERE sitename=%s AND channel=%s AND fund_name=%s AND statistic_date=%s ORDER BY tmstamp',
                     (sitename, channel, fund_name, statistic_date,))
                 row = cursor.fetchone()
-
                 if row is None:
                     cursor.execute(
                         'INSERT INTO ' + table + ' (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2, added_nav_2) \
                                              VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2, added_nav_2,))
-                else:
+                        (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2,
+                         added_nav_2,))
+                elif row['hkey'] != hkey:
                     cursor.execute(
-                        'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s, nav_2=%s, added_nav_2=%s WHERE hkey=(SELECT TOP 1 hkey FROM ' + table + ' WHERE sitename=%s AND channel=%s AND fund_name=%s AND statistic_date=%s ORDER BY tmstamp)',
-                        (hkey, url, groupname, nav, added_nav, nav_2, added_nav_2, sitename, channel, fund_name,
-                         statistic_date,))
-
+                        'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s, nav_2=%s, added_nav_2=%s WHERE hkey=%s',
+                        (hkey, url, groupname, nav, added_nav, nav_2, added_nav_2, row['hkey'],))
             finally:
                 cursor.close()
                 spider.dbPool.release(conn)
