@@ -33,3 +33,8 @@ class GGFundNavItem(scrapy.Item):
     added_nav = scrapy.Field()
     nav_2 = scrapy.Field()
     added_nav_2 = scrapy.Field()
+    total_nav = scrapy.Field() #资产净值(元)
+    share = scrapy.Field() #资产份额
+    income_value_per_ten_thousand = scrapy.Field() #万份收益
+    d7_annualized_return = scrapy.Field() #七日年化
+
