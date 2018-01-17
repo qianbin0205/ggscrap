@@ -55,7 +55,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
                 'url': 'http://dc.simuwang.com/fund/getNavList.html?',
                 'form': {'id': fund_id, 'muid': '55709', 'page': lambda pg: str(pg)},
                 'ref': u,
-                'ext': {'fund_name': fund_name},
+                'ext': {'fund_name': fund_name, 'fund_id': fund_id},
                 'username': '18637946652',
                 'password': '870301'
             })
@@ -76,6 +76,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
         ext = response.meta['ext']
         url = response.meta['url']
         fund_name = ext['fund_name']
+        fund_id = ext['fund_id']
 
         datas = json.loads(response.text)['data']
         for data in datas:
@@ -85,6 +86,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
             item['url'] = response.request.headers['Referer']
 
             item['fund_name'] = fund_name
+            item['fund_code'] = fund_id
 
             statistic_date = data['d']
             item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
