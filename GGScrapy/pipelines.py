@@ -39,7 +39,7 @@ class GGNewsPipeline(object):
             title = item['title']
             if title is not None:
                 title = title.strip()
-            if title is None or len(title) < 1:
+            if title is None or title == '':
                 return item
 
             source = item['source']
@@ -53,11 +53,11 @@ class GGNewsPipeline(object):
             pubtime = item['pubtime']
             if pubtime is not None:
                 pubtime = pubtime.strip()
-            if pubtime is None or len(pubtime) < 1:
+            if pubtime is None or pubtime == '':
                 return item
 
             content = item['content']
-            if content is None or len(content.strip()) < 1:
+            if content is None or content.strip() == '':
                 return item
             if sys.maxunicode <= 0xFFFF:
                 content = re.sub(r'[\uD800-\uDFFF][\uD800-\uDFFF]',
@@ -187,9 +187,12 @@ class GGFundNavPipeline(object):
             url = url.strip() if isinstance(url, str) else None
 
             fund_name = item['fund_name']
-            assert isinstance(fund_name, str)
-            fund_name = fund_name.strip()
-            assert len(fund_name) >= 1
+            fund_name = fund_name.strip() if isinstance(fund_name, str) else None
+            assert fund_name is not None and fund_name != ''
+
+            fund_code = item['fund_code']
+            fund_code = fund_code.strip() if isinstance(fund_code, str) else None
+            assert fund_code is None or fund_code != ''
 
             statistic_date = item['statistic_date']
             assert isinstance(statistic_date, datetime)
