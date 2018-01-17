@@ -190,13 +190,13 @@ class GGFundNavPipeline(object):
             fund_name = fund_name.strip() if isinstance(fund_name, str) else None
             assert fund_name is not None and fund_name != ''
 
-            fund_code = item['fund_code']
-            fund_code = fund_code.strip() if isinstance(fund_code, str) else None
-            assert fund_code is None or fund_code != ''
-
             statistic_date = item['statistic_date']
             assert isinstance(statistic_date, datetime)
             statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
+
+            fund_code = item['fund_code']
+            fund_code = fund_code.strip() if isinstance(fund_code, str) else None
+            assert fund_code is None or fund_code != ''
 
             nav = item['nav'] if 'nav' in item else None
             assert nav is None or isinstance(nav, float) or isinstance(nav, int)
