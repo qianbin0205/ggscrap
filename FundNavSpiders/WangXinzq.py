@@ -8,7 +8,7 @@ from GGScrapy.items import GGFundNavItem
 
 
 class WangXinzqSpider(GGFundNavSpider):
-    name = 'WangXinzq'
+    name = 'FundNav_WangXinzq'
     sitename = '网信证券'
     channel = '券商资管净值'
     allowed_domains = ['www.wxzq.com']
