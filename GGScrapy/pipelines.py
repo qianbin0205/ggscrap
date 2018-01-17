@@ -264,14 +264,14 @@ class GGFundNavPipeline(object):
                 row = cursor.fetchone()
                 if row is None:
                     cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey,sitename,channel,url,groupname,fund_name,statistic_date,nav,added_nav,nav_2,added_nav_2,total_nav,share,income_value_per_ten_thousand,d7_annualized_return) \
+                        'INSERT INTO ' + table + ' (hkey,sitename,channel,groupname,fund_name,statistic_date,url,nav,added_nav,nav_2,added_nav_2,total_nav,share,income_value_per_ten_thousand,d7_annualized_return) \
                                              VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-                        (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2,
+                        (hkey, sitename, channel, groupname, fund_name, statistic_date, url, nav, added_nav, nav_2,
                          added_nav_2, total_nav, share, income_value_per_ten_thousand, d7_annualized_return,))
                 elif row['hkey'] != hkey:
                     cursor.execute(
-                        'UPDATE ' + table + ' SET hkey=%s,url=%s,groupname=%s,nav=%s,added_nav=%s,nav_2=%s,added_nav_2=%s,total_nav=%s,share=%s,income_value_per_ten_thousand=%s,d7_annualized_return=%s WHERE hkey=%s',
-                        (hkey, url, groupname, nav, added_nav, nav_2, added_nav_2, total_nav, share,
+                        'UPDATE ' + table + ' SET hkey=%s,groupname=%s,url=%s,nav=%s,added_nav=%s,nav_2=%s,added_nav_2=%s,total_nav=%s,share=%s,income_value_per_ten_thousand=%s,d7_annualized_return=%s WHERE hkey=%s',
+                        (hkey, groupname, url, nav, added_nav, nav_2, added_nav_2, total_nav, share,
                          income_value_per_ten_thousand, d7_annualized_return, row['hkey'],))
             finally:
                 cursor.close()
