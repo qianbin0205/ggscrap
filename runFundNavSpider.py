@@ -2,7 +2,9 @@ from scrapy import cmdline
 
 
 # 免认证
+
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_AnXinzq', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_WangXinzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BeijingTrust', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_HNGTrust', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_HuaYinCaiFu', '-a', 'jobId=0L'])
@@ -37,7 +39,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Glqh', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_HualianFutures', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_PinzhengFund', '-a', 'jobId=0L'])
-cmdline.execute(['scrapy', 'crawl', 'FundNav_Qiluzq', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_Qiluzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_SmileStone', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Szhvc', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_XiamenTrust', '-a', 'jobId=0L'])
