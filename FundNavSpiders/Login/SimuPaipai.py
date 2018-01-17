@@ -53,7 +53,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
             ips.append({
                 'pg': 1,
                 'url': 'http://dc.simuwang.com/fund/getNavList.html?',
-                'form': {'id': fund_id, 'muid': '55709', 'page': lambda pg: str(pg)},
+                'form': {'id': fund_id, 'muid': '55709', 'page': lambda page: str(page)},
                 'ref': u,
                 'ext': {'fund_name': fund_name, 'fund_id': fund_id},
                 'username': '18637946652',
@@ -106,7 +106,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
                 'url': url,
                 'form': form,
                 'ref': response.request.headers['Referer'],
-                'ext': {'fund_name': fund_name}
+                'ext': ext
             })
 
         yield self.request_next(fps, ips)
