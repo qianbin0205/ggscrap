@@ -77,20 +77,26 @@ class QiluzqSpider(GGFundNavSpider):
                 item['channel'] = self.channel
                 item['url'] = response.url
                 item['fund_name'] = fund_name
-
                 statistic_date = row.xpath('./span[2]/text()').extract_first()
                 item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-                nav = row.xpath('./span[3]').re_first(r'>\s*?([0-9.]+)\s*?<')
-                item['nav'] = float(nav) if nav is not None else None
+                if fund_name == '齐鲁稳固21天集合资产管理计划':
+                    income_value_per_ten_thousand = row.xpath('./span[3]/text()').extract_first()
+                    item['income_value_per_ten_thousand'] = float(income_value_per_ten_thousand) if income_value_per_ten_thousand is not None else None
 
-                added_nav = row.xpath('./span[4]').re_first(r'>\s*?([0-9.]+)\s*?<')
-                item['added_nav'] = float(added_nav) if added_nav is not None else None
+                    d7_annualized_return = row.xpath('./span[4]').re_first(r'>\s*?([0-9.]+)%\s*?<')
+                    item['d7_annualized_return'] = float(d7_annualized_return)if d7_annualized_return is not None else None
+                else:
+                    nav = row.xpath('./span[3]').re_first(r'>\s*?([0-9.]+)\s*?<')
+                    item['nav'] = float(nav) if nav is not None else None
+
+                    added_nav = row.xpath('./span[4]').re_first(r'>\s*?([0-9.]+)\s*?<')
+                    item['added_nav'] = float(added_nav) if added_nav is not None else None
 
                 yield item
             if pg['page'] < int(totalpage):
                 pg['page'] += 1
-                ips.insert(0, {
+                ips.append({
                     'pg': pg,
                     'url': url,
                     'ref': response.request.headers['Referer'],
