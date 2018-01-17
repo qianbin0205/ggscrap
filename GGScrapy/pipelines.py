@@ -233,6 +233,8 @@ class GGFundNavPipeline(object):
             seed += '&fund_name=' + quote(fund_name)
             seed += '&statistic_date=' + quote(statistic_date)
 
+            if url is not None:
+                seed += '&url=' + quote(url)
             if fund_code is not None:
                 seed += '&fund_code=' + quote(fund_code)
             if nav is not None:
