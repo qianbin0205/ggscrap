@@ -175,27 +175,31 @@ class GGNewsPipeline(object):
 class GGFundNavPipeline(object):
     def process_item(self, item, spider):
         try:
-            sitename = item['sitename'].strip()
-            channel = item['channel'].strip()
+            sitename = item['sitename'] if 'sitename' in item else None
+            sitename = sitename.strip() if isinstance(sitename, str) else None
+            assert sitename is not None and sitename != ''
 
-            if 'groupname' in item:
-                groupname = item['groupname']
-            else:
-                groupname = spider.groupname
+            channel = item['channel'] if 'channel' in item else None
+            channel = channel.strip() if isinstance(channel, str) else None
+            assert channel is not None and channel != ''
 
-            fund_name = item['fund_name']
+            groupname = item['groupname'] if 'groupname' in item else spider.groupname
+            groupname = groupname.strip() if isinstance(groupname, str) else None
+            assert groupname is None or groupname != ''
+
+            fund_name = item['fund_name'] if 'fund_name' in item else None
             fund_name = fund_name.strip() if isinstance(fund_name, str) else None
             assert fund_name is not None and fund_name != ''
 
-            statistic_date = item['statistic_date']
+            statistic_date = item['statistic_date'] if 'statistic_date' in item else None
             assert isinstance(statistic_date, datetime)
             statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
 
-            url = item['url']
+            url = item['url'] if 'url' in item else None
             url = url.strip() if isinstance(url, str) else None
             assert url is None or url != ''
 
-            fund_code = item['fund_code']
+            fund_code = item['fund_code'] if 'fund_code' in item else None
             fund_code = fund_code.strip() if isinstance(fund_code, str) else None
             assert fund_code is None or fund_code != ''
 
