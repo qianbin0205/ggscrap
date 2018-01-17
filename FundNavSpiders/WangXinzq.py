@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import re
 from datetime import datetime
 from urllib.parse import urljoin
-from scrapy.utils.response import get_base_url
-from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
-import re
+from GGScrapy.items import GGFundNavItem
 
 
 class WangXinzqSpider(GGFundNavSpider):
@@ -45,8 +44,10 @@ class WangXinzqSpider(GGFundNavSpider):
             ips = response.meta['ips']
 
             fund_info = response.css('div.kUi_artice').xpath('string(.)').extract_first().strip()
-            # 特殊结构：http: // www.wxzq.com / detail / 513103.html
+            # 特殊结构：http://www.wxzq.com/detail/513103.html
+            # 会有1个日期对应多个产品的情况
             date = re.findall('截止(\d{0,4}年\d{0,2}月\d{0,2}日)', fund_info)[0]
+
             fund_name_list = re.findall('\s+(.+?)份额净值：', fund_info, re.DOTALL)
             nav_list = re.findall('净值：(\d+\.\d*)?', fund_info, re.DOTALL)
 
@@ -68,7 +69,7 @@ class WangXinzqSpider(GGFundNavSpider):
                 'url': ips_url,
                 'ref': response.url
             })
-            # 由于网页结构没有最后一页是无线循环的刷不到，
-            # 永远刷不到底，但特征是在最后一页打开的时候response是500
-            # 所以在ips回到净值解析的时候，判断了状态是否200,如果不是200那么就是最后一夜
+            # 由于网页结构没有最后一页的设定，永远刷不到底
+            # 但特征是在最后一页打开的时候response是500
+            # 所以在ips回到净值解析的时候，判断了状态是否200,如果不是200那么就是最后一页
             yield self.request_next([], ips)
