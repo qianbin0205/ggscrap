@@ -78,6 +78,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
         fund_name = ext['fund_name']
         fund_id = ext['fund_id']
 
+        date = datetime.now()
         datas = json.loads(response.text)['data']
         for data in datas:
             item = GGFundNavItem()
@@ -89,7 +90,9 @@ class SimuPaipaiSpider(GGFundNavSpider):
             item['fund_code'] = fund_id
 
             statistic_date = data['d']
-            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+            statistic_date = datetime.strptime(statistic_date, '%Y-%m-%d')
+            date = statistic_date if statistic_date < date else date
+            item['statistic_date'] = statistic_date
 
             nav = data['n']
             item['nav'] = float(nav) if nav is not None else None
@@ -98,15 +101,16 @@ class SimuPaipaiSpider(GGFundNavSpider):
             item['added_nav'] = float(added_nav) if added_nav is not None else None
             yield item
 
-        form = response.meta['form']
-        pagecount = json.loads(response.text)['pager']['pagecount']
-        if pg < pagecount:
-            ips.insert(0, {
-                'pg': pg + 1,
-                'url': url,
-                'form': form,
-                'ref': response.request.headers['Referer'],
-                'ext': ext
-            })
+        if date >= datetime(2017, 12, 15):
+            form = response.meta['form']
+            pagecount = json.loads(response.text)['pager']['pagecount']
+            if pg < pagecount:
+                ips.insert(0, {
+                    'pg': pg + 1,
+                    'url': url,
+                    'form': form,
+                    'ref': response.request.headers['Referer'],
+                    'ext': ext
+                })
 
         yield self.request_next(fps, ips)

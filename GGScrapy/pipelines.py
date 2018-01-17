@@ -196,8 +196,9 @@ class GGFundNavPipeline(object):
             statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
 
             url = item['url'] if 'url' in item else None
+            url = url.decode() if isinstance(url, bytes) else url
             url = url.strip() if isinstance(url, str) else None
-            assert url is None or url != ''
+            assert url is not None and url != ''
 
             fund_code = item['fund_code'] if 'fund_code' in item else None
             fund_code = fund_code.strip() if isinstance(fund_code, str) else None
