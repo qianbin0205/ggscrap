@@ -223,7 +223,7 @@ class GGFundNavPipeline(object):
                 table = config.fund_nav['db']['table']
 
                 cursor.execute(
-                    'select top 1 * from ' + table + ' where sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
+                    'SELECT TOP 1 * FROM ' + table + ' WHERE sitename=%s AND channel=%s AND fund_name=%s AND statistic_date=%s',
                     (sitename, channel, fund_name, statistic_date,))
                 row = cursor.fetchone()
 
@@ -233,13 +233,10 @@ class GGFundNavPipeline(object):
                                              VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (hkey, sitename, channel, url, groupname, fund_name, statistic_date, nav, added_nav, nav_2, added_nav_2,))
                 else:
-                    cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
-                    row = cursor.fetchone()
-
-                    if row is None:
-                        cursor.execute(
-                            'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s, nav_2=%s, added_nav_2=%s WHERE sitename=%s and channel=%s and fund_name=%s and statistic_date=%s',
-                            (hkey, url, groupname, nav, added_nav, nav_2, added_nav_2, sitename, channel, fund_name, statistic_date,))
+                    cursor.execute(
+                        'UPDATE ' + table + ' SET hkey=%s, url=%s, groupname=%s, nav=%s, added_nav=%s, nav_2=%s, added_nav_2=%s WHERE hkey=(SELECT TOP 1 hkey FROM ' + table + ' WHERE sitename=%s AND channel=%s AND fund_name=%s AND statistic_date=%s ORDER BY tmstamp)',
+                        (hkey, url, groupname, nav, added_nav, nav_2, added_nav_2, sitename, channel, fund_name,
+                         statistic_date,))
 
             finally:
                 cursor.close()

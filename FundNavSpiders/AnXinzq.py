@@ -50,7 +50,7 @@ class AnXinzqSpider(GGFundNavSpider):
 
         funds = json.loads(response.text)['results'][0]['data']
         for fund in funds:
-            fund_name = fund['product_name']
+            fund_name = fund['product_abbr']
             fund_code = fund['product_code']
             ips.append({
                 'pg': 1,
