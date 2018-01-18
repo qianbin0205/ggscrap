@@ -36,6 +36,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_AshnAsset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BoyiInvest', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Glqh', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_Guotaijunan', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_HualianFutures', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_PinzhengFund', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Qiluzq', '-a', 'jobId=0L'])
@@ -49,7 +50,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sczq', '-a', 'jobId=0L'])
 
 # 耗时抓取(自动登录)
-cmdline.execute(['scrapy', 'crawl', 'FundNav_SimuPaipai', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_SimuPaipai', '-a', 'jobId=0L'])
 
 # 耗时抓取(Cookie认证)
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sitic', '-a', 'jobId=0L'])
