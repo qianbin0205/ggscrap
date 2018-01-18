@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 import json
 from datetime import datetime
 from scrapy import FormRequest
@@ -100,9 +101,13 @@ class SimuPaipaiSpider(GGFundNavSpider):
             item['statistic_date'] = statistic_date
 
             nav = data['n']
+            nav = re.search(r'([0-9.]+)', nav)
+            nav = nav.group(0)if nav is not None else None
             item['nav'] = float(nav) if nav is not None else None
 
             added_nav = data['cnw']
+            added_nav = re.search(r'([0-9.]+)', added_nav)
+            added_nav = added_nav.group(0) if added_nav is not None else None
             item['added_nav'] = float(added_nav) if added_nav is not None else None
             yield item
 
