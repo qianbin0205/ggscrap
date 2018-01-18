@@ -6,7 +6,7 @@ from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
-from datetime import date
+import json
 
 
 class QiluzqSpider(GGFundNavSpider):
@@ -24,7 +24,7 @@ class QiluzqSpider(GGFundNavSpider):
         super(QiluzqSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-        yield Request(url='https://www.ztzqzg.com/products/product-category/t/t/',
+        yield Request(url='https://www.ztzqzg.com/products/product-category/99/t/t',
                       meta={'fps': [], 'ips': []},
                       cookies=self.cookies,
                       callback=self.parse_fund_pre)
@@ -33,7 +33,7 @@ class QiluzqSpider(GGFundNavSpider):
         fps = response.meta['fps']
         ips = response.meta['ips']
 
-        urls = response.xpath("//div[@class='product-series-list']/ul/li/a/@data-qurl").extract()
+        urls = response.xpath("//div[@class='product-series-list']/ul/li/a/@data-qurl").extract()[28:]
         for url in urls:
             url = urljoin(get_base_url(response), url)
             fps.append({
@@ -50,11 +50,9 @@ class QiluzqSpider(GGFundNavSpider):
         for fund in funds:
             fund_name = fund.xpath('./span[@class="col-md-4"]/@data-name').extract_first()
             fund_code = fund.xpath('./span[@class="col-md-4"]/@data-fundcode').extract_first()
-            fund_setupdate = fund.xpath('./span[@class="col-md-4"]/@data-setupdate').extract_first()
             ips.append({
-                'pg': {'page': 1, 'fund_code': fund_code, 'fund_setupdate': fund_setupdate},
-                'url': lambda pg: 'https://www.ztzqzg.com/products/findCommonByCode/' + str(pg['fund_code']) + '/cpjzlist?start='
-                                  + str(pg['fund_setupdate']) + '&end=' + date.isoformat(date.today())+'&pageIndex=' + str(pg['page']),
+                'url': 'https://www.ztzqzg.com/products/historyProfit',
+                'form': {'fundCode': fund_code},
                 'ref': response.url,
                 'ext': {'fund_name': fund_name}
             })
@@ -65,61 +63,35 @@ class QiluzqSpider(GGFundNavSpider):
         fps = response.meta['fps']
         ips = response.meta['ips']
         ext = response.meta['ext']
-        pg = response.meta['pg']
-        url = response.meta['url']
         fund_name = ext['fund_name']
-        totalpage = response.xpath("//a[text()='尾页']/@data-index").extract_first()
-        if totalpage is not None:
-            rows = response.xpath("//ul/li")
-            for row in rows:
-                item = GGFundNavItem()
-                item['sitename'] = self.sitename
-                item['channel'] = self.channel
-                item['url'] = response.url
-                item['fund_name'] = fund_name
-                statistic_date = row.xpath('./span[2]/text()').extract_first()
-                item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-                if fund_name == '齐鲁稳固21天集合资产管理计划':
-                    income_value_per_ten_thousand = row.xpath('./span[3]/text()').extract_first()
-                    item['income_value_per_ten_thousand'] = float(income_value_per_ten_thousand) if income_value_per_ten_thousand is not None else None
+        data = json.loads(response.text)['data']
+        dates = data['x']
+        navs = data['y1']
+        addednavs = data['y2']
+        extra = json.loads(response.text)['extra']
+        for i in range(0, len(dates)):
+            item = GGFundNavItem()
+            item['sitename'] = self.sitename
+            item['channel'] = self.channel
+            item['url'] = response.url
+            item['fund_name'] = fund_name
 
-                    d7_annualized_return = row.xpath('./span[4]').re_first(r'>\s*?([0-9.]+)%\s*?<')
-                    item['d7_annualized_return'] = float(d7_annualized_return)if d7_annualized_return is not None else None
-                else:
-                    nav = row.xpath('./span[3]').re_first(r'>\s*?([0-9.]+)\s*?<')
-                    item['nav'] = float(nav) if nav is not None else None
+            statistic_date = dates[i]
+            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-                    added_nav = row.xpath('./span[4]').re_first(r'>\s*?([0-9.]+)\s*?<')
-                    item['added_nav'] = float(added_nav) if added_nav is not None else None
-
-                yield item
-            if pg['page'] < int(totalpage):
-                pg['page'] += 1
-                ips.append({
-                    'pg': pg,
-                    'url': url,
-                    'ref': response.request.headers['Referer'],
-                    'ext': {'fund_name': fund_name}
-                })
-        else:
-            rows = response.css('div.scroll-cpjz-list>ul>li')
-            for row in rows:
-                item = GGFundNavItem()
-                item['sitename'] = self.sitename
-                item['channel'] = self.channel
-                item['url'] = response.url
-                item['fund_name'] = fund_name
-
-                statistic_date = row.xpath('./span[2]/text()').extract_first()
-                item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
-
-                nav = row.xpath('./span[3]/text()').extract_first()
+            if extra == 3 or extra == 2:
+                nav = navs[i]
                 item['nav'] = float(nav) if nav is not None else None
 
-                added_nav = row.xpath('./span[4]/text()').extract_first()
+                added_nav = addednavs[i]
                 item['added_nav'] = float(added_nav) if added_nav is not None else None
+            elif extra == 1:
+                income_value_per_ten_thousand = navs[i]
+                item['income_value_per_ten_thousand'] = float(income_value_per_ten_thousand) if income_value_per_ten_thousand is not None else None
 
-                yield item
+                d7_annualized_return = addednavs[i]
+                item['d7_annualized_return'] = float(d7_annualized_return * 100)if d7_annualized_return is not None else None
+            yield item
 
         yield self.request_next(fps, ips)
