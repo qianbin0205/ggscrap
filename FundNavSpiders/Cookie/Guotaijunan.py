@@ -10,7 +10,7 @@ from GGScrapy.ggspider import GGFundNavSpider
 class GuotaijunanSpider(GGFundNavSpider):
     name = 'FundNav_Guotaijunan'
     sitename = '国泰君安'
-    channel = '发行机构'
+    channel = '券商资管净值'
     allowed_domains = ['www.gtjazg.com']
     start_urls = ['https://www.gtjazg.com/index.jsp']
 
