@@ -10,7 +10,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Jiuxi168', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sztrhj', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_SZyuanwangjiao', '-a', 'jobId=0L'])
-cmdline.execute(['scrapy', 'crawl', 'FundNav_WangXinzq', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_WangXinzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhTrust', '-a', 'jobId=0L'])
 
 # 自动登录
