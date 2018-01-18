@@ -26,7 +26,9 @@ class MingxiZichanSpider(GGFundNavSpider):
                                     'auto_login': 'on',
                                     'login': '0',
                                     },
-
+                          meta={
+                              'handle_httpstatus_list': [302],
+                          },
                           callback=self.parse_login)
 
     def parse_login(self, response):
