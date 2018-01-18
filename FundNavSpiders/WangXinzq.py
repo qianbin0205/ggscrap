@@ -43,7 +43,7 @@ class WangXinzqSpider(GGFundNavSpider):
         ips = response.meta['ips']
 
         fund_info = response.css('div.kUi_artice').xpath('string(.)').extract_first().strip()
-        # 特殊结构：http://www.wxzq.com/detail/513103.html
+        # 特殊结构：http://www.wxzq.com/detail/513103.html，http://www.wxzq.com/detail/412921.html
         # 会有1个日期对应多个产品的情况
         date = re.findall('截止(\d{0,4}年\d{0,2}月\d{0,2}日)', fund_info)[0]
 
