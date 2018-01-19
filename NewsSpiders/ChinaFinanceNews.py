@@ -263,6 +263,7 @@ class ChinaFinanceNewsSpider(GGNewsSpider):
             item['content'] = content
             item['sitename'] = self.sitename
             item['channel'] = ch['name']
+            item['entry'] = ch['entry']
             item['url'] = response.url
             title = response.xpath("//div[@class='wrap c top']/h1/text()").extract_first()
             if title is None:

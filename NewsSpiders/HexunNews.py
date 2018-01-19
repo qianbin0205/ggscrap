@@ -964,6 +964,7 @@ class HexunNewsSpider(GGNewsSpider):
             item = GGNewsItem()
             item['sitename'] = self.sitename
             item['channel'] = ch['name']
+            item['entry'] = ch['entry']
             item['url'] = response.url
 
             title = response.xpath("//div[@class='layout mg articleName']/h1/text()").extract_first()

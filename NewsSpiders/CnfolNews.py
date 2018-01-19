@@ -569,6 +569,7 @@ class CnfolNewsSpider(GGNewsSpider):
             item['content'] = content
             item['sitename'] = self.sitename
             item['channel'] = ch['name']
+            item['entry'] = ch['entry']
             item['url'] = response.url
 
             title = response.xpath("//div[@class='Art NewArt']/h1/text()").extract_first()
