@@ -56,4 +56,4 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_WangXinzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Sitic', '-a', 'jobId=0L'])
 
 #浙江巴克夏投资
-cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhejiangBakexiaInvest', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhejiangBakexiaInvest', '-a', 'jobId=0L'])
