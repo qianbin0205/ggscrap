@@ -69,7 +69,7 @@ class WangXinzqSpider(GGFundNavSpider):
             item['fund_name'] = fund_name
             item['statistic_date'] = date
             item['nav'] = float(nav) if nav is not None else None
-            item['added_nav'] = None
+            # item['added_nav'] = None
 
             yield item
 
