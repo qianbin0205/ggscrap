@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 import json
 from datetime import datetime
 from scrapy import FormRequest
@@ -13,6 +14,11 @@ class SimuPaipaiSpider(GGFundNavSpider):
     channel = '第三方净值'
     allowed_domains = ['simuwang.com']
     start_urls = ['http://www.simuwang.com/?utm_source=8']
+
+    custom_settings = {
+        'DOWNLOAD_DELAY': 2,
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNavPipeline': 300}
+    }
 
     def __init__(self, limit=None, *args, **kwargs):
         super(SimuPaipaiSpider, self).__init__(limit, *args, **kwargs)
@@ -53,9 +59,9 @@ class SimuPaipaiSpider(GGFundNavSpider):
             ips.append({
                 'pg': 1,
                 'url': 'http://dc.simuwang.com/fund/getNavList.html?',
-                'form': {'id': fund_id, 'muid': '55709', 'page': lambda pg: str(pg)},
+                'form': {'id': fund_id, 'muid': '55709', 'page': lambda page: str(page)},
                 'ref': u,
-                'ext': {'fund_name': fund_name},
+                'ext': {'fund_name': fund_name, 'fund_id': fund_id},
                 'username': '18637946652',
                 'password': '870301'
             })
@@ -76,7 +82,9 @@ class SimuPaipaiSpider(GGFundNavSpider):
         ext = response.meta['ext']
         url = response.meta['url']
         fund_name = ext['fund_name']
+        fund_id = ext['fund_id']
 
+        date = datetime.now()
         datas = json.loads(response.text)['data']
         for data in datas:
             item = GGFundNavItem()
@@ -85,26 +93,34 @@ class SimuPaipaiSpider(GGFundNavSpider):
             item['url'] = response.request.headers['Referer']
 
             item['fund_name'] = fund_name
+            item['fund_code'] = fund_id
 
             statistic_date = data['d']
-            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+            statistic_date = datetime.strptime(statistic_date, '%Y-%m-%d')
+            date = statistic_date if statistic_date < date else date
+            item['statistic_date'] = statistic_date
 
             nav = data['n']
+            nav = re.search(r'([0-9.]+)', nav)
+            nav = nav.group(0)if nav is not None else None
             item['nav'] = float(nav) if nav is not None else None
 
             added_nav = data['cnw']
+            added_nav = re.search(r'([0-9.]+)', added_nav)
+            added_nav = added_nav.group(0) if added_nav is not None else None
             item['added_nav'] = float(added_nav) if added_nav is not None else None
             yield item
 
-        form = response.meta['form']
-        pagecount = json.loads(response.text)['pager']['pagecount']
-        if pg < pagecount:
-            ips.insert(0, {
-                'pg': pg + 1,
-                'url': url,
-                'form': form,
-                'ref': response.request.headers['Referer'],
-                'ext': {'fund_name': fund_name}
-            })
+        if date >= datetime(2017, 12, 15):
+            form = response.meta['form']
+            pagecount = json.loads(response.text)['pager']['pagecount']
+            if pg < pagecount:
+                ips.insert(0, {
+                    'pg': pg + 1,
+                    'url': url,
+                    'form': form,
+                    'ref': response.request.headers['Referer'],
+                    'ext': ext
+                })
 
         yield self.request_next(fps, ips)

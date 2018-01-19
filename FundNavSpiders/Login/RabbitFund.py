@@ -49,7 +49,7 @@ class RabbitFundSpider(GGFundNavSpider):
                 'url': url,
                 'ref': response.url
             })
-        next_url = response.xpath("//a[text()='下一页 ']/@href").extract_first()
+        next_url = response.xpath("//a[contains(text(),'下一页')]/@href").extract_first()
         if next_url is not None:
             next_url = urljoin(get_base_url(response), next_url)
             fps.append({

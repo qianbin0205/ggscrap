@@ -14,6 +14,9 @@ class SztrhjSpider(GGFundNavSpider):
     allowed_domains = ['www.sztrhj.com']
     start_urls = ['http://www.sztrhj.com/tairun/product/']
 
+    username = '13523794375'
+    password = '123456'
+
     def __init__(self, limit=None, *args, **kwargs):
         super(SztrhjSpider, self).__init__(limit, *args, **kwargs)
 
@@ -21,9 +24,7 @@ class SztrhjSpider(GGFundNavSpider):
         fps = [
             {
                 'url': 'http://www.sztrhj.com/tairun/product/',
-                'ref': None,
-                'username': '13523794375',
-                'password': '123456'
+                'ref': None
             }
         ]
 

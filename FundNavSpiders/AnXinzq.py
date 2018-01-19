@@ -27,6 +27,16 @@ class AnXinzqSpider(GGFundNavSpider):
                          'fina_type': '0', 'per_buy_limit_start': '', 'per_buy_limit_end': '', 'search_value': '',
                          'user_id': '', 'asset_busin_type': ''},
                 'ref': 'https://mall.essence.com.cn/mall/views/financial/zigIndex.html',
+            },
+            {
+                'pg': 1,
+                'url': 'https://mall.essence.com.cn/servlet/json',
+                'form': {'funcNo': '1000050', 'product_shelf': '1', 'fina_belongs': '1', 'page': lambda pg: str(pg),
+                         'numPerPage': '500', 'risk_level': '', 'profit_type': '', 'product_expires_start': '',
+                         'product_expires_end': '',
+                         'fina_type': '', 'per_buy_limit_start': '', 'per_buy_limit_end': '', 'search_value': '',
+                         'user_id': '', 'asset_busin_type': '32'},
+                'ref': 'https://mall.essence.com.cn/mall/views/financial/ziglist.html?productClass=1xCbZAd5Dcs=',
             }
         ]
 
@@ -50,7 +60,7 @@ class AnXinzqSpider(GGFundNavSpider):
 
         funds = json.loads(response.text)['results'][0]['data']
         for fund in funds:
-            fund_name = fund['product_name']
+            fund_name = fund['product_abbr']
             fund_code = fund['product_code']
             ips.append({
                 'pg': 1,

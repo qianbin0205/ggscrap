@@ -18,20 +18,37 @@ class GGSpider(CrawlSpider):
         # 'ITEM_PIPELINES': {'GGScrapy.pipelines.GGPipeline': 300}
     }
 
+    cookies = None
+
     def __init__(self, *args, **kwargs):
         super(GGSpider, self).__init__(*args, **kwargs)
+        self.cookies = self.parse_cookies(self.cookies)
 
     @staticmethod
     def parse_cookies(cookies):
-        if cookies is not None:
-            ret = {}
+        if isinstance(cookies, str):
+            dct = {}
             cks = cookies.split(';')
             for ck in cks:
                 ck = ck.split('=', 1)
                 key = ck[0].strip()
                 value = ck[1].strip()
-                ret[key] = value
-            cookies = ret
+                dct[key] = value
+            cookies = dct
+        if isinstance(cookies, dict):
+            lst = []
+            for k, v in cookies.items():
+                lst.append({
+                    'name': k,
+                    'value': v,
+                    'path': '/'
+                })
+            cookies = lst
+        if isinstance(cookies, list):
+            for item in cookies:
+                item['path'] = '/'
+        else:
+            cookies = None
         return cookies
 
 
@@ -86,8 +103,8 @@ class GGNewsSpider(GGSpider):
             url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
-            cookies = cp['cookies'] if 'cookies' in cp else None
-            cookies = self.parse_cookies(cookies)
+            cookies = self.cookies
+            self.cookies = None
 
             count = cp['ch']['count']
             if self.limit is None or count < self.limit:
@@ -106,8 +123,8 @@ class GGNewsSpider(GGSpider):
             url = rc['url'] if 'url' in rc else None
             url = url(pg) if callable(url) else url
 
-            cookies = rc['cookies'] if 'cookies' in rc else None
-            cookies = self.parse_cookies(cookies)
+            cookies = self.cookies
+            self.cookies = None
 
             count = rc['ch']['count']
             if self.limit is None or count < self.limit:
@@ -128,8 +145,8 @@ class GGNewsSpider(GGSpider):
             url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
-            cookies = cp['cookies'] if 'cookies' in cp else None
-            cookies = self.parse_cookies(cookies)
+            cookies = self.cookies
+            self.cookies = None
 
             count = cp['ch']['count']
             if self.limit is None or count < self.limit:
@@ -150,7 +167,7 @@ class GGNewsSpider(GGSpider):
 # 基金净值Spider基类
 class GGFundNavSpider(GGSpider):
     channel = '基金净值'
-    groupname = 'scrapy'
+    groupname = 'GGScrapy'
 
     custom_settings = {
         'DOWNLOAD_DELAY': 1,
@@ -176,8 +193,8 @@ class GGFundNavSpider(GGSpider):
             headers = headers if isinstance(headers, dict) else {}
             headers['Referer'] = ip['ref']
 
-            cookies = ip['cookies'] if 'cookies' in ip else None
-            cookies = self.parse_cookies(cookies)
+            cookies = self.cookies
+            self.cookies = None
 
             pg = ip['pg'] if 'pg' in ip else None
             url = ip['url'] if 'url' in ip else None
@@ -209,8 +226,8 @@ class GGFundNavSpider(GGSpider):
             headers = headers if isinstance(headers, dict) else {}
             headers['Referer'] = fp['ref']
 
-            cookies = fp['cookies'] if 'cookies' in fp else None
-            cookies = self.parse_cookies(cookies)
+            cookies = self.cookies
+            self.cookies = None
 
             pg = fp['pg'] if 'pg' in fp else None
             url = fp['url'] if 'url' in fp else None
