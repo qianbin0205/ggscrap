@@ -21,6 +21,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-证券要闻',
+                    'entry': 'http://news.cnfol.com/zhengquanyaowen/',
                     'count': 0
                 },
                 'pg': 1,
@@ -31,6 +32,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-头条精华',
+                    'entry': 'http://news.cnfol.com/toutiaojinghua/',
                     'count': 0
                 },
                 'pg': 1,
@@ -41,6 +43,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '市场-市场测评',
+                    'entry': 'http://sc.stock.cnfol.com/shichangceping/',
                     'count': 0
                 },
                 'pg': 1,
@@ -51,6 +54,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '市场-股市聚焦',
+                    'entry': 'http://sc.stock.cnfol.com/gushijujiao/',
                     'count': 0
                 },
                 'pg': 1,
@@ -61,6 +65,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '市场-主力动向',
+                    'entry': 'http://sc.stock.cnfol.com/zldongxiang/',
                     'count': 0
                 },
                 'pg': 1,
@@ -71,6 +76,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '市场-板块聚焦',
+                    'entry': 'http://sc.stock.cnfol.com/bkjujiao/',
                     'count': 0
                 },
                 'pg': 1,
@@ -81,6 +87,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '港股-A+H资讯',
+                    'entry': 'http://hkstock.cnfol.com/A+Hzixun/',
                     'count': 0
                 },
                 'pg': 1,
@@ -91,6 +98,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-市场分析',
+                    'entry': 'http://www.cnfol.hk/news/ganggujujiao/',
                     'count': 0
                 },
                 'pg': 0,
@@ -102,6 +110,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-即时市况',
+                    'entry': 'http://www.cnfol.hk/news/jishisk/',
                     'count': 0
                 },
                 'pg': 0,
@@ -113,6 +122,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-宏观财经',
+                    'entry': 'http://www.cnfol.hk/news/gncaijing/',
                     'count': 0
                 },
                 'pg': 1,
@@ -124,6 +134,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-新股要闻',
+                    'entry': 'http://www.cnfol.hk/ipo/',
                     'count': 0
                 },
                 'pg': 1,
@@ -135,6 +146,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '沪深港通频道',
+                    'entry': 'http://www.cnfol.hk/shhkc/',
                     'count': 0
                 },
                 'pg': 1,
@@ -146,6 +158,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-窝轮要闻',
+                    'entry': 'http://www.cnfol.hk/warrants/',
                     'count': 0
                 },
                 'pg': 1,
@@ -157,6 +170,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '基金-基金动态',
+                    'entry': 'http://fund.cnfol.com/jijindongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -167,6 +181,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '基金-宏观经济',
+                    'entry': 'http://fund.cnfol.com/hongguanjingji/',
                     'count': 0
                 },
                 'pg': 1,
@@ -177,6 +192,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '私募频道-私募动态',
+                    'entry': 'http://fund.cnfol.com/smjj/simudongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -187,6 +203,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '理财-债券资讯',
+                    'entry': 'http://money.cnfol.com/zqzixun/',
                     'count': 0
                 },
                 'pg': 1,
@@ -197,6 +214,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货频道',
+                    'entry': 'http://futures.cnfol.com/',
                     'count': 0
                 },
                 'pg': 1,
@@ -207,6 +225,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-期市动态',
+                    'entry': 'http://futures.cnfol.com/qishidongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -217,6 +236,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-机构论市',
+                    'entry': 'http://futures.cnfol.com/jigoulunshi/',
                     'count': 0
                 },
                 'pg': 1,
@@ -227,6 +247,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-名家论市',
+                    'entry': 'http://futures.cnfol.com/mingjialunshi/',
                     'count': 0
                 },
                 'pg': 1,
@@ -237,6 +258,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-金融期货',
+                    'entry': 'http://futures.cnfol.com/jinrongqihuo/',
                     'count': 0
                 },
                 'pg': 1,
@@ -247,6 +269,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-能源',
+                    'entry': 'http://futures.cnfol.com/ny/',
                     'count': 0
                 },
                 'pg': 1,
@@ -257,6 +280,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-化工',
+                    'entry': 'http://futures.cnfol.com/huagong/',
                     'count': 0
                 },
                 'pg': 1,
@@ -267,6 +291,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '国际原油市场',
+                    'entry': 'http://gold.cnfol.com/guojiyuanyousc/',
                     'count': 0
                 },
                 'pg': 1,
@@ -276,6 +301,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-农副',
+                    'entry': 'http://futures.cnfol.com/nongfu/',
                     'count': 0
                 },
                 'pg': 1,
@@ -286,6 +312,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-金属',
+                    'entry': 'http://futures.cnfol.com/js/',
                     'count': 0
                 },
                 'pg': 1,
@@ -296,6 +323,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '汇市观察',
+                    'entry': 'http://forex.cnfol.com/jingjiyaowen/',
                     'count': 0
                 },
                 'pg': 1,
@@ -305,6 +333,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '行业资讯',
+                    'entry': 'http://forex.cnfol.com/hyzx/',
                     'count': 0
                 },
                 'pg': 1,
@@ -314,6 +343,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '汇市速递',
+                    'entry': 'http://forex.cnfol.com/huishizhibo/',
                     'count': 0
                 },
                 'pg': 1,
@@ -323,6 +353,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '专家汇评',
+                    'entry': 'http://forex.cnfol.com/zhuanjiajianyi/',
                     'count': 0
                 },
                 'pg': 1,
@@ -332,6 +363,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '机构分析',
+                    'entry': 'http://forex.cnfol.com/jigouhuiping/',
                     'count': 0
                 },
                 'pg': 1,
@@ -341,6 +373,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '币种分析',
+                    'entry': 'http://forex.cnfol.com/bizhongfenxi/',
                     'count': 0
                 },
                 'pg': 1,
@@ -350,6 +383,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇-外汇理财',
+                    'entry': 'http://forex.cnfol.com/waihuilicai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -359,6 +393,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇-二元期权',
+                    'entry': 'http://forex.cnfol.com/eyqq/',
                     'count': 0
                 },
                 'pg': 1,
@@ -368,6 +403,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-产业经济',
+                    'entry': 'http://news.cnfol.com/chanyejingji/',
                     'count': 0
                 },
                 'pg': 1,
@@ -378,6 +414,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-消费',
+                    'entry': 'http://news.cnfol.com/xiaofei/',
                     'count': 0
                 },
                 'pg': 1,
@@ -388,6 +425,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-IT',
+                    'entry': 'http://news.cnfol.com/it/',
                     'count': 0
                 },
                 'pg': 1,
@@ -398,6 +436,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '行业-行业综合',
+                    'entry': 'http://hy.stock.cnfol.com/hangyezonghe/',
                     'count': 0
                 },
                 'pg': 1,
@@ -408,6 +447,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '行业-商业',
+                    'entry': 'http://hy.stock.cnfol.com/bankuaijujiao/',
                     'count': 0
                 },
                 'pg': 1,
@@ -418,6 +458,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '行业-行业数据',
+                    'entry': 'http://hy.stock.cnfol.com/hangyeshuju/',
                     'count': 0
                 },
                 'pg': 1,
@@ -428,6 +469,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '股票频道-行业',
+                    'entry': 'http://hy.stock.cnfol.com/',
                     'count': 0
                 },
                 'pg': 1,
@@ -438,6 +480,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-国内财经',
+                    'entry': 'http://news.cnfol.com/guoneicaijing/',
                     'count': 0
                 },
                 'pg': 1,
@@ -448,6 +491,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-商业要闻',
+                    'entry': 'http://news.cnfol.com/shangyeyaowen/',
                     'count': 0
                 },
                 'pg': 1,
@@ -458,6 +502,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-国际财经',
+                    'entry': 'http://news.cnfol.com/guojicaijing/',
                     'count': 0
                 },
                 'pg': 1,
@@ -468,6 +513,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '银行-银行业内动态',
+                    'entry': 'http://bank.cnfol.com/yinhangyeneidongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -478,6 +524,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险-保险动态',
+                    'entry': 'http://insurance.cnfol.com/baoxiandongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -488,6 +535,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '金市直播',
+                    'entry': 'http://gold.cnfol.com/jinshizhibo/',
                     'count': 0
                 },
                 'pg': 1,
@@ -497,6 +545,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '名家机构',
+                    'entry': 'http://forex.cnfol.com/keyword/mjjg.shtml',
                     'count': 0
                 },
                 'pg': 1,
