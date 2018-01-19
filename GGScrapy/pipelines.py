@@ -25,6 +25,7 @@ class GGNewsPipeline(object):
         try:
             sitename = item['sitename']
             channel = item['channel']
+            entry = item['entry']
             url = item['url']
 
             md5 = hashlib.md5()
@@ -78,14 +79,14 @@ class GGNewsPipeline(object):
                     content = self.__transfer_image(hkey, url, content)
                 if row is None:
                     cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey, sitename, channel, groupname, url, title, source, author, publish_time, content) \
-                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (hkey, sitename, channel, groupname, url, title, source, author, pubtime, content,))
+                        'INSERT INTO ' + table + ' (hkey, sitename, channel, url_entry, groupname, url, title, source, author, publish_time, content) \
+                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (hkey, sitename, channel, entry, groupname, url, title, source, author, pubtime, content,))
                 elif spider.update:
                     cursor.execute(
-                        'UPDATE ' + table + ' SET sitename=%s, channel=%s, groupname=%s, title=%s, source=%s, author=%s, publish_time=%s, content=%s \
+                        'UPDATE ' + table + ' SET sitename=%s, channel=%s, url_entry=%s, groupname=%s, title=%s, source=%s, author=%s, publish_time=%s, content=%s \
                          WHERE hkey=%s',
-                        (sitename, channel, groupname, title, source, author, pubtime, content, hkey,))
+                        (sitename, channel, entry, groupname, title, source, author, pubtime, content, hkey,))
             finally:
                 cursor.close()
                 spider.dbPool.release(conn)

@@ -12,6 +12,7 @@ import scrapy
 class GGNewsItem(scrapy.Item):
     sitename = scrapy.Field()
     channel = scrapy.Field()
+    entry = scrapy.Field()
     url = scrapy.Field()
     groupname = scrapy.Field()
     title = scrapy.Field()

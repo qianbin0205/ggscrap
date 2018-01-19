@@ -8,8 +8,9 @@ import config
 
 # 公共Spider基类
 class GGSpider(CrawlSpider):
+    sitename = None
     channel = None
-    groupname = None
+    groupname = 'GGScrapy'
 
     handle_httpstatus_list = [404]
     custom_settings = {
@@ -54,8 +55,6 @@ class GGSpider(CrawlSpider):
 
 # 新闻资讯Spider基类
 class GGNewsSpider(GGSpider):
-    channel = '-'
-
     custom_settings = {
         'DOWNLOAD_DELAY': 1,
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGNewsPipeline': 300}
@@ -166,9 +165,6 @@ class GGNewsSpider(GGSpider):
 
 # 基金净值Spider基类
 class GGFundNavSpider(GGSpider):
-    channel = '基金净值'
-    groupname = 'GGScrapy'
-
     custom_settings = {
         'DOWNLOAD_DELAY': 1,
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNavPipeline': 300}
