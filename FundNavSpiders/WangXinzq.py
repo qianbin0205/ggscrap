@@ -45,7 +45,18 @@ class WangXinzqSpider(GGFundNavSpider):
         fund_info = response.css('div.kUi_artice').xpath('string(.)').extract_first().strip()
         # 特殊结构：http://www.wxzq.com/detail/513103.html，http://www.wxzq.com/detail/412921.html
         # 会有1个日期对应多个产品的情况
-        date = re.findall('截止(\d{0,4}年\d{0,2}月\d{0,2}日)', fund_info)[0]
+        # 网站可能会存在不带年份的问题，需特殊处理# http: // www.wxzq.com / detail / 410897.html
+        re_date = re.findall('截止(\d{0,4}年|''\d{0,2}月\d{0,2}日)', fund_info)[0]
+        if '年' in re_date:
+            date = datetime.strptime(re_date[0], '%Y年%m月%d日')
+        elif '年' not in re_date:
+            title = response.css('div.newsbox h2::text').extract_first()
+            re_year_str = re.findall('\d{0,4}年', title)[0].strip()
+            date = re_year_str + re_date
+        else:
+            date = None
+
+        # 上面对日期进行特殊处理-----------------------------------------
 
         fund_name_list = re.findall('\s+(.+?)份额净值：', fund_info, re.DOTALL)
         nav_list = re.findall('净值：(\d+\.\d*)?', fund_info, re.DOTALL)
@@ -56,7 +67,7 @@ class WangXinzqSpider(GGFundNavSpider):
             item['channel'] = self.channel
             item['url'] = response.url
             item['fund_name'] = fund_name
-            item['statistic_date'] = datetime.strptime(date, '%Y年%m月%d日')
+            item['statistic_date'] = date
             item['nav'] = float(nav) if nav is not None else None
             item['added_nav'] = None
 
