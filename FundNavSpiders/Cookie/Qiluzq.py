@@ -18,7 +18,7 @@ class QiluzqSpider(GGFundNavSpider):
 
     username = '13916427906'
     password = 'ZYYXSM123'
-    cookies = 'remember_me_user=13916427906; tip_advertising=1; remember_me_company=13916427906; Hm_lvt_b45288d4cb30f48df433f9ed8f380e90=1516095935,1516159855,1516254789,1516323955; advertcookie=156; userType=p; userId=YJQUp%40eI9d9z9WyXSrpuH2; login=true; ql_uid=s%3AUEZssVvbF59cdXOXFNdVIBBkQ39XjHr9.K%2FliQd4Z6Pxlpp%2B3cihjxomANYIlLOgMyjt5IrzGEPU; Hm_lpvt_b45288d4cb30f48df433f9ed8f380e90=1516326892'
+    cookies = 'remember_me_user=13636340681; Hm_lvt_b45288d4cb30f48df433f9ed8f380e90=1514888196,1515576726,1516326096; advertcookie=156; userType=p; tip_advertising=1; userId=44WNhEuZf6qP4zqQc55SD1; login=true; td_cookie=11049153; ql_uid=s%3AJVj7IMOiSi4Yxmp9b9XPaCcXCBfX4Awp.t3b4OpXKFi%2B8qBDj2dT%2F1jE9EgnQrP1em9quOx%2BvaZk; Hm_lpvt_b45288d4cb30f48df433f9ed8f380e90=1516332519'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(QiluzqSpider, self).__init__(limit, *args, **kwargs)
