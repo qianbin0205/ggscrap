@@ -18,10 +18,11 @@ class QiluzqSpider(GGFundNavSpider):
 
     custom_settings = {
         'DOWNLOAD_DELAY': 2,
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNavPipeline': 300}
     }
     username = '13916427906'
     password = 'ZYYXSM123'
-    cookies = 'remember_me_user=13916427906; tip_advertising=1; remember_me_company=13916427906; Hm_lvt_b45288d4cb30f48df433f9ed8f380e90=1516095935,1516159855,1516254789,1516323955; advertcookie=156; userType=p; userId=YJQUp%40eI9d9z9WyXSrpuH2; login=true; ql_uid=s%3AUEZssVvbF59cdXOXFNdVIBBkQ39XjHr9.K%2FliQd4Z6Pxlpp%2B3cihjxomANYIlLOgMyjt5IrzGEPU; Hm_lpvt_b45288d4cb30f48df433f9ed8f380e90=1516326892'
+    cookies = 'remember_me_user=13916427906; tip_advertising=1; remember_me_company=13916427906; advertcookie=156; userType=p; userId=YJQUp%40eI9d9z9WyXSrpuH2; login=true; ql_uid=s%3AG45C29s0rKJ3GsYdFm8imSL7sxxFOVwT.hE5kTwbFNj3BpMz8R4jCznhnuM7StMa38mveqVeLvEQ; Hm_lvt_b45288d4cb30f48df433f9ed8f380e90=1516159855,1516254789,1516323955,1516340218; Hm_lpvt_b45288d4cb30f48df433f9ed8f380e90=1516340231'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(QiluzqSpider, self).__init__(limit, *args, **kwargs)
@@ -31,6 +32,19 @@ class QiluzqSpider(GGFundNavSpider):
                       meta={'fps': [], 'ips': []},
                       cookies=self.cookies,
                       callback=self.parse_fund_pre)
+
+        # fund_code = 'SF4901'
+        # fund_name = '齐鲁稳固21天集合资产管理计划189天份额6号'
+        # ips = [
+        #     {
+        #         'url': 'https://www.ztzqzg.com/products/historyProfit',
+        #         'form': {'fundCode': fund_code},
+        #         'ref': None,
+        #         'ext': {'fund_name': fund_name}
+        #
+        #     }
+        # ]
+        # yield self.request_next([], ips)
 
     def parse_fund_pre(self, response):
         fps = response.meta['fps']
