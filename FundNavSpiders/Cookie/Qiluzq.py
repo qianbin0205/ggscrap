@@ -16,6 +16,9 @@ class QiluzqSpider(GGFundNavSpider):
     allowed_domains = ['www.ztzqzg.com']
     start_urls = ['https://www.ztzqzg.com/']
 
+    custom_settings = {
+        'DOWNLOAD_DELAY': 2,
+    }
     username = '13916427906'
     password = 'ZYYXSM123'
     cookies = 'remember_me_user=13636340681; Hm_lvt_b45288d4cb30f48df433f9ed8f380e90=1514888196,1515576726,1516326096; advertcookie=156; userType=p; tip_advertising=1; userId=44WNhEuZf6qP4zqQc55SD1; login=true; td_cookie=11049153; ql_uid=s%3AJVj7IMOiSi4Yxmp9b9XPaCcXCBfX4Awp.t3b4OpXKFi%2B8qBDj2dT%2F1jE9EgnQrP1em9quOx%2BvaZk; Hm_lpvt_b45288d4cb30f48df433f9ed8f380e90=1516332519'
