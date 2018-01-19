@@ -46,13 +46,13 @@ class WangXinzqSpider(GGFundNavSpider):
         # 特殊结构：http://www.wxzq.com/detail/513103.html，http://www.wxzq.com/detail/412921.html
         # 会有1个日期对应多个产品的情况
         # 网站可能会存在不带年份的问题，需特殊处理# http: // www.wxzq.com / detail / 410897.html
-        re_date = re.findall('截止(\d{0,4}年|''\d{0,2}月\d{0,2}日)', fund_info)[0]
+        re_date = re.findall('截止(\d{0,4}(年|'')\d{0,2}月\d{0,2}日)', fund_info)[0]
         if '年' in re_date:
             date = datetime.strptime(re_date[0], '%Y年%m月%d日')
         elif '年' not in re_date:
-            title = response.css('div.newsbox h2::text').extract_first()
+            title = '2016年9月12日网聚2号净值公布'
             re_year_str = re.findall('\d{0,4}年', title)[0].strip()
-            date = re_year_str + re_date
+            date = datetime.strptime(re_year_str + re_date[0], '%Y年%m月%d日')
         else:
             date = None
 
