@@ -18,7 +18,7 @@ class QiluzqSpider(GGFundNavSpider):
 
     username = '13916427906'
     password = 'ZYYXSM123'
-    cookies = 'remember_me_user=13916427906; tip_advertising=1; Hm_lvt_b45288d4cb30f48df433f9ed8f380e90=1514890208,1516095935,1516159855; advertcookie=156; ql_uid=s%3AdtqmX4JuueZ3oM0LvYCmdvphtBEO66V3.GsKjEy%2B3yK3OvpRxplcfZDLmV4SMR3A81GtmUdW9k08; remember_me_company=13916427906; userType=p; userId=YJQUp%40eI9d9z9WyXSrpuH2; login=true; Hm_lpvt_b45288d4cb30f48df433f9ed8f380e90=1516170771'
+    cookies = 'remember_me_user=13916427906; tip_advertising=1; remember_me_company=13916427906; Hm_lvt_b45288d4cb30f48df433f9ed8f380e90=1516095935,1516159855,1516254789,1516323955; advertcookie=156; userType=p; userId=YJQUp%40eI9d9z9WyXSrpuH2; login=true; ql_uid=s%3AUEZssVvbF59cdXOXFNdVIBBkQ39XjHr9.K%2FliQd4Z6Pxlpp%2B3cihjxomANYIlLOgMyjt5IrzGEPU; Hm_lpvt_b45288d4cb30f48df433f9ed8f380e90=1516326892'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(QiluzqSpider, self).__init__(limit, *args, **kwargs)
@@ -33,7 +33,7 @@ class QiluzqSpider(GGFundNavSpider):
         fps = response.meta['fps']
         ips = response.meta['ips']
 
-        urls = response.xpath("//div[@class='product-series-list']/ul/li/a/@data-qurl").extract()[28:]
+        urls = response.xpath("//div[@class='product-series-list']/ul/li/a/@data-qurl").extract()
         for url in urls:
             url = urljoin(get_base_url(response), url)
             fps.append({
