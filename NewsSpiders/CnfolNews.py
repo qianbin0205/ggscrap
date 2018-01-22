@@ -588,12 +588,13 @@ class CnfolNewsSpider(GGNewsSpider):
                 'ref': response.request.headers['Referer']
             })
 
-        nps.append({
-            'ch': ch,
-            'pg': pg + 1,
-            'url': url,
-            'ref': response.request.headers['Referer']
-        })
+        if urls:
+            nps.append({
+                'ch': ch,
+                'pg': pg + 1,
+                'url': url,
+                'ref': response.request.headers['Referer']
+            })
 
         yield self.request_next(cps, rcs, nps)
 
