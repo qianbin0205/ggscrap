@@ -558,6 +558,7 @@ class CnfolNewsSpider(GGNewsSpider):
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131030/16065440.shtml'
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131030/16064291.shtml'
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131031/16069401.shtml'
+        # url = 'http://futures.cnfol.com/mingjialunshi/20180122/25932672.shtml'
         # cp = cps[1]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
@@ -610,6 +611,8 @@ class CnfolNewsSpider(GGNewsSpider):
             ls = response.css(".Article>*, .Article::text").extract()
         if len(ls) < 1:
             ls = response.css("#__content>*:not(#editor_baidu), #__content::text").extract()
+        if not ls:
+            ls = response.css('.ArtDsc .content>*,.ArtDsc .content::text').extract()
         content = ''.join(ls)
         if 'item' in ext:
             item = ext['item']
@@ -633,6 +636,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 title = response.xpath("//h2[@id='Title']/text()").extract_first()
             if title is None:
                 title = response.xpath("//div[@class='EDArt']/h1/text()").extract_first()
+            if title is None:
+                title = response.css('h1.ArtH1::text').extract_first()
             item["title"] = title
 
             pubtime = response.xpath("//span[@id='pubtime_baidu']/text()").extract_first()
@@ -649,6 +654,8 @@ class CnfolNewsSpider(GGNewsSpider):
                     r'([0-9]+-[0-9]+-[0-9]+\s*[0-9]+:[0-9]+:[0-9]+)')
             if pubtime is None:
                 pubtime = response.xpath("//div[@class='Subtitle']/text()").re_first(r'(\d+年\d+月\d+日\s*\d+:\d+)')
+            if pubtime is None:
+                pubtime = response.css('.ArtHps>span').re_first(r'\d+-\d+-\d+\s*\d+:\d+:\d+')
             if pubtime is not None:
                 if '年' in pubtime:
                     pubtime = datetime.strptime(pubtime, '%Y年%m月%d日%H:%M')
