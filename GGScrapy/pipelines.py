@@ -58,7 +58,7 @@ class GGNewsPipeline(object):
 
             pubtime = item['pubtime'] if 'pubtime' in item else None
             assert isinstance(pubtime, datetime)
-            pubtime = item['pubtime'].strftime('%Y-%m-%d')
+            pubtime = item['pubtime'].strftime('%Y-%m-%d %H:%M:%S')
 
             content = item['content'] if 'content' in item else None
             content = content.strip() if isinstance(content, str) else None
@@ -105,8 +105,8 @@ class GGNewsPipeline(object):
                         (hkey, groupname, sitename, channel, entry, url, title, source, author, pubtime, content,))
                 elif row['hkey'] != hkey:
                     cursor.execute(
-                        'UPDATE ' + table + ' SET groupname=%s,sitename=%s,channel=%s,title=%s,source=%s,author=%s,publish_time=%s,content=%s WHERE hkey=%s',
-                        (groupname, sitename, channel, title, source, author, pubtime, content, row['hkey'],))
+                        'UPDATE ' + table + ' SET hkey=%s,groupname=%s,sitename=%s,channel=%s,title=%s,source=%s,author=%s,publish_time=%s,content=%s,update_time=GETDATE() WHERE hkey=%s',
+                        (hkey, groupname, sitename, channel, title, source, author, pubtime, content, row['hkey'],))
             finally:
                 cursor.close()
                 spider.dbPool.release(conn)
@@ -294,7 +294,7 @@ class GGFundNavPipeline(object):
                          nav_2, added_nav_2, total_nav, share, income_value_per_ten_thousand, d7_annualized_return,))
                 elif row['hkey'] != hkey:
                     cursor.execute(
-                        'UPDATE ' + table + ' SET hkey=%s,groupname=%s,url=%s,fund_code=%s,nav=%s,added_nav=%s,nav_2=%s,added_nav_2=%s,total_nav=%s,share=%s,income_value_per_ten_thousand=%s,d7_annualized_return=%s WHERE hkey=%s',
+                        'UPDATE ' + table + ' SET hkey=%s,groupname=%s,url=%s,fund_code=%s,nav=%s,added_nav=%s,nav_2=%s,added_nav_2=%s,total_nav=%s,share=%s,income_value_per_ten_thousand=%s,d7_annualized_return=%s,update_time=GETDATE() WHERE hkey=%s',
                         (hkey, groupname, url, fund_code, nav, added_nav, nav_2, added_nav_2, total_nav, share,
                          income_value_per_ten_thousand, d7_annualized_return, row['hkey'],))
             finally:

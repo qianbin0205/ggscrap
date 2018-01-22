@@ -651,7 +651,8 @@ class CnfolNewsSpider(GGNewsSpider):
             if pubtime is not None:
                 if '年' in pubtime:
                     pubtime = datetime.strptime(pubtime, '%Y年%m月%d日%H:%M')
-                    pubtime = pubtime.strftime('%Y-%m-%d %H:%M:%S')
+                else:
+                    pubtime = datetime.strptime(pubtime, '%Y-%m-%d %H:%M:%S')
             item['pubtime'] = pubtime
 
             source = response.xpath("//div[@class='artDes']/span[2]/text()").re_first(r'来源[:|：](\S+)')
