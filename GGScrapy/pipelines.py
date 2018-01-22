@@ -23,43 +23,46 @@ import config
 class GGNewsPipeline(object):
     def process_item(self, item, spider):
         try:
-            sitename = item['sitename']
-            channel = item['channel']
-            entry = item['entry']
-            url = item['url']
+            groupname = item['groupname'] if 'groupname' in item else spider.groupname
+            groupname = groupname.strip() if isinstance(groupname, str) else None
+            assert groupname is None or groupname != ''
 
-            md5 = hashlib.md5()
-            md5.update(url.encode('utf-8'))
-            hkey = md5.hexdigest()
+            sitename = item['sitename'] if 'sitename' in item else None
+            sitename = sitename.strip() if isinstance(sitename, str) else None
+            assert sitename is not None and sitename != ''
 
-            if 'groupname' in item:
-                groupname = item['groupname']
-            else:
-                groupname = None
+            channel = item['channel'] if 'channel' in item else None
+            channel = channel.strip() if isinstance(channel, str) else None
+            assert channel is not None and channel != ''
 
-            title = item['title']
-            if title is not None:
-                title = title.strip()
-            if title is None or title == '':
-                return item
+            entry = item['entry'] if 'entry' in item else None
+            entry = entry.strip() if isinstance(entry, str) else None
+            assert entry is not None and entry != ''
 
-            source = item['source']
-            if source is not None:
-                source = source.strip()
+            url = item['url'] if 'url' in item else None
+            url = url.decode() if isinstance(url, bytes) else url
+            url = url.strip() if isinstance(url, str) else None
+            assert url is not None and url != ''
 
-            author = item['author']
-            if author is not None:
-                author = author.strip()
+            title = item['title'] if 'title' in item else None
+            title = title.strip() if isinstance(title, str) else None
+            assert title is not None and title != ''
 
-            pubtime = item['pubtime']
-            if pubtime is not None:
-                pubtime = pubtime.strip()
-            if pubtime is None or pubtime == '':
-                return item
+            source = item['source'] if 'source' in item else None
+            source = source.strip() if isinstance(source, str) else None
+            assert source is None or source != ''
 
-            content = item['content']
-            if content is None or content.strip() == '':
-                return item
+            author = item['author'] if 'author' in item else None
+            author = author.strip() if isinstance(author, str) else None
+            assert author is None or author != ''
+
+            pubtime = item['pubtime'] if 'pubtime' in item else None
+            assert isinstance(pubtime, datetime)
+            pubtime = item['pubtime'].strftime('%Y-%m-%d')
+
+            content = item['content'] if 'content' in item else None
+            content = content.strip() if isinstance(content, str) else None
+            assert content is not None and content != ''
             if sys.maxunicode <= 0xFFFF:
                 content = re.sub(r'[\uD800-\uDFFF][\uD800-\uDFFF]',
                                  lambda m: '&#' + str(struct.unpack('>L', m.group(0).encode('UTF-32-BE'))[0]), content)
@@ -69,24 +72,41 @@ class GGNewsPipeline(object):
             content = re.sub(r'<\s*/\s*[Aa]\s*>', '', content, flags=re.I)
             content = re.sub(r'<script(.|\n)+?</script>', '', content, flags=re.I)
 
+            md5 = hashlib.md5()
+            seed = 'sitename=' + quote(sitename)
+            seed += '&channel=' + quote(channel)
+            seed += '&entry=' + quote(entry)
+            seed += '&url=' + quote(url)
+            if title is not None:
+                seed += '&title=' + quote(title)
+            if source is not None:
+                seed += '&source=' + quote(source)
+            if author is not None:
+                seed += '&author=' + quote(author)
+            if pubtime is not None:
+                seed += '&pubtime=' + quote(pubtime)
+            if content is not None:
+                seed += '&content=' + quote(content)
+            md5.update(seed.encode('utf-8'))
+            hkey = md5.hexdigest()
+
             conn = spider.dbPool.acquire()
             cursor = conn.cursor()
             try:
                 table = config.news['db']['table']
-                cursor.execute('select top 1 * from ' + table + ' where hkey=%s', (hkey,))
+                cursor.execute('SELECT TOP 1 hkey FROM ' + table + ' WHERE url_entry=%s AND url=%s ORDER BY tmstamp',
+                               (entry, url,))
                 row = cursor.fetchone()
-                if row is None or spider.update:
+                if row is None or row['hkey'] != hkey:
                     content = self.__transfer_image(hkey, url, content)
                 if row is None:
                     cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey, sitename, channel, url_entry, groupname, url, title, source, author, publish_time, content) \
-                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (hkey, sitename, channel, entry, groupname, url, title, source, author, pubtime, content,))
-                elif spider.update:
+                        'INSERT INTO ' + table + ' (hkey,groupname,sitename,channel,url_entry,url,title,source,author,publish_time,content) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (hkey, groupname, sitename, channel, entry, url, title, source, author, pubtime, content,))
+                elif row['hkey'] != hkey:
                     cursor.execute(
-                        'UPDATE ' + table + ' SET sitename=%s, channel=%s, url_entry=%s, groupname=%s, title=%s, source=%s, author=%s, publish_time=%s, content=%s \
-                         WHERE hkey=%s',
-                        (sitename, channel, entry, groupname, title, source, author, pubtime, content, hkey,))
+                        'UPDATE ' + table + ' SET groupname=%s,sitename=%s,channel=%s,title=%s,source=%s,author=%s,publish_time=%s,content=%s WHERE hkey=%s',
+                        (groupname, sitename, channel, title, source, author, pubtime, content, row['hkey'],))
             finally:
                 cursor.close()
                 spider.dbPool.release(conn)
@@ -176,6 +196,10 @@ class GGNewsPipeline(object):
 class GGFundNavPipeline(object):
     def process_item(self, item, spider):
         try:
+            groupname = item['groupname'] if 'groupname' in item else spider.groupname
+            groupname = groupname.strip() if isinstance(groupname, str) else None
+            assert groupname is None or groupname != ''
+
             sitename = item['sitename'] if 'sitename' in item else None
             sitename = sitename.strip() if isinstance(sitename, str) else None
             assert sitename is not None and sitename != ''
@@ -184,9 +208,10 @@ class GGFundNavPipeline(object):
             channel = channel.strip() if isinstance(channel, str) else None
             assert channel is not None and channel != ''
 
-            groupname = item['groupname'] if 'groupname' in item else spider.groupname
-            groupname = groupname.strip() if isinstance(groupname, str) else None
-            assert groupname is None or groupname != ''
+            url = item['url'] if 'url' in item else None
+            url = url.decode() if isinstance(url, bytes) else url
+            url = url.strip() if isinstance(url, str) else None
+            assert url is not None and url != ''
 
             fund_name = item['fund_name'] if 'fund_name' in item else None
             fund_name = fund_name.strip() if isinstance(fund_name, str) else None
@@ -195,11 +220,6 @@ class GGFundNavPipeline(object):
             statistic_date = item['statistic_date'] if 'statistic_date' in item else None
             assert isinstance(statistic_date, datetime)
             statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
-
-            url = item['url'] if 'url' in item else None
-            url = url.decode() if isinstance(url, bytes) else url
-            url = url.strip() if isinstance(url, str) else None
-            assert url is not None and url != ''
 
             fund_code = item['fund_code'] if 'fund_code' in item else None
             fund_code = fund_code.strip() if isinstance(fund_code, str) else None
@@ -238,7 +258,6 @@ class GGFundNavPipeline(object):
             seed += '&channel=' + quote(channel)
             seed += '&fund_name=' + quote(fund_name)
             seed += '&statistic_date=' + quote(statistic_date)
-
             if fund_code is not None:
                 seed += '&fund_code=' + quote(fund_code)
             if nav is not None:
@@ -270,9 +289,8 @@ class GGFundNavPipeline(object):
                 row = cursor.fetchone()
                 if row is None:
                     cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey,sitename,channel,groupname,fund_name,statistic_date,url,fund_code,nav,added_nav,nav_2,added_nav_2,total_nav,share,income_value_per_ten_thousand,d7_annualized_return) \
-                                             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-                        (hkey, sitename, channel, groupname, fund_name, statistic_date, url, fund_code, nav, added_nav,
+                        'INSERT INTO ' + table + ' (hkey,groupname,sitename,channel,url,fund_name,statistic_date,fund_code,nav,added_nav,nav_2,added_nav_2,total_nav,share,income_value_per_ten_thousand,d7_annualized_return) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+                        (hkey, groupname, sitename, channel, url, fund_name, statistic_date, fund_code, nav, added_nav,
                          nav_2, added_nav_2, total_nav, share, income_value_per_ten_thousand, d7_annualized_return,))
                 elif row['hkey'] != hkey:
                     cursor.execute(
