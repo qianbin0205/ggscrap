@@ -2,6 +2,8 @@ from scrapy import cmdline
 
 # 免认证
 
+
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhongTieturst', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhongTieturst', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_AnXinzq', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BeijingTrust', '-a', 'jobId=0L'])
@@ -63,3 +65,6 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_SZyuanwangjiao', '-a', 'jobId=0L'])
 
 # 浙江巴克夏投资
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhejiangBakexiaInvest', '-a', 'jobId=0L'])
+
+# 大钧资产
+cmdline.execute(['scrapy', 'crawl', 'FundNav_DaJunAsset', '-a', 'jobId=0L'])

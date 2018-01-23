@@ -25,6 +25,7 @@ class GGNewsPipeline(object):
         try:
             groupname = item['groupname'] if 'groupname' in item else spider.groupname
             groupname = groupname.strip() if isinstance(groupname, str) else None
+            groupname = groupname if groupname != '' else None
             assert groupname is None or groupname != ''
 
             sitename = item['sitename'] if 'sitename' in item else None
@@ -50,10 +51,12 @@ class GGNewsPipeline(object):
 
             source = item['source'] if 'source' in item else None
             source = source.strip() if isinstance(source, str) else None
+            source = source if source != '' else None
             assert source is None or source != ''
 
             author = item['author'] if 'author' in item else None
             author = author.strip() if isinstance(author, str) else None
+            author = author if author != '' else None
             assert author is None or author != ''
 
             pubtime = item['pubtime'] if 'pubtime' in item else None
@@ -198,6 +201,7 @@ class GGFundNavPipeline(object):
         try:
             groupname = item['groupname'] if 'groupname' in item else spider.groupname
             groupname = groupname.strip() if isinstance(groupname, str) else None
+            groupname = groupname if groupname != '' else None
             assert groupname is None or groupname != ''
 
             sitename = item['sitename'] if 'sitename' in item else None
@@ -223,6 +227,7 @@ class GGFundNavPipeline(object):
 
             fund_code = item['fund_code'] if 'fund_code' in item else None
             fund_code = fund_code.strip() if isinstance(fund_code, str) else None
+            fund_code = fund_code if fund_code != '' else None
             assert fund_code is None or fund_code != ''
 
             nav = item['nav'] if 'nav' in item else None

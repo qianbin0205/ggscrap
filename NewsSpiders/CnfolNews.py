@@ -559,6 +559,8 @@ class CnfolNewsSpider(GGNewsSpider):
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131030/16064291.shtml'
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131031/16069401.shtml'
         # url = 'http://futures.cnfol.com/mingjialunshi/20180122/25932672.shtml'
+        # url = 'http://gold.cnfol.com/guojiyuanyousc/20180122/25934538.shtml'
+        # url = 'http://gold.cnfol.com/guojiyuanyousc/20180122/25933608.shtml'
         # cp = cps[1]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
@@ -613,6 +615,8 @@ class CnfolNewsSpider(GGNewsSpider):
             ls = response.css("#__content>*:not(#editor_baidu), #__content::text").extract()
         if not ls:
             ls = response.css('.ArtDsc .content>*,.ArtDsc .content::text').extract()
+        if not ls:
+            ls = response.css('.EDArt>.EDArtInfo>*,.EDArt>.EDArtInfo::text').extract()
         content = ''.join(ls)
         if 'item' in ext:
             item = ext['item']
@@ -665,6 +669,8 @@ class CnfolNewsSpider(GGNewsSpider):
 
             source = response.xpath("//div[@class='artDes']/span[2]/text()").re_first(r'来源[:|：](\S+)')
             if source is None:
+                source = response.css('#tit>span>span>a::text').extract_first()
+            if source is None:
                 source = response.xpath(
                     "//span[@id='source_baidu']/a/text() | //span[@id='source_baidu']/span/text()").extract_first()
             if source is None:
@@ -705,6 +711,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 author = response.xpath("//div[@class='tit']/span/text()").re_first(r'作者[:|：](\S+)')
             if author is None:
                 author = response.xpath("//div[@class='GSTitsL Cf']/span/text()").re_first(r'作者[:|：](\S+)')
+            if author is None:
+                author = response.css('#tit>span>span').re_first(r'作者：(.+)<')
             item["author"] = author
 
         next_url = response.xpath("//a[text()='下一页']/@href").extract_first()
