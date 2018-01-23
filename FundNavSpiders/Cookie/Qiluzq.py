@@ -18,7 +18,6 @@ class QiluzqSpider(GGFundNavSpider):
 
     custom_settings = {
         'DOWNLOAD_DELAY': 2,
-        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNavPipeline': 300}
     }
     username = '13916427906'
     password = 'ZYYXSM123'

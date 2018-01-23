@@ -17,7 +17,6 @@ class SimuPaipaiSpider(GGFundNavSpider):
 
     custom_settings = {
         'DOWNLOAD_DELAY': 2,
-        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNavPipeline': 300}
     }
 
     def __init__(self, limit=None, *args, **kwargs):
