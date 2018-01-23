@@ -560,7 +560,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://futures.hexun.com/integratednews/index'
-                                  + (('-' + str(110 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(115 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://futures.hexun.com/integratednews/index.html'
             },
             {
@@ -570,7 +570,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://futures.hexun.com/domestic/index'
-                                  + (('-' + str(122 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(134 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://futures.hexun.com/domestic/index.html'
             },
             {
@@ -580,7 +580,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://futures.hexun.com/focus/index'
-                                  + (('-' + str(96 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(103 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://futures.hexun.com/focus/index.html'
             },
             {
@@ -610,7 +610,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://futures.hexun.com/option/index'
-                                  + (('-' + str(55 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(56 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://futures.hexun.com/option/index.html'
             },
             {
@@ -620,7 +620,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/fxobservation/index'
-                                  + (('-' + str(1253 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(1266 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/fxobservation/index.html'
             },
             {
@@ -630,7 +630,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/market/index'
-                                  + (('-' + str(6506 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(6584 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/market/index.html'
             },
             {
@@ -640,7 +640,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/currency/index'
-                                  + (('-' + str(1172 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(1184 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/currency/index.html'
             },
             {
@@ -650,7 +650,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/rmbhotnews/index'
-                                  + (('-' + str(88 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(90 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/rmbhotnews/index.html'
             },
             {
@@ -710,7 +710,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://forex.hexun.com/institution/index'
-                                  + (('-' + str(2537 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(2545 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://forex.hexun.com/institution/index.html'
             },
             {
@@ -730,7 +730,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://auto.hexun.com/qcyw/index'
-                                  + (('-' + str(3353 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(3360 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://auto.hexun.com/qcyw/index.html'
             },
             {
@@ -740,7 +740,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://auto.hexun.com/cheqidt/index'
-                                  + (('-' + str(193 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(196 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://auto.hexun.com/cheqidt/index.html'
             },
 
@@ -751,7 +751,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://tech.hexun.com/highlights/index'
-                                  + (('-' + str(14529 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(14550 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://tech.hexun.com/highlights/index.html'
             },
             {
@@ -761,7 +761,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://insurance.hexun.com/bxjrdd/index'
-                                  + (('-' + str(489 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(491 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://insurance.hexun.com/bxjrdd/index.html'
             },
             {
@@ -771,7 +771,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://insurance.hexun.com/bxhyzx/index'
-                                  + (('-' + str(517 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(519 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://insurance.hexun.com/bxhyzx/index.html'
             },
             {
@@ -781,7 +781,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://insurance.hexun.com/bxgsxw/index'
-                                  + (('-' + str(583 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(584 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://insurance.hexun.com/bxgsxw/index.html'
             },
             {
@@ -831,7 +831,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://trust.hexun.com/trust_industry/index'
-                                  + (('-' + str(495 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(497 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://trust.hexun.com/trust_industry/index.html'
             },
             {
@@ -861,7 +861,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://trust.hexun.com/trust_company/index'
-                                  + (('-' + str(81 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(82 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://trust.hexun.com/trust_company/index.html'
             },
             {
@@ -881,7 +881,7 @@ class HexunNewsSpider(GGNewsSpider):
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://trust.hexun.com/xtyw/index'
-                                  + (('-' + str(134 - pg)) if pg >= 1 else '') + '.html',
+                                  + (('-' + str(135 - pg)) if pg >= 1 else '') + '.html',
                 'ref': 'http://trust.hexun.com/xtyw/index.html'
             },
             {
@@ -897,7 +897,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '黄金机构',
-                    'count': 0
+                    'count': 0,
                 },
                 'pg': 0,
                 'url': lambda pg: 'http://gold.hexun.com/goldinstitution/index'
