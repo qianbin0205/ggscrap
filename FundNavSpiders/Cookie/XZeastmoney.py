@@ -7,6 +7,7 @@ from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
+from pyquery import PyQuery
 
 
 class XZeastmoneySpider(GGFundNavSpider):
@@ -29,9 +30,8 @@ class XZeastmoneySpider(GGFundNavSpider):
                 'ref': None,
             }
         ]
-
-        # fund_name = '同心312浙江长兴'
-        # fund_id = 224
+        # fund_name = '稳健2号'
+        # fund_id = 10
         # ips = [
         #     {
         #         'pg': {'page': 1, 'fund_id': fund_id},
@@ -42,6 +42,7 @@ class XZeastmoneySpider(GGFundNavSpider):
         #     }
         # ]
         # yield self.request_next([], ips)
+
         yield self.request_next(fps, [])
 
     def parse_fund(self, response):
@@ -76,26 +77,45 @@ class XZeastmoneySpider(GGFundNavSpider):
         ext = response.meta['ext']
         fund_name = ext['fund_name']
         data = json.loads(response.text)['data']
-        dates = re.findall(r'>\s*?(\d+-\d+-\d+)\s*?<', data, re.I)
-        navs = re.findall(r'>\s*?([0-9.]+)\s*?<', data, re.I)
+        doc = PyQuery(data)
+        for tr in doc.items('tr:not(:first-child)'):
+            if '-' in tr('td').children().eq(0).text():
+                item = GGFundNavItem()
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.url
 
-        for i in range(0, len(dates)):
-            item = GGFundNavItem()
-            item['sitename'] = self.sitename
-            item['channel'] = self.channel
-            item['url'] = response.url
+                item['fund_name'] = fund_name
 
-            item['fund_name'] = fund_name
+                statistic_date = tr('td').children().eq(0).text()
+                item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-            statistic_date = dates[i]
-            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+                nav = tr('td').children().eq(1).text()
+                item['nav'] = float(nav) if nav is not None else None
 
-            nav = navs[2*i]
-            item['nav'] = float(nav) if nav is not None else None
+                added_nav = tr('td').children().eq(2).text()
+                item['added_nav'] = float(added_nav) if added_nav is not None else None
+                yield item
 
-            added_nav = navs[2*i+1]
-            item['added_nav'] = float(added_nav) if added_nav is not None else None
-            yield item
+            elif '-' in tr('td').children().eq(1).text():
+                    item = GGFundNavItem()
+                    item['sitename'] = self.sitename
+                    item['channel'] = self.channel
+                    item['url'] = response.url
+
+                    item['fund_name'] = tr('td').children().eq(0).text()
+                    if item['fund_name'] == '' or item['fund_name'] is None:
+                        item['fund_name'] = fund_name
+
+                    statistic_date = tr('td').children().eq(1).text()
+                    item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+
+                    nav = tr('td').children().eq(2).text()
+                    item['nav'] = float(nav) if nav is not None else None
+
+                    added_nav = tr('td').children().eq(3).text()
+                    item['added_nav'] = float(added_nav) if added_nav is not None else None
+                    yield item
 
         pg = response.meta['pg']
         url = response.meta['url']
