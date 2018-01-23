@@ -32,8 +32,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
         fps = [
             {
                 'pg': 1,
-                'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(
-                    pg) + '&condition=fund_type%3A1%2C6%2C4%2C3%2C8%2C2%3Bret%3A9%3Brating_year%3A1%3Bistiered%3A0%3Bcompany_type%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
+                'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(pg) + '&condition=fund_type%3A1%2C6%2C4%2C3%2C8%2C2%3Bret%3A9%3Brating_year%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
                 'ref': 'http://dc.simuwang.com/',
             },
             {
