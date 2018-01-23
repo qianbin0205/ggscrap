@@ -23,10 +23,11 @@ class GGSpider(CrawlSpider):
 
     @classmethod
     def update_settings(cls, settings):
-        for c in cls.mro():
+        mro = cls.mro()
+        i = mro.index(GGSpider)
+        rro = mro[i::-1]
+        for c in rro:
             settings.setdict(c.custom_settings or {}, priority='spider')
-            if c == GGSpider:
-                break
 
     def __init__(self, *args, **kwargs):
         super(GGSpider, self).__init__(*args, **kwargs)
