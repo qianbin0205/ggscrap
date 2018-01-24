@@ -16,7 +16,7 @@ class GuotaijunanSpider(GGFundNavSpider):
 
     username = '13916427906'
     password = 'ZYYXSM123'
-    cookies = 'gjzgs1=93258df25a7846b0f01e47621e0e11b2; showthemenr=show; shotanchuang=; login_sign=99ef2a50615f458381307844ff1ea591; s201_SESSION=95856249E43A368DB6C3740311629BF0'
+    cookies = 'showthemenr=show; shotanchuang=; gjzgs1=130345f503a2d4de6e8ab84452b00e6f; login_sign=6791739826fe44ae8c13def2aff24afd; s101_SESSION=0049BAB36AECB68E6EA41C4A64547AB2'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GuotaijunanSpider, self).__init__(limit, *args, **kwargs)
@@ -70,12 +70,12 @@ class GuotaijunanSpider(GGFundNavSpider):
 
                 income_value_per_ten_thousand = row['income_unit']
                 item['income_value_per_ten_thousand'] = float(income_value_per_ten_thousand) if income_value_per_ten_thousand is not None else None
+                if item['d7_annualized_return'] is None or item['income_value_per_ten_thousand'] is None:
+                    nav = row['net_value']
+                    item['nav'] = float(nav) if nav is not None else None
 
-                nav = row['net_value']
-                item['nav'] = float(nav) if nav is not None else None
-
-                added_nav = row['total_net_value']
-                item['added_nav'] = float(added_nav) if added_nav is not None else None
+                    added_nav = row['total_net_value']
+                    item['added_nav'] = float(added_nav) if added_nav is not None else None
 
                 yield item
 
