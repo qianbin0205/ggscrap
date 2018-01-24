@@ -57,11 +57,12 @@ class BotongInvsetSpider(GGFundNavSpider):
             })
 
         url = response.xpath("//a[text()='下一页']/@href").extract_first()
-        url = urljoin(get_base_url(response), url)
-        fps.append({
-            'url': url,
-            'ref': response.url
-        })
+        if url is not None:
+            url = urljoin(get_base_url(response), url)
+            fps.append({
+                'url': url,
+                'ref': response.url
+            })
 
         yield self.request_next(fps, ips)
 
