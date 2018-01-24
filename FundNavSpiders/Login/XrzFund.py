@@ -13,13 +13,13 @@ class XrzFundSpider(GGFundNavSpider):
     sitename = '上海仙人掌资产'
     channel = '投资顾问'
     allowed_domains = ['www.xrzfund.com']
-    start_urls = ['http://www.xrzfund.com:801/(S(iejkughmniucwrq1cejr3fho))/login.aspx?type=out']
+    start_urls = ['http://www.xrzfund.com:801/(S(0mwyuz55eeqjyfb315b2zkb5))/login.aspx?type=out']
 
     def __init__(self, limit=None, *args, **kwargs):
         super(XrzFundSpider, self).__init__(limit, *args, **kwargs)
 
-    def start_requests(self):
-        yield FormRequest(url='http://www.xrzfund.com:801/(S(iejkughmniucwrq1cejr3fho))/login.aspx?type=out',
+    def parse(self, response):
+        yield FormRequest(url=response.url,
                           formdata={'__VIEWSTATE': '/wEPDwULLTE3MjQxODQ4MDhkZEPTBqtHxugtelWaL0YNDSgklllL6jUtq+JXcPUa+LnN',
                                     '__EVENTVALIDATION': '/wEdAAIin2PQEFVOkEdFCGEfnKzyQiUagUcDcu68gyetszRkSUveFZLSSGwlE4Efgj3cuNmZn2pg6GsvdZHkBXsjUlNa',
                                     'username': '123',
