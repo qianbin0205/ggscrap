@@ -17,7 +17,7 @@ class XinPuAssetSpider(GGFundNavSpider):
 
     username = '13916427906'
     password = 'ZYYXSM123'
-    cookies = 'JSESSIONID=1E603BA6C9C55CAD1D1DB5C6282A9126; Hm_lvt_bd5f74e276d37b338277623405760296=1514455130,1516003028,1516003103; xpbtoken=128068db2nlq4fmuhg88rthg9eeoc; Hm_lpvt_bd5f74e276d37b338277623405760296=1516080187'
+    cookies = 'JSESSIONID=7C16425AACF338F5E374258FB7E35BB6; xpbtoken=jm1m4g98du0kg3h0h9d2fu8954mu; Hm_lvt_bd5f74e276d37b338277623405760296=1515977698,1516070626,1516760453,1516777886; td_cookie=11049179; Hm_lpvt_bd5f74e276d37b338277623405760296=1516782316'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(XinPuAssetSpider, self).__init__(limit, *args, **kwargs)

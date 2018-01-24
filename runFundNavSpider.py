@@ -52,7 +52,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Szhvc', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_XiamenTrust', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_XinPuAsset', '-a', 'jobId=0L'])
-cmdline.execute(['scrapy', 'crawl', 'FundNav_XZeastmoney', '-a', 'jobId=0L'])
+#cmdline.execute(['scrapy', 'crawl', 'FundNav_XZeastmoney', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Zjblzg', '-a', 'jobId=0L'])
 
 # 耗时抓取(免认证)
@@ -68,4 +68,10 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_XZeastmoney', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhejiangBakexiaInvest', '-a', 'jobId=0L'])
 
 # 大钧资产
-cmdline.execute(['scrapy', 'crawl', 'FundNav_DaJunAsset', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_DaJunAsset', '-a', 'jobId=0L'])
+
+# 申港证券资产管理部
+#cmdline.execute(['scrapy', 'crawl', 'FundNav_ShengangSecuritiesAsset', '-a', 'jobId=0L'])
+
+# 苏州信托
+cmdline.execute(['scrapy', 'crawl', 'FundNav_SuzhouTrust', '-a', 'jobId=0L'])
