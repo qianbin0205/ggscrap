@@ -65,4 +65,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhejiangBakexiaInvest', '-a', 'jobId=0L'])
 
 # 大钧资产
-cmdline.execute(['scrapy', 'crawl', 'FundNav_DaJunAsset', '-a', 'jobId=0L'])
+# cmdline.execute(['scrapy', 'crawl', 'FundNav_DaJunAsset', '-a', 'jobId=0L'])
+
+# 申港证券资产管理部
+cmdline.execute(['scrapy', 'crawl', 'FundNav_ShengangSecuritiesAsset', '-a', 'jobId=0L'])
