@@ -19,27 +19,23 @@ class XrzFundSpider(GGFundNavSpider):
         super(XrzFundSpider, self).__init__(limit, *args, **kwargs)
 
     def parse(self, response):
-        __VIEWSTATE = response.xpath(".//input[@name='__VIEWSTATE']/@value").extract_first()
-        __EVENTVALIDATION = response.xpath(".//input[@name='__EVENTVALIDATION']/@value").extract_first()
-        yield FormRequest(url='http://www.xrzfund.com:801/(S(0mwyuz55eeqjyfb315b2zkb5))/login.aspx?type=out',
-                          formdata={'__VIEWSTATE': __VIEWSTATE,
-                                    '__EVENTVALIDATION': __EVENTVALIDATION,
+        yield FormRequest(url=response.url,
+                          formdata={'__VIEWSTATE': '/wEPDwULLTE3MjQxODQ4MDhkZEPTBqtHxugtelWaL0YNDSgklllL6jUtq+JXcPUa+LnN',
+                                    '__EVENTVALIDATION': '/wEdAAIin2PQEFVOkEdFCGEfnKzyQiUagUcDcu68gyetszRkSUveFZLSSGwlE4Efgj3cuNmZn2pg6GsvdZHkBXsjUlNa',
                                     'username': '123',
                                     'password': '123456',
                                     'BtnLogin': '立即登录',
                                     're_check': '1',
                                     },
-                          meta={
-                              'handle_httpstatus_list': [302],
-                          },
                           callback=self.parse_login)
 
     def parse_login(self, response):
-
+        url = urljoin(get_base_url(response), 'chanpinxinxi.aspx?type=仙人掌金牛1号基金')
         fps = [
             {
-                'url': 'http://www.xrzfund.com:801/(S(4hbebdpxir5zunwywfgp4w5k))/chanpinxinxi.aspx?type=%E4%BB%99%E4%BA%BA%E6%8E%8C%E9%87%91%E7%89%9B1%E5%8F%B7%E5%9F%BA%E9%87%91',
-                'ref': 'http://www.xrzfund.com:801/(S(4hbebdpxir5zunwywfgp4w5k))/Index.aspx',
+                'url': url,
+                'ref': urljoin(get_base_url(response), 'index.aspx'),
+
             }
         ]
 
@@ -74,8 +70,11 @@ class XrzFundSpider(GGFundNavSpider):
             statistic_date = row.xpath("./td[2]/text()").re_first(r'\d+/\d+/\d+')
             item['statistic_date'] = datetime.strptime(statistic_date, '%Y/%m/%d')
 
-            item['nav'] = float(row.xpath("./td[3]/text()").extract_first())
-            item['added_nav'] = float(row.xpath("./td[4]/text()").extract_first())
+            nav = row.xpath("./td[3]").re_first(r'>\s*?([0-9.]+)\s*?<')
+            item['nav'] = float(nav)if nav is not None else None
+
+            added_nav = row.xpath("./td[4]").re_first(r'>\s*?([0-9.]+)\s*?<')
+            item['added_nav'] = item['nav'] = float(added_nav)if added_nav is not None else None
 
             yield item
 

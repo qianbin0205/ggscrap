@@ -21,6 +21,14 @@ class GGSpider(CrawlSpider):
 
     cookies = None
 
+    @classmethod
+    def update_settings(cls, settings):
+        mro = cls.mro()
+        i = mro.index(GGSpider)
+        rro = mro[i::-1]
+        for c in rro:
+            settings.setdict(c.custom_settings or {}, priority='spider')
+
     def __init__(self, *args, **kwargs):
         super(GGSpider, self).__init__(*args, **kwargs)
         self.cookies = self.parse_cookies(self.cookies)
@@ -56,7 +64,6 @@ class GGSpider(CrawlSpider):
 # 新闻资讯Spider基类
 class GGNewsSpider(GGSpider):
     custom_settings = {
-        'DOWNLOAD_DELAY': 1,
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGNewsPipeline': 300}
     }
 
@@ -166,7 +173,6 @@ class GGNewsSpider(GGSpider):
 # 基金净值Spider基类
 class GGFundNavSpider(GGSpider):
     custom_settings = {
-        'DOWNLOAD_DELAY': 1,
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNavPipeline': 300}
     }
 

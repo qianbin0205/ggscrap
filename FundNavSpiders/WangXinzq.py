@@ -50,7 +50,7 @@ class WangXinzqSpider(GGFundNavSpider):
         if '年' in re_date:
             date = datetime.strptime(re_date[0], '%Y年%m月%d日')
         elif '年' not in re_date:
-            title = '2016年9月12日网聚2号净值公布'
+            title = response.css('div.newsbox h2::text').extract_first()
             re_year_str = re.findall('\d{0,4}年', title)[0].strip()
             date = datetime.strptime(re_year_str + re_date[0], '%Y年%m月%d日')
         else:

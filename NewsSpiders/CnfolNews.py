@@ -560,6 +560,8 @@ class CnfolNewsSpider(GGNewsSpider):
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131031/16069401.shtml'
         # url = 'http://futures.cnfol.com/mingjialunshi/20180122/25932672.shtml'
         # url = 'http://gold.cnfol.com/guojiyuanyousc/20180122/25934538.shtml'
+        # url = 'http://gold.cnfol.com/guojiyuanyousc/20180122/25933608.shtml'
+        # url = 'http://gold.cnfol.com/guojiyuanyousc/20180123/25939136.shtml'
         # cp = cps[1]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
@@ -676,6 +678,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 source = response.xpath("//p[@class='Fl']/span/a/text()").extract_first()
             if source is None:
                 source = response.xpath("//p[@class='Fl']/span/span/text()").extract_first()
+            if source is None:
+                source = response.xpath("//div[@class='tit']/span/span/span/text()").extract_first()
             if source is None:
                 source = response.xpath("//div[@class='tit']/span/span/text()").extract_first()
             if source is None:
