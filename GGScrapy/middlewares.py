@@ -6,6 +6,7 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy import Request
 from scrapy.exceptions import IgnoreRequest
 
 
@@ -14,24 +15,19 @@ class GGDownloaderMiddleware(object):
         if response.css('head').re('<script[^<>]*>\s*setTimeout[^<>]+location[.]replace[^<>]+</script>'):
             return request.replace(dont_filter=True)
         else:
-            if response.status == 404:
-                cps = request.meta['cps']
-                rcs = request.meta['rcs']
-                nps = request.meta['nps']
-                n = spider.request_next(cps, rcs, nps)
-                if n is not None:
-                    return n
+            if spider.routines:
+                spider.routines.pop(0)
+            if response.status in [404, 403]:
+                if spider.requests:
+                    r = spider.requests.pop(0)
+                    spider.routines.append(r)
+                    return r
                 else:
-                    raise IgnoreRequest()
-            if response.status == 403 and spider.update is True:
-                cps = request.meta['cps']
-                rcs = request.meta['rcs']
-                nps = request.meta['nps']
-                n = spider.request_next(cps, rcs, nps)
-                if n is not None:
-                    return n
-                else:
-                    raise IgnoreRequest()
+                    n = spider.request_next()
+                    if n is not None:
+                        return n
+                    else:
+                        raise IgnoreRequest()
             return response
 
 
@@ -60,7 +56,15 @@ class GGSpiderMiddleware(object):
 
         # Must return an iterable of Request, dict or Item objects.
         for i in result:
-            yield i
+            if isinstance(i, Request):
+                spider.requests.append(i)
+            else:
+                yield i
+        if not spider.routines:
+            if spider.requests:
+                request = spider.requests.pop(0)
+                spider.routines.append(request)
+                yield request
 
     def process_spider_exception(self, response, exception, spider):
         # Called when a spider or process_spider_input() method
@@ -77,7 +81,12 @@ class GGSpiderMiddleware(object):
 
         # Must return only requests (not items).
         for r in start_requests:
-            yield r
+            spider.requests.append(r)
+        if not spider.routines:
+            if spider.requests:
+                r = spider.requests.pop(0)
+                spider.routines.append(r)
+                yield r
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)

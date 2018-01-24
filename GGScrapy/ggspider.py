@@ -15,23 +15,13 @@ class GGSpider(CrawlSpider):
     handle_httpstatus_list = [404]
     custom_settings = {
         'DOWNLOAD_DELAY': 1,
-        # 'REDIRECT_ENABLED': True,
-        # 'ITEM_PIPELINES': {'GGScrapy.pipelines.GGPipeline': 300}
+        'SPIDER_MIDDLEWARES': {'GGScrapy.middlewares.GGSpiderMiddleware': 543},
+        'DOWNLOADER_MIDDLEWARES': {'GGScrapy.middlewares.GGDownloaderMiddleware': 543},
     }
 
+    routines = []
+    requests = []
     cookies = None
-
-    @classmethod
-    def update_settings(cls, settings):
-        mro = cls.mro()
-        i = mro.index(GGSpider)
-        rro = mro[i::-1]
-        for c in rro:
-            settings.setdict(c.custom_settings or {}, priority='spider')
-
-    def __init__(self, *args, **kwargs):
-        super(GGSpider, self).__init__(*args, **kwargs)
-        self.cookies = self.parse_cookies(self.cookies)
 
     @staticmethod
     def parse_cookies(cookies):
@@ -60,6 +50,21 @@ class GGSpider(CrawlSpider):
             cookies = None
         return cookies
 
+    @classmethod
+    def update_settings(cls, settings):
+        mro = cls.mro()
+        i = mro.index(GGSpider)
+        rro = mro[i::-1]
+        for c in rro:
+            settings.setdict(c.custom_settings or {}, priority='spider')
+
+    def __init__(self, *args, **kwargs):
+        super(GGSpider, self).__init__(*args, **kwargs)
+        self.cookies = self.parse_cookies(self.cookies)
+
+    def request_next(self, *args):
+        pass
+
 
 # 新闻资讯Spider基类
 class GGNewsSpider(GGSpider):
@@ -73,6 +78,10 @@ class GGNewsSpider(GGSpider):
                   config.news['db']['pswd'],
                   config.news['db']['name'],
                   timeout=config.news['db']['timeout'])
+
+    cps = []
+    rcs = []
+    nps = []
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GGNewsSpider, self).__init__(*args, **kwargs)
@@ -100,9 +109,13 @@ class GGNewsSpider(GGSpider):
     def limit(self):
         return self.__limit
 
-    def request_next(self, cps, rcs, nps):
-        while len(cps) >= 1:
-            cp = cps.pop(0)
+    def request_next(self, *args):
+        self.cps = args[0] if args[0:] else self.cps
+        self.rcs = args[1] if args[1:] else self.rcs
+        self.nps = args[2] if args[2:] else self.nps
+
+        while self.cps:
+            cp = self.cps.pop(0)
             ext = cp['ext'] if 'ext' in cp else {}
 
             pg = cp['pg'] if 'pg' in cp else None
@@ -118,11 +131,11 @@ class GGNewsSpider(GGSpider):
                                headers={'Referer': cp['ref']},
                                cookies=cookies,
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
-                                     'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
+                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
                                callback=self.parse_link)
 
-        while len(rcs) >= 1:
-            rc = rcs.pop(0)
+        while self.rcs:
+            rc = self.rcs.pop(0)
             ext = rc['ext'] if 'ext' in rc else {}
 
             pg = rc['pg'] if 'pg' in rc else None
@@ -138,13 +151,13 @@ class GGNewsSpider(GGSpider):
                                headers={'Referer': rc['ref']},
                                cookies=cookies,
                                meta={'ch': rc['ch'], 'pg': pg, 'url': rc['url'],
-                                     'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
+                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
                                callback=self.parse_item)
 
-        cps = nps
-        nps = []
-        while len(cps) >= 1:
-            cp = cps.pop(0)
+        self.cps = self.nps
+        self.nps = []
+        while self.cps:
+            cp = self.cps.pop(0)
             ext = cp['ext'] if 'ext' in cp else {}
 
             pg = cp['pg'] if 'pg' in cp else None
@@ -160,7 +173,7 @@ class GGNewsSpider(GGSpider):
                                headers={'Referer': cp['ref']},
                                cookies=cookies,
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
-                                     'cps': cps, 'rcs': rcs, 'nps': nps, 'ext': ext},
+                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
                                callback=self.parse_link)
 
     def parse_link(self, response):
@@ -183,12 +196,18 @@ class GGFundNavSpider(GGSpider):
                   config.fund_nav['db']['name'],
                   timeout=config.fund_nav['db']['timeout'])
 
+    fps = []
+    ips = []
+
     def __init__(self, *args, **kwargs):
         super(GGFundNavSpider, self).__init__(*args, **kwargs)
 
-    def request_next(self, fps, ips):
-        while len(ips) >= 1:
-            ip = ips.pop(0)
+    def request_next(self, *args):
+        self.fps = args[0] if args[0:] else self.fps
+        self.ips = args[1] if args[1:] else self.ips
+
+        while self.ips:
+            ip = self.ips.pop(0)
             ext = ip['ext'] if 'ext' in ip else {}
 
             headers = ip['headers'] if 'headers' in ip else {}
@@ -211,17 +230,17 @@ class GGFundNavSpider(GGSpider):
                 return FormRequest(url=url, formdata=formdata, dont_filter=True,
                                    headers=headers, cookies=cookies,
                                    meta={'pg': pg, 'url': ip['url'], 'form': form,
-                                         'fps': fps, 'ips': ips, 'ext': ext},
+                                         'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                    callback=self.parse_item)
             else:
                 return Request(url, dont_filter=True,
                                headers=headers, cookies=cookies,
                                meta={'pg': pg, 'url': ip['url'], 'form': None,
-                                     'fps': fps, 'ips': ips, 'ext': ext},
+                                     'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                callback=self.parse_item)
 
-        while len(fps) >= 1:
-            fp = fps.pop(0)
+        while self.fps:
+            fp = self.fps.pop(0)
             ext = fp['ext'] if 'ext' in fp else {}
 
             headers = fp['headers'] if 'headers' in fp else {}
@@ -244,13 +263,13 @@ class GGFundNavSpider(GGSpider):
                 return FormRequest(url=url, formdata=formdata, priority=1,
                                    headers=headers, cookies=cookies,
                                    meta={'pg': pg, 'url': fp['url'], 'form': form,
-                                         'fps': fps, 'ips': ips, 'ext': ext},
+                                         'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                    callback=self.parse_fund)
             else:
                 return Request(url, priority=1,
                                headers=headers, cookies=cookies,
                                meta={'pg': pg, 'url': fp['url'], 'form': None,
-                                     'fps': fps, 'ips': ips, 'ext': ext},
+                                     'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                callback=self.parse_fund)
 
     def parse_fund(self, response):
