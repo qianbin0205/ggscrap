@@ -16,7 +16,7 @@ class AshnAssetSpider(GGFundNavSpider):
 
     username = 'zym'
     password = '13916427906'
-    cookies = 'td_cookie=11049344; sdmenu_menu_zzjs_net=01000; PHPSESSID=94ed371f37b438c7a98c81c3f1e2980e; ZWEZy_auth=dd76pUyBb_Qh2GwJCNmz3OVAyV3VA784m_tTQaYcM6pjFWPjiOsmxbJ6g4oqnpAjaKvll0bXYZcGl6Kgpz4mjRUdXGpTd37hvfqwvr9Bu6z2MlbZGHBAbYxkJTpwDpsd6UfVyfUGxaqWHDtHu1j6SCH34w; ZWEZy__userid=3d2cyR0k_2JDphXv7HX4oVkKwOe5w7faoFy21FqRtA; ZWEZy__username=fb60Uz6JaPIlo-PVaKKCIVAG4_7XGJvhUuEpyb0pyK8; ZWEZy__groupid=87e9_vpParv0gmHKQDu68fuCDQ4A94QuwWX5Py9i; ZWEZy__nickname=0560SF-9qARGPcc2gB6zTP8aBFzK5KWELwtHB1KlSa0'
+    cookies = 'sdmenu_menu_zzjs_net=01000; PHPSESSID=ef97e52267904f13f741193c2c26f2c0; td_cookie=11049081; ZWEZy_auth=5754ACXSmsHAxaiwjytoDrfiBhqxnY_tZniaGcQ3yC14Z_m98O_o-dnrolkeUAJ4haEbyVN3ZyhfHV2oxNv7ixpCww3eR-1JO0lJz9A7loQwJOPD6lEdex3mKRuP6VdUKBWUvd0tn3RAg65TYvIGCJ-I1Q; ZWEZy__userid=8038pd5nn8OfOzN3dr3LtIYy5pqXao3G9zqJKTXC-w; ZWEZy__username=ac9ezMamC-1zrWwStzbar178h03mBtrughZScd33_-w; ZWEZy__groupid=7437jWkGp1BMjH80c1QtWqSN-OxzXWt0R92Rzxld; ZWEZy__nickname=ef78gPReNuqWznekddX2lp_0Kox7UFh72TVA8UsTyfA'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(AshnAssetSpider, self).__init__(limit, *args, **kwargs)
