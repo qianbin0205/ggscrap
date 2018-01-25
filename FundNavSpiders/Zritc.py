@@ -13,6 +13,10 @@ class ZritcSpider(GGFundNavSpider):
     channel = '信托净值'
     allowed_domains = ['www.zritc.com']
 
+    custom_settings = {
+        'DOWNLOAD_DELAY': 3,
+    }
+
     start_urls = []
     fps = [
         {
