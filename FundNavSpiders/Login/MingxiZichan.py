@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import config
 from datetime import datetime
 from scrapy import Request
 from scrapy import FormRequest
@@ -12,6 +13,8 @@ class MingxiZichanSpider(GGFundNavSpider):
     sitename = '上海鸣熙资产'
     channel = '投资顾问'
     allowed_domains = ['www.mxzichan.com']
+
+    proxy = config.proxy
 
     start_urls = []
     fps = [

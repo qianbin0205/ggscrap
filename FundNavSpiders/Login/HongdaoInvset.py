@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import config
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
@@ -14,6 +15,8 @@ class HongdaoInvsetSpider(GGFundNavSpider):
     sitename = '鸿道投资'
     channel = '投顾净值'
     allowed_domains = ['www.suncapital.com.cn']
+
+    proxy = config.proxy
 
     start_urls = []
     fps = [
