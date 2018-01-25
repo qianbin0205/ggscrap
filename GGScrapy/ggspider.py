@@ -62,6 +62,9 @@ class GGSpider(CrawlSpider):
         super(GGSpider, self).__init__(*args, **kwargs)
         self.cookies = self.parse_cookies(self.cookies)
 
+    def start_requests(self):
+        yield self.request_next()
+
     def request_next(self, *args):
         pass
 

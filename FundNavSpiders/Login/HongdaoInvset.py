@@ -3,6 +3,7 @@
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
+from scrapy import Request
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -13,12 +14,22 @@ class HongdaoInvsetSpider(GGFundNavSpider):
     sitename = '鸿道投资'
     channel = '投顾净值'
     allowed_domains = ['www.suncapital.com.cn']
-    start_urls = ['http://www.suncapital.com.cn/pc/login']
+
+    start_urls = []
+    fps = [
+        {
+            'url': 'http://www.suncapital.com.cn/pc/profit/all',
+            'ref': 'http://www.suncapital.com.cn/pc/profit/index',
+        }
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(HongdaoInvsetSpider, self).__init__(limit, *args, **kwargs)
 
-    def parse(self, response):
+    def start_requests(self):
+        yield Request(url='http://www.suncapital.com.cn/pc/login', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         authenticity_token = response.xpath(".//input[@name='authenticity_token']/@value").extract_first()
         yield FormRequest(url='http://www.suncapital.com.cn/pc/login/submit_user',
                           formdata={'login_name': '13916427906',
@@ -34,15 +45,7 @@ class HongdaoInvsetSpider(GGFundNavSpider):
                           callback=self.parse_login)
 
     def parse_login(self, response):
-
-        fps = [
-            {
-                'url': 'http://www.suncapital.com.cn/pc/profit/all',
-                'ref': 'http://www.suncapital.com.cn/pc/profit/index',
-            }
-        ]
-
-        yield self.request_next(fps, [])
+        yield self.request_next()
 
     def parse_fund(self, response):
         fps = response.meta['fps']

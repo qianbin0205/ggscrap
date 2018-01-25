@@ -1,5 +1,6 @@
 import re
 import json
+from scrapy import Request
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -11,14 +12,22 @@ class ShengangSecuritiesAssetSpider(GGFundNavSpider):
     sitename = '申港证券资产管理部'
     channel = '发行机构'
     allowed_domains = ['zcgl.shgsec.com']
-    start_urls = ['http://zcgl.shgsec.com/sgzq-new/sgzq_zcgl/index.html']
 
-    fundNameMap = {}
+    start_urls = []
+    fps = [
+        {
+            'url': 'http://zcgl.shgsec.com/front/apiv1/asset/asset.jsp?cmd=listProduct&status=2&font=1',
+            'ref': 'http://zcgl.shgsec.com/sgzq-new/sgzq_zcgl/index.html'
+        }
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(ShengangSecuritiesAssetSpider, self).__init__(limit, *args, **kwargs)
 
-    def parse(self, response):
+    def start_requests(self):
+        yield Request(url='http://zcgl.shgsec.com/sgzq-new/sgzq_zcgl/index.html', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         yield FormRequest(url='http://zcgl.shgsec.com/front/apiv1/user/login2.jsp',
                           formdata={'username': '13916427906',
                                     'password': 'ZYYXSM123',
@@ -30,17 +39,8 @@ class ShengangSecuritiesAssetSpider(GGFundNavSpider):
                           },
                           callback=self.parse_login)
 
-
     def parse_login(self, response):
-
-        fps = [
-            {
-                'url': 'http://zcgl.shgsec.com/front/apiv1/asset/asset.jsp?cmd=listProduct&status=2&font=1',
-                'ref':'http://zcgl.shgsec.com/sgzq-new/sgzq_zcgl/index.html'
-            }
-        ]
-
-        yield self.request_next(fps, [])
+        yield self.request_next()
 
     def parse_fund(self, response):
         fps = response.meta['fps']

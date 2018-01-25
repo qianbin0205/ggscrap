@@ -3,6 +3,7 @@
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
+from scrapy import Request
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -13,12 +14,22 @@ class HainingShibeiInvsetSpider(GGFundNavSpider):
     sitename = '海宁拾贝投资'
     channel = '投顾净值'
     allowed_domains = ['www.tbamc.com']
-    start_urls = ['http://www.tbamc.com/pc/login']
+
+    start_urls = []
+    fps = [
+        {
+            'url': 'http://www.tbamc.com/pc/profit/all',
+            'ref': 'http://www.tbamc.com/pc/profit/index',
+        }
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(HainingShibeiInvsetSpider, self).__init__(limit, *args, **kwargs)
 
-    def parse(self, response):
+    def start_requests(self):
+        yield Request(url='http://www.tbamc.com/pc/login', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         authenticity_token = response.xpath(".//input[@name='authenticity_token']/@value").extract_first()
         yield FormRequest(url='http://www.tbamc.com/pc/login/submit_user',
                           formdata={'login_name': '17839170174',
@@ -34,15 +45,7 @@ class HainingShibeiInvsetSpider(GGFundNavSpider):
                           callback=self.parse_login)
 
     def parse_login(self, response):
-
-        fps = [
-            {
-                'url': 'http://www.tbamc.com/pc/profit/all',
-                'ref': 'http://www.tbamc.com/pc/profit/index',
-            }
-        ]
-
-        yield self.request_next(fps, [])
+        yield self.request_next()
 
     def parse_fund(self, response):
         fps = response.meta['fps']

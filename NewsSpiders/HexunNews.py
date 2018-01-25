@@ -25,6 +25,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻首页-公司新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -35,6 +36,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新股-新股申购中签',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -45,6 +47,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新股-拟上市公司新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -55,6 +58,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '港股-港股要闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -65,6 +69,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '基金要闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -75,6 +80,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '基金评论-基金市场评论',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -85,6 +91,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '基金评论-持仓分析',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -95,6 +102,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '债券新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -105,6 +113,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '债券-滚动新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -115,6 +124,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '债券公告',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -125,6 +135,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '债市分析-海外及周边债市',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -135,6 +146,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-滚动新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -145,6 +157,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '股指期货要闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -155,6 +168,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '股指期货-滚动新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -165,6 +179,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期指市场日评',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -175,6 +190,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '股指期货研究报告',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -185,6 +201,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '国债期货评论',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -195,6 +212,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '股指期货杂谈',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -205,6 +223,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货资讯-能源资讯',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -215,6 +234,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货资讯-化工资讯',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -225,6 +245,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '黄金首页-分析评论-能源市场',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -235,6 +256,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货资讯-农副资讯',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -245,6 +267,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货资讯-金属资讯',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -255,6 +278,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇-滚动新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -265,6 +289,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻首页-产业报道',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -275,6 +300,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '汽车-滚动新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -285,6 +311,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '房产-滚动新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -295,6 +322,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '时事要闻-国内时事',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -305,6 +333,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '时事要闻-国际时事',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -315,6 +344,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '美股市场-全球市场',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -325,6 +355,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '银行-滚动新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -335,6 +366,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '券商-证券公司',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -345,6 +377,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '券商-证券业动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -355,6 +388,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '黄金-滚动新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -365,6 +399,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '最新资讯-金市动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -375,6 +410,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '黄金首页-分析评论-海外及周边市场',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -385,7 +421,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '白银频道-业内第一专业白银投资平台白银市场动态',
-
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -396,6 +432,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '分析评论-每日金评',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -406,6 +443,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '黄金首页-分析评论-深度剖析',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -416,6 +454,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻首页-宏观经济',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 1,
@@ -426,6 +465,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '港股-中资股新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -436,6 +476,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '港股-香港新股再融资',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -446,6 +487,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '港股-券商动向',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -456,6 +498,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '美股市场-国际市场评论',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -466,6 +509,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': ' 美股市场-美股公司新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -476,6 +520,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '美股市场-中国概念股播报',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -486,6 +531,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '国债-国债动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -496,6 +542,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '可转债-可转债动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -506,6 +553,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '债市分析-交易所债市',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -516,6 +564,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '债市分析-银行间债市',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -526,6 +575,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '和债市分析-债市研究',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -536,6 +586,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '债券首页-地方债',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -546,6 +597,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货资讯-环球市场资讯',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -556,6 +608,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货资讯-期货行业资讯',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -566,6 +619,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货分析评论-期货操作建议',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -576,6 +630,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货分析评论-期货焦点透视',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -586,6 +641,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '股指期货首页-名家论市',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -596,6 +652,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '股指期货国内评论',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -606,6 +663,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货首页- 期权',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -616,6 +674,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇新闻-汇市观察',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -626,6 +685,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇新闻-市场资讯',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -636,6 +696,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇首页-币种专栏',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -646,6 +707,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '人民币频道-人民币要闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -656,6 +718,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '人民币频道-离岸市场',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -666,6 +729,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '人民币频道-跨境结算',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -676,6 +740,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '人民币频道-政策动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -686,6 +751,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '人民币频道-大行研报',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -696,6 +762,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇首页-外汇公司',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -706,6 +773,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇分析-机构分析',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -716,6 +784,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇新闻-深度分析',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -726,6 +795,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '汽车产业资讯-汽车要闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -736,6 +806,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '汽车产业资讯-车企动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -747,6 +818,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '科技首页-科技要闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -757,6 +829,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险首页-今日导读',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -767,6 +840,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险首页-业内资讯-行业资讯',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -777,6 +851,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险首页-业内资讯-公司新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -787,6 +862,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险首页-业内资讯-监管动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -797,6 +873,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险首页-业内资讯-评论与研究',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -807,6 +884,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险首页-业内资讯-营销动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -817,6 +895,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险首页-业内资讯-保险人物',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -827,6 +906,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '信托行业动态',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -837,6 +917,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '信托研究',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -847,6 +928,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '信托产品新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -857,6 +939,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '信托公司新闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -867,6 +950,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '信托视点',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -877,6 +961,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '信托要闻',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -887,6 +972,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '券商-券商人物',
+                    'entry': '',
                     'count': 0
                 },
                 'pg': 0,
@@ -897,6 +983,7 @@ class HexunNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '黄金机构',
+                    'entry': '',
                     'count': 0,
                 },
                 'pg': 0,
