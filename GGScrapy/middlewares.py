@@ -5,12 +5,23 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import base64
 from scrapy import signals
 from scrapy import Request
 from scrapy.exceptions import IgnoreRequest
 
 
 class GGDownloaderMiddleware(object):
+    def process_request(self, request, spider):
+        proxy = request.meta['proxy'] if 'proxy' in request.meta else spider.proxy
+        if proxy:
+            request.meta['proxy'] = proxy
+            proxy_user_pass = request.headers[
+                'Proxy-Authorization'] if 'Proxy-Authorization' in request.headers else None
+            if proxy_user_pass:
+                encoded_user_pass = base64.encodebytes(proxy_user_pass)
+                request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass
+
     def process_response(self, request, response, spider):
         if response.css('head').re('<script[^<>]*>\s*setTimeout[^<>]+location[.]replace[^<>]+</script>'):
             return request.replace(dont_filter=True)

@@ -22,6 +22,9 @@ class GGSpider(CrawlSpider):
     routines = []
     requests = []
     cookies = None
+    proxy = None  # http://YOUR_PROXY_IP:PORT
+    proxy_auth = None  # USERNAME:PASSWORD
+
 
     @staticmethod
     def parse_cookies(cookies):

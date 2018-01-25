@@ -5,6 +5,7 @@ from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
 from scrapy import Request
 from scrapy import FormRequest
+import config
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
@@ -14,6 +15,8 @@ class HainingShibeiInvsetSpider(GGFundNavSpider):
     sitename = '海宁拾贝投资'
     channel = '投顾净值'
     allowed_domains = ['www.tbamc.com']
+
+    proxy = config.proxy
 
     start_urls = []
     fps = [
