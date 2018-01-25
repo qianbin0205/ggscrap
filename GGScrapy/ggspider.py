@@ -47,7 +47,7 @@ class GGSpider(CrawlSpider):
             for item in cookies:
                 item['path'] = '/'
         else:
-            cookies = None
+            cookies = {}
         return cookies
 
     @classmethod
