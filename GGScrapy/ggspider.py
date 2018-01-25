@@ -47,7 +47,7 @@ class GGSpider(CrawlSpider):
             for item in cookies:
                 item['path'] = '/'
         else:
-            cookies = None
+            cookies = {}
         return cookies
 
     @classmethod
@@ -122,14 +122,10 @@ class GGNewsSpider(GGSpider):
             url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
-            cookies = self.cookies
-            self.cookies = None
-
             count = cp['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, priority=1,
                                headers={'Referer': cp['ref']},
-                               cookies=cookies,
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
                                      'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
                                callback=self.parse_link)
@@ -142,14 +138,10 @@ class GGNewsSpider(GGSpider):
             url = rc['url'] if 'url' in rc else None
             url = url(pg) if callable(url) else url
 
-            cookies = self.cookies
-            self.cookies = None
-
             count = rc['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, dont_filter=True,
                                headers={'Referer': rc['ref']},
-                               cookies=cookies,
                                meta={'ch': rc['ch'], 'pg': pg, 'url': rc['url'],
                                      'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
                                callback=self.parse_item)
@@ -164,14 +156,10 @@ class GGNewsSpider(GGSpider):
             url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
-            cookies = self.cookies
-            self.cookies = None
-
             count = cp['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, priority=1,
                                headers={'Referer': cp['ref']},
-                               cookies=cookies,
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
                                      'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
                                callback=self.parse_link)
@@ -214,9 +202,6 @@ class GGFundNavSpider(GGSpider):
             headers = headers if isinstance(headers, dict) else {}
             headers['Referer'] = ip['ref']
 
-            cookies = self.cookies
-            self.cookies = None
-
             pg = ip['pg'] if 'pg' in ip else None
             url = ip['url'] if 'url' in ip else None
             url = url(pg) if callable(url) else url
@@ -228,13 +213,13 @@ class GGFundNavSpider(GGSpider):
                     v = v(pg) if callable(v) else v
                     formdata[k] = v
                 return FormRequest(url=url, formdata=formdata, dont_filter=True,
-                                   headers=headers, cookies=cookies,
+                                   headers=headers,
                                    meta={'pg': pg, 'url': ip['url'], 'form': form,
                                          'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                    callback=self.parse_item)
             else:
                 return Request(url, dont_filter=True,
-                               headers=headers, cookies=cookies,
+                               headers=headers,
                                meta={'pg': pg, 'url': ip['url'], 'form': None,
                                      'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                callback=self.parse_item)
@@ -247,9 +232,6 @@ class GGFundNavSpider(GGSpider):
             headers = headers if isinstance(headers, dict) else {}
             headers['Referer'] = fp['ref']
 
-            cookies = self.cookies
-            self.cookies = None
-
             pg = fp['pg'] if 'pg' in fp else None
             url = fp['url'] if 'url' in fp else None
             url = url(pg) if callable(url) else url
@@ -261,13 +243,13 @@ class GGFundNavSpider(GGSpider):
                     v = v(pg) if callable(v) else v
                     formdata[k] = v
                 return FormRequest(url=url, formdata=formdata, priority=1,
-                                   headers=headers, cookies=cookies,
+                                   headers=headers,
                                    meta={'pg': pg, 'url': fp['url'], 'form': form,
                                          'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                    callback=self.parse_fund)
             else:
                 return Request(url, priority=1,
-                               headers=headers, cookies=cookies,
+                               headers=headers,
                                meta={'pg': pg, 'url': fp['url'], 'form': None,
                                      'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                callback=self.parse_fund)

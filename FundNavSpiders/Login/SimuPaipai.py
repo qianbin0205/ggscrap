@@ -16,7 +16,7 @@ class SimuPaipaiSpider(GGFundNavSpider):
     start_urls = ['http://www.simuwang.com/?utm_source=8']
 
     custom_settings = {
-        'DOWNLOAD_DELAY': 3,
+        'DOWNLOAD_DELAY': 5,
     }
 
     def __init__(self, limit=None, *args, **kwargs):

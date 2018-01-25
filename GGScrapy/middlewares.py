@@ -85,6 +85,7 @@ class GGSpiderMiddleware(object):
         if not spider.routines:
             if spider.requests:
                 r = spider.requests.pop(0)
+                r.cookies = r.cookies or spider.cookies or {}
                 spider.routines.append(r)
                 yield r
 
