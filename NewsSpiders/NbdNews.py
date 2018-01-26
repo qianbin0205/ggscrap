@@ -299,6 +299,7 @@ class NbdNewsSpider(GGNewsSpider):
             item['content'] = content
             item['sitename'] = self.sitename
             item['channel'] = ch['name']
+            item['entry'] = ch['entry']
             item['url'] = response.url
             title = response.xpath("//div[@class='g-article-top']/h1/text()").re_first(r'\S+')
             if title is None:

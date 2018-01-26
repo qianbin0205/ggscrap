@@ -1,40 +1,42 @@
 # -*- coding: utf-8 -*-
 
-import config
 from datetime import datetime
+from urllib.parse import urljoin
+from scrapy.utils.response import get_base_url
 from scrapy import Request
 from scrapy import FormRequest
+import config
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
 
-class MingxiZichanSpider(GGFundNavSpider):
-    name = 'FundNav_MingxiZichan'
-    sitename = '上海鸣熙资产'
-    channel = '投资顾问'
-    allowed_domains = ['www.mxzichan.com']
+class HainingShibeiInvsetSpider(GGFundNavSpider):
+    name = 'FundNav_HainingShibeiInvset'
+    sitename = '海宁拾贝投资'
+    channel = '投顾净值'
+    allowed_domains = ['www.tbamc.com']
 
     proxy = config.proxy
 
     start_urls = []
     fps = [
         {
-            'url': 'http://www.mxzichan.com/pc/profit/all',
-            'ref': 'http://www.mxzichan.com/pc/profit/index',
+            'url': 'http://www.tbamc.com/pc/profit/all',
+            'ref': 'http://www.tbamc.com/pc/profit/index',
         }
     ]
 
     def __init__(self, limit=None, *args, **kwargs):
-        super(MingxiZichanSpider, self).__init__(limit, *args, **kwargs)
+        super(HainingShibeiInvsetSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-        yield Request(url='http://www.mxzichan.com/pc/login', callback=self.parse_pre_login)
+        yield Request(url='http://www.tbamc.com/pc/login', callback=self.parse_pre_login)
 
     def parse_pre_login(self, response):
         authenticity_token = response.xpath(".//input[@name='authenticity_token']/@value").extract_first()
-        yield FormRequest(url='http://www.mxzichan.com/pc/login/submit_user',
-                          formdata={'login_name': '13916427906',
-                                    'password': 'ZYYXSM123',
+        yield FormRequest(url='http://www.tbamc.com/pc/login/submit_user',
+                          formdata={'login_name': '17839170174',
+                                    'password': '123456',
                                     'utf8': '✓',
                                     'authenticity_token': authenticity_token,
                                     'auto_login': 'on',
@@ -56,7 +58,15 @@ class MingxiZichanSpider(GGFundNavSpider):
         for fund in funds:
             u = fund.rsplit('/', 1)[1]
             ips.append({
-                'url': 'http://www.mxzichan.com/pc/products/0/show_data/0/show/' + u,
+                'url': 'http://www.tbamc.com/pc/products/0/show_data/0/show/' + u,
+                'ref': response.url
+            })
+
+        url = response.xpath("//a[text()='下一页']/@href").extract_first()
+        if url is not None:
+            url = urljoin(get_base_url(response), url)
+            fps.append({
+                'url': url,
                 'ref': response.url
             })
 

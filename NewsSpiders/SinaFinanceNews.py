@@ -686,6 +686,7 @@ class SinaFinanceNewsSpider(GGNewsSpider):
             item = GGNewsItem()
             item['sitename'] = self.sitename
             item['channel'] = ch['name']
+            item['entry'] = ch['entry']
             item['url'] = response.url
 
             title = response.css('#artibodyTitle::text').extract_first()

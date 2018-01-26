@@ -8,29 +8,31 @@
 import scrapy
 
 
-# 新闻资讯Item
+# 新闻资讯
 class GGNewsItem(scrapy.Item):
-    sitename = scrapy.Field()
-    channel = scrapy.Field()
-    url = scrapy.Field()
-    groupname = scrapy.Field()
-    title = scrapy.Field()
-    source = scrapy.Field()
-    author = scrapy.Field()
-    pubtime = scrapy.Field()
-    content = scrapy.Field()
-
-
-# 基金净值Item
-class GGFundNavItem(scrapy.Item):
+    groupname = scrapy.Field()                      # 分组名称
     sitename = scrapy.Field()                       # 站点名称
     channel = scrapy.Field()                        # 频道名称
+    entry = scrapy.Field()                          # 频道入口
+
+    url = scrapy.Field()                            # 原文链接
+    title = scrapy.Field()                          # 原文标题
+    source = scrapy.Field()                         # 原文来源
+    author = scrapy.Field()                         # 原文作者
+    pubtime = scrapy.Field()                        # 发布时间
+    content = scrapy.Field()                        # 原文内容
+
+
+# 基金净值
+class GGFundNavItem(scrapy.Item):
     groupname = scrapy.Field()                      # 分组名称
+    sitename = scrapy.Field()                       # 站点名称
+    channel = scrapy.Field()                        # 频道名称
+
+    url = scrapy.Field()                            # 链接地址
     fund_name = scrapy.Field()                      # 基金名称
     statistic_date = scrapy.Field()                 # 统计日期
-    url = scrapy.Field()                            # 链接地址
     fund_code = scrapy.Field()                      # 基金代码
-
     nav = scrapy.Field()                            # 单位净值(单位: 元)
     added_nav = scrapy.Field()                      # 累计净值(单位: 元)
     nav_2 = scrapy.Field()                          # 含业绩报酬的单位净值(单位: 元)

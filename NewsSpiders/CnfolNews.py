@@ -21,6 +21,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-证券要闻',
+                    'entry': 'http://news.cnfol.com/zhengquanyaowen/',
                     'count': 0
                 },
                 'pg': 1,
@@ -31,6 +32,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-头条精华',
+                    'entry': 'http://news.cnfol.com/toutiaojinghua/',
                     'count': 0
                 },
                 'pg': 1,
@@ -41,6 +43,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '市场-市场测评',
+                    'entry': 'http://sc.stock.cnfol.com/shichangceping/',
                     'count': 0
                 },
                 'pg': 1,
@@ -51,6 +54,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '市场-股市聚焦',
+                    'entry': 'http://sc.stock.cnfol.com/gushijujiao/',
                     'count': 0
                 },
                 'pg': 1,
@@ -61,6 +65,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '市场-主力动向',
+                    'entry': 'http://sc.stock.cnfol.com/zldongxiang/',
                     'count': 0
                 },
                 'pg': 1,
@@ -71,6 +76,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '市场-板块聚焦',
+                    'entry': 'http://sc.stock.cnfol.com/bkjujiao/',
                     'count': 0
                 },
                 'pg': 1,
@@ -81,6 +87,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '港股-A+H资讯',
+                    'entry': 'http://hkstock.cnfol.com/A+Hzixun/',
                     'count': 0
                 },
                 'pg': 1,
@@ -91,6 +98,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-市场分析',
+                    'entry': 'http://www.cnfol.hk/news/ganggujujiao/',
                     'count': 0
                 },
                 'pg': 0,
@@ -102,6 +110,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-即时市况',
+                    'entry': 'http://www.cnfol.hk/news/jishisk/',
                     'count': 0
                 },
                 'pg': 0,
@@ -113,6 +122,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-宏观财经',
+                    'entry': 'http://www.cnfol.hk/news/gncaijing/',
                     'count': 0
                 },
                 'pg': 1,
@@ -124,6 +134,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-新股要闻',
+                    'entry': 'http://www.cnfol.hk/ipo/',
                     'count': 0
                 },
                 'pg': 1,
@@ -135,6 +146,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '沪深港通频道',
+                    'entry': 'http://www.cnfol.hk/shhkc/',
                     'count': 0
                 },
                 'pg': 1,
@@ -146,6 +158,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '新闻频道-窝轮要闻',
+                    'entry': 'http://www.cnfol.hk/warrants/',
                     'count': 0
                 },
                 'pg': 1,
@@ -157,6 +170,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '基金-基金动态',
+                    'entry': 'http://fund.cnfol.com/jijindongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -167,6 +181,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '基金-宏观经济',
+                    'entry': 'http://fund.cnfol.com/hongguanjingji/',
                     'count': 0
                 },
                 'pg': 1,
@@ -177,6 +192,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '私募频道-私募动态',
+                    'entry': 'http://fund.cnfol.com/smjj/simudongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -187,6 +203,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '理财-债券资讯',
+                    'entry': 'http://money.cnfol.com/zqzixun/',
                     'count': 0
                 },
                 'pg': 1,
@@ -197,6 +214,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货频道',
+                    'entry': 'http://futures.cnfol.com/',
                     'count': 0
                 },
                 'pg': 1,
@@ -207,6 +225,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-期市动态',
+                    'entry': 'http://futures.cnfol.com/qishidongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -217,6 +236,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-机构论市',
+                    'entry': 'http://futures.cnfol.com/jigoulunshi/',
                     'count': 0
                 },
                 'pg': 1,
@@ -227,6 +247,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-名家论市',
+                    'entry': 'http://futures.cnfol.com/mingjialunshi/',
                     'count': 0
                 },
                 'pg': 1,
@@ -237,6 +258,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-金融期货',
+                    'entry': 'http://futures.cnfol.com/jinrongqihuo/',
                     'count': 0
                 },
                 'pg': 1,
@@ -247,6 +269,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-能源',
+                    'entry': 'http://futures.cnfol.com/ny/',
                     'count': 0
                 },
                 'pg': 1,
@@ -257,6 +280,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-化工',
+                    'entry': 'http://futures.cnfol.com/huagong/',
                     'count': 0
                 },
                 'pg': 1,
@@ -267,6 +291,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '国际原油市场',
+                    'entry': 'http://gold.cnfol.com/guojiyuanyousc/',
                     'count': 0
                 },
                 'pg': 1,
@@ -276,6 +301,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-农副',
+                    'entry': 'http://futures.cnfol.com/nongfu/',
                     'count': 0
                 },
                 'pg': 1,
@@ -286,6 +312,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '期货-金属',
+                    'entry': 'http://futures.cnfol.com/js/',
                     'count': 0
                 },
                 'pg': 1,
@@ -296,6 +323,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '汇市观察',
+                    'entry': 'http://forex.cnfol.com/jingjiyaowen/',
                     'count': 0
                 },
                 'pg': 1,
@@ -305,6 +333,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '行业资讯',
+                    'entry': 'http://forex.cnfol.com/hyzx/',
                     'count': 0
                 },
                 'pg': 1,
@@ -314,6 +343,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '汇市速递',
+                    'entry': 'http://forex.cnfol.com/huishizhibo/',
                     'count': 0
                 },
                 'pg': 1,
@@ -323,6 +353,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '专家汇评',
+                    'entry': 'http://forex.cnfol.com/zhuanjiajianyi/',
                     'count': 0
                 },
                 'pg': 1,
@@ -332,6 +363,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '机构分析',
+                    'entry': 'http://forex.cnfol.com/jigouhuiping/',
                     'count': 0
                 },
                 'pg': 1,
@@ -341,6 +373,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '币种分析',
+                    'entry': 'http://forex.cnfol.com/bizhongfenxi/',
                     'count': 0
                 },
                 'pg': 1,
@@ -350,6 +383,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇-外汇理财',
+                    'entry': 'http://forex.cnfol.com/waihuilicai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -359,6 +393,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '外汇-二元期权',
+                    'entry': 'http://forex.cnfol.com/eyqq/',
                     'count': 0
                 },
                 'pg': 1,
@@ -368,6 +403,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-产业经济',
+                    'entry': 'http://news.cnfol.com/chanyejingji/',
                     'count': 0
                 },
                 'pg': 1,
@@ -378,6 +414,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-消费',
+                    'entry': 'http://news.cnfol.com/xiaofei/',
                     'count': 0
                 },
                 'pg': 1,
@@ -388,6 +425,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-IT',
+                    'entry': 'http://news.cnfol.com/it/',
                     'count': 0
                 },
                 'pg': 1,
@@ -398,6 +436,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '行业-行业综合',
+                    'entry': 'http://hy.stock.cnfol.com/hangyezonghe/',
                     'count': 0
                 },
                 'pg': 1,
@@ -408,6 +447,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '行业-商业',
+                    'entry': 'http://hy.stock.cnfol.com/bankuaijujiao/',
                     'count': 0
                 },
                 'pg': 1,
@@ -418,6 +458,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '行业-行业数据',
+                    'entry': 'http://hy.stock.cnfol.com/hangyeshuju/',
                     'count': 0
                 },
                 'pg': 1,
@@ -428,6 +469,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '股票频道-行业',
+                    'entry': 'http://hy.stock.cnfol.com/',
                     'count': 0
                 },
                 'pg': 1,
@@ -438,6 +480,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-国内财经',
+                    'entry': 'http://news.cnfol.com/guoneicaijing/',
                     'count': 0
                 },
                 'pg': 1,
@@ -448,6 +491,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-商业要闻',
+                    'entry': 'http://news.cnfol.com/shangyeyaowen/',
                     'count': 0
                 },
                 'pg': 1,
@@ -458,6 +502,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '财经-国际财经',
+                    'entry': 'http://news.cnfol.com/guojicaijing/',
                     'count': 0
                 },
                 'pg': 1,
@@ -468,6 +513,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '银行-银行业内动态',
+                    'entry': 'http://bank.cnfol.com/yinhangyeneidongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -478,6 +524,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '保险-保险动态',
+                    'entry': 'http://insurance.cnfol.com/baoxiandongtai/',
                     'count': 0
                 },
                 'pg': 1,
@@ -488,6 +535,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '金市直播',
+                    'entry': 'http://gold.cnfol.com/jinshizhibo/',
                     'count': 0
                 },
                 'pg': 1,
@@ -497,6 +545,7 @@ class CnfolNewsSpider(GGNewsSpider):
             {
                 'ch': {
                     'name': '名家机构',
+                    'entry': 'http://forex.cnfol.com/keyword/mjjg.shtml',
                     'count': 0
                 },
                 'pg': 1,
@@ -509,6 +558,10 @@ class CnfolNewsSpider(GGNewsSpider):
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131030/16065440.shtml'
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131030/16064291.shtml'
         # url = 'http://hkstock.cnfol.com/A+Hzixun/20131031/16069401.shtml'
+        # url = 'http://futures.cnfol.com/mingjialunshi/20180122/25932672.shtml'
+        # url = 'http://gold.cnfol.com/guojiyuanyousc/20180122/25934538.shtml'
+        # url = 'http://gold.cnfol.com/guojiyuanyousc/20180122/25933608.shtml'
+        # url = 'http://gold.cnfol.com/guojiyuanyousc/20180123/25939136.shtml'
         # cp = cps[1]
         # yield self.request_next([], [{'ch': cp['ch'], 'url': url, 'ref': cp['ref']}], [])
 
@@ -539,12 +592,13 @@ class CnfolNewsSpider(GGNewsSpider):
                 'ref': response.request.headers['Referer']
             })
 
-        nps.append({
-            'ch': ch,
-            'pg': pg + 1,
-            'url': url,
-            'ref': response.request.headers['Referer']
-        })
+        if urls:
+            nps.append({
+                'ch': ch,
+                'pg': pg + 1,
+                'url': url,
+                'ref': response.request.headers['Referer']
+            })
 
         yield self.request_next(cps, rcs, nps)
 
@@ -560,6 +614,10 @@ class CnfolNewsSpider(GGNewsSpider):
             ls = response.css(".Article>*, .Article::text").extract()
         if len(ls) < 1:
             ls = response.css("#__content>*:not(#editor_baidu), #__content::text").extract()
+        if not ls:
+            ls = response.css('.ArtDsc .content>*,.ArtDsc .content::text').extract()
+        if not ls:
+            ls = response.css('.EDArt>.EDArtInfo>*,.EDArt>.EDArtInfo::text').extract()
         content = ''.join(ls)
         if 'item' in ext:
             item = ext['item']
@@ -569,6 +627,7 @@ class CnfolNewsSpider(GGNewsSpider):
             item['content'] = content
             item['sitename'] = self.sitename
             item['channel'] = ch['name']
+            item['entry'] = ch['entry']
             item['url'] = response.url
 
             title = response.xpath("//div[@class='Art NewArt']/h1/text()").extract_first()
@@ -582,6 +641,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 title = response.xpath("//h2[@id='Title']/text()").extract_first()
             if title is None:
                 title = response.xpath("//div[@class='EDArt']/h1/text()").extract_first()
+            if title is None:
+                title = response.css('h1.ArtH1::text').extract_first()
             item["title"] = title
 
             pubtime = response.xpath("//span[@id='pubtime_baidu']/text()").extract_first()
@@ -598,13 +659,18 @@ class CnfolNewsSpider(GGNewsSpider):
                     r'([0-9]+-[0-9]+-[0-9]+\s*[0-9]+:[0-9]+:[0-9]+)')
             if pubtime is None:
                 pubtime = response.xpath("//div[@class='Subtitle']/text()").re_first(r'(\d+年\d+月\d+日\s*\d+:\d+)')
+            if pubtime is None:
+                pubtime = response.css('.ArtHps>span').re_first(r'\d+-\d+-\d+\s*\d+:\d+:\d+')
             if pubtime is not None:
                 if '年' in pubtime:
                     pubtime = datetime.strptime(pubtime, '%Y年%m月%d日%H:%M')
-                    pubtime = pubtime.strftime('%Y-%m-%d %H:%M:%S')
+                else:
+                    pubtime = datetime.strptime(pubtime, '%Y-%m-%d %H:%M:%S')
             item['pubtime'] = pubtime
 
             source = response.xpath("//div[@class='artDes']/span[2]/text()").re_first(r'来源[:|：](\S+)')
+            if source is None:
+                source = response.css('#tit>span>span>a::text').extract_first()
             if source is None:
                 source = response.xpath(
                     "//span[@id='source_baidu']/a/text() | //span[@id='source_baidu']/span/text()").extract_first()
@@ -612,6 +678,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 source = response.xpath("//p[@class='Fl']/span/a/text()").extract_first()
             if source is None:
                 source = response.xpath("//p[@class='Fl']/span/span/text()").extract_first()
+            if source is None:
+                source = response.xpath("//div[@class='tit']/span/span/span/text()").extract_first()
             if source is None:
                 source = response.xpath("//div[@class='tit']/span/span/text()").extract_first()
             if source is None:
@@ -646,6 +714,8 @@ class CnfolNewsSpider(GGNewsSpider):
                 author = response.xpath("//div[@class='tit']/span/text()").re_first(r'作者[:|：](\S+)')
             if author is None:
                 author = response.xpath("//div[@class='GSTitsL Cf']/span/text()").re_first(r'作者[:|：](\S+)')
+            if author is None:
+                author = response.css('#tit>span>span').re_first(r'作者：(.+)<')
             item["author"] = author
 
         next_url = response.xpath("//a[text()='下一页']/@href").extract_first()

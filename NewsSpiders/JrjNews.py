@@ -1185,6 +1185,7 @@ class JrjNewsSpider(GGNewsSpider):
             item['content'] = content
             item['sitename'] = self.sitename
             item['channel'] = ch['name']
+            item['entry'] = ch['entry']
             item['url'] = response.url
             title = response.css('.titmain>h1').re_first(r'<!--[\s]*?标题[^>]*?>[\s]*?<!--[^>]*?>([^<]+)<!--[^>]*?>')
             if title is None:
