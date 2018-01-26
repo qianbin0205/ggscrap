@@ -13,6 +13,9 @@ class ShengangSecuritiesAssetSpider(GGFundNavSpider):
     channel = '发行机构'
     allowed_domains = ['zcgl.shgsec.com']
 
+    username = '13916427906'
+    password = 'ZYYXSM123'
+
     start_urls = []
     fps = [
         {
