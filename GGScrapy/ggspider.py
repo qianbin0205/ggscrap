@@ -19,12 +19,13 @@ class GGSpider(CrawlSpider):
         'DOWNLOADER_MIDDLEWARES': {'GGScrapy.middlewares.GGDownloaderMiddleware': 543},
     }
 
+    allowed_domains = []
     routines = []
     requests = []
     cookies = None
     proxy = None  # http://YOUR_PROXY_IP:PORT
     proxy_auth = None  # USERNAME:PASSWORD
-
+    start_urls = []
 
     @staticmethod
     def parse_cookies(cookies):
