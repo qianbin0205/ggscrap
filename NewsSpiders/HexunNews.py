@@ -1047,6 +1047,8 @@ class HexunNewsSpider(GGNewsSpider):
         nps = response.meta['nps']
         if '.html' not in response.url:
             pass
+        elif response.url == 'http://forex.hexun.com/rmbzx/index.html':
+            pass
         else:
             item = GGNewsItem()
             item['sitename'] = self.sitename
