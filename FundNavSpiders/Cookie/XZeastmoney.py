@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import config
 import re
 import json
 from datetime import datetime
@@ -12,11 +13,12 @@ from pyquery import PyQuery
 
 class XZeastmoneySpider(GGFundNavSpider):
     name = 'FundNav_XZeastmoney'
-    sitename = '西藏东方财富证券股份有限公司资产管理部'
-    channel = '资管净值'
+    sitename = '东方财富证券'
+    channel = '券商资管净值'
     allowed_domains = ['www.xzsec.com']
     start_urls = ['http://www.xzsec.com/home.html']
 
+    proxy = config.proxy
     username = '13916427906'
     cookies = 'td_cookie=11049088; st_pvi=32050262281411; acw_tc=AQAAAJON+l/FEwIA9bNuywp8f4EyaCwM; st_si=19887439416299; Hm_lvt_37b5100b075a06b0fd519eed8d2f561d=1516605027,1516670543; xzsec_csrf_cookie_name=eb3f757bf02535778a6abc348f0a140a; tx_xzsec=3899fa507aa82f20ba0f5030f1fcdbf7a9169f20; validateCode=dhsy; userPhone=vaf4%2BseRc4j6Qe6F40DMcQ%3D%3D; td_cookie=11049090; Hm_lpvt_37b5100b075a06b0fd519eed8d2f561d=1516670631'
 
