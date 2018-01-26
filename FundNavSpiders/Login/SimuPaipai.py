@@ -19,6 +19,9 @@ class SimuPaipaiSpider(GGFundNavSpider):
         'DOWNLOAD_DELAY': 5,
     }
 
+    username = '18637946652'
+    password = '870301'
+
     start_urls = []
     fps = [
         {
