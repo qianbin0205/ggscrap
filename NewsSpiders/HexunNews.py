@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import config
 from scrapy.utils.response import get_base_url
 from urllib.parse import urljoin
 from GGScrapy.items import GGNewsItem
@@ -13,9 +14,10 @@ class HexunNewsSpider(GGNewsSpider):
     name = 'News_Hexun'
     sitename = '和讯网'
     allowed_domains = ['hexun.com']
-    start_urls = []
-
     handle_httpstatus_list = [404]
+
+    proxy = config.proxy
+    start_urls = []
 
     def __init__(self, limit=None, *args, **kwargs):
         super(HexunNewsSpider, self).__init__(limit, *args, **kwargs)
