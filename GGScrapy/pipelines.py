@@ -313,7 +313,7 @@ class GGFundNavPipeline(object):
             return item
 
 
-# 基金公告Pipeline
+# 私募公告Pipeline
 class GGFundNoticePipeline(object):
     def process_item(self, item, spider):
         try:

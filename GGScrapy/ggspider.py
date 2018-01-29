@@ -274,12 +274,12 @@ class GGNoticeSpider(GGSpider):
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGNoticePipeline': 300}
     }
 
-    dbPool = Pool(config.notice['db']['host'],
-                  config.notice['db']['port'],
-                  config.notice['db']['user'],
-                  config.notice['db']['pswd'],
-                  config.notice['db']['name'],
-                  timeout=config.notice['db']['timeout'])
+    dbPool = Pool(config.fund_notice['db']['host'],
+                  config.fund_notice['db']['port'],
+                  config.fund_notice['db']['user'],
+                  config.fund_notice['db']['pswd'],
+                  config.fund_notice['db']['name'],
+                  timeout=config.fund_notice['db']['timeout'])
 
     ops = []
     ros = []
