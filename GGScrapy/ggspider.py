@@ -266,3 +266,108 @@ class GGFundNavSpider(GGSpider):
 
     def parse_item(self, response):
         pass
+
+
+# 基金公告Spider基类
+class GGNoticeSpider(GGSpider):
+    custom_settings = {
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGNoticePipeline': 300}
+    }
+
+    dbPool = Pool(config.notice['db']['host'],
+                  config.notice['db']['port'],
+                  config.notice['db']['user'],
+                  config.notice['db']['pswd'],
+                  config.notice['db']['name'],
+                  timeout=config.notice['db']['timeout'])
+
+    ops = []
+    ros = []
+    tps = []
+
+    def __init__(self, limit=None, *args, **kwargs):
+        super(GGNoticeSpider, self).__init__(*args, **kwargs)
+        try:
+            limit = int(limit)
+        except:
+            self.__update = True
+            self.__limit = None
+        else:
+            if limit > 0:
+                self.__limit = limit
+                self.__update = False
+            else:
+                self.__update = True
+                if limit < 0:
+                    self.__limit = -limit
+                else:
+                    self.__limit = None
+
+    @property
+    def update(self):
+        return self.__update
+
+    @property
+    def limit(self):
+        return self.__limit
+
+    def request_next(self, *args):
+        self.ops = args[0] if args[0:] else self.ops
+        self.ros = args[1] if args[1:] else self.ros
+        self.tps = args[2] if args[2:] else self.tps
+
+        while self.ops:
+            op = self.ops.pop(0)
+            ext = op['ext'] if 'ext' in op else {}
+
+            pg = op['pg'] if 'pg' in op else None
+            url = op['url'] if 'url' in op else None
+            url = url(pg) if callable(url) else url
+
+            count = op['ch']['count']
+            if self.limit is None or count < self.limit:
+                return Request(url, priority=1,
+                               headers={'Referer': op['ref']},
+                               meta={'ch': op['ch'], 'pg': pg, 'url': op['url'],
+                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
+                               callback=self.parse_link)
+
+        while self.ros:
+            ro = self.ros.pop(0)
+            ext = ro['ext'] if 'ext' in ro else {}
+
+            pg = ro['pg'] if 'pg' in ro else None
+            url = ro['url'] if 'url' in ro else None
+            url = url(pg) if callable(url) else url
+
+            count = ro['ch']['count']
+            if self.limit is None or count < self.limit:
+                return Request(url, dont_filter=True,
+                               headers={'Referer': ro['ref']},
+                               meta={'ch': ro['ch'], 'pg': pg, 'url': ro['url'],
+                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
+                               callback=self.parse_item)
+
+        self.ops = self.tps
+        self.tps = []
+        while self.ops:
+            op = self.ops.pop(0)
+            ext = op['ext'] if 'ext' in op else {}
+
+            pg = op['pg'] if 'pg' in op else None
+            url = op['url'] if 'url' in op else None
+            url = url(pg) if callable(url) else url
+
+            count = op['ch']['count']
+            if self.limit is None or count < self.limit:
+                return Request(url, priority=1,
+                               headers={'Referer': op['ref']},
+                               meta={'ch': op['ch'], 'pg': pg, 'url': op['url'],
+                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
+                               callback=self.parse_link)
+
+    def parse_link(self, response):
+        pass
+
+    def parse_item(self, response):
+        pass
