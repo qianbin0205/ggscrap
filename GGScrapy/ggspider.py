@@ -151,7 +151,13 @@ class GGNewsSpider(GGSpider):
         return self.__limit
 
     def for_more(self, **kwargs):
-        if self.limit is None or kwargs['ip']['ch']['count'] < self.limit:
+        lp = kwargs['lp'] if 'lp' in kwargs else {}
+        ip = kwargs['ip'] if 'ip' in kwargs else {}
+        p = lp or ip
+        ch = p['ch'] if 'ch' in p else {}
+        count = ch['count'] if 'count' in ch else 0
+        count = count if isinstance(count, int) else 0
+        if self.limit is None or count < self.limit:
             return True
         else:
             return False
@@ -293,7 +299,13 @@ class GGFundNoticeSpider(GGSpider):
         return self.__limit
 
     def for_more(self, **kwargs):
-        if self.limit is None or kwargs['ip']['ch']['count'] < self.limit:
+        lp = kwargs['lp'] if 'lp' in kwargs else {}
+        ip = kwargs['ip'] if 'ip' in kwargs else {}
+        p = lp or ip
+        ch = p['ch'] if 'ch' in p else {}
+        count = ch['count'] if 'count' in ch else 0
+        count = count if isinstance(count, int) else 0
+        if self.limit is None or count < self.limit:
             return True
         else:
             return False
