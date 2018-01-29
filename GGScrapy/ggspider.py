@@ -86,9 +86,9 @@ class GGNewsSpider(GGSpider):
                   config.news['db']['name'],
                   timeout=config.news['db']['timeout'])
 
-    cps = []
-    rcs = []
-    nps = []
+    cps = []    # current (list) pages
+    ips = []    # item pages
+    nps = []    # next (list) pages
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GGNewsSpider, self).__init__(*args, **kwargs)
@@ -118,7 +118,7 @@ class GGNewsSpider(GGSpider):
 
     def request_next(self, *args):
         self.cps = args[0] if args[0:] else self.cps
-        self.rcs = args[1] if args[1:] else self.rcs
+        self.ips = args[1] if args[1:] else self.ips
         self.nps = args[2] if args[2:] else self.nps
 
         while self.cps:
@@ -134,11 +134,11 @@ class GGNewsSpider(GGSpider):
                 return Request(url, priority=1,
                                headers={'Referer': cp['ref']},
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
-                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
-                               callback=self.parse_link)
+                                     'cps': self.cps, 'ips': self.ips, 'nps': self.nps, 'ext': ext},
+                               callback=self.parse_list)
 
-        while self.rcs:
-            rc = self.rcs.pop(0)
+        while self.ips:
+            rc = self.ips.pop(0)
             ext = rc['ext'] if 'ext' in rc else {}
 
             pg = rc['pg'] if 'pg' in rc else None
@@ -150,7 +150,7 @@ class GGNewsSpider(GGSpider):
                 return Request(url, dont_filter=True,
                                headers={'Referer': rc['ref']},
                                meta={'ch': rc['ch'], 'pg': pg, 'url': rc['url'],
-                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
+                                     'cps': self.cps, 'ips': self.ips, 'nps': self.nps, 'ext': ext},
                                callback=self.parse_item)
 
         self.cps = self.nps
@@ -168,10 +168,10 @@ class GGNewsSpider(GGSpider):
                 return Request(url, priority=1,
                                headers={'Referer': cp['ref']},
                                meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
-                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
-                               callback=self.parse_link)
+                                     'cps': self.cps, 'ips': self.ips, 'nps': self.nps, 'ext': ext},
+                               callback=self.parse_list)
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         pass
 
     def parse_item(self, response):
@@ -191,8 +191,8 @@ class GGFundNavSpider(GGSpider):
                   config.fund_nav['db']['name'],
                   timeout=config.fund_nav['db']['timeout'])
 
-    fps = []
-    ips = []
+    fps = []  # fund (list) pages
+    ips = []  # item (list) pages
 
     def __init__(self, *args, **kwargs):
         super(GGFundNavSpider, self).__init__(*args, **kwargs)
@@ -330,7 +330,7 @@ class GGNoticeSpider(GGSpider):
                                headers={'Referer': op['ref']},
                                meta={'ch': op['ch'], 'pg': pg, 'url': op['url'],
                                      'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
-                               callback=self.parse_link)
+                               callback=self.parse_list)
 
         while self.ros:
             ro = self.ros.pop(0)
@@ -364,9 +364,9 @@ class GGNoticeSpider(GGSpider):
                                headers={'Referer': op['ref']},
                                meta={'ch': op['ch'], 'pg': pg, 'url': op['url'],
                                      'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
-                               callback=self.parse_link)
+                               callback=self.parse_list)
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         pass
 
     def parse_item(self, response):

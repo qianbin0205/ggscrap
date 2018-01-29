@@ -1008,12 +1008,12 @@ class HexunNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         pg = response.meta['pg']
         url = response.meta['url']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
 
         base = get_base_url(response)
@@ -1028,7 +1028,7 @@ class HexunNewsSpider(GGNewsSpider):
             urls = [i["entityurl"] for i in data]
         for u in urls:
             u = urljoin(base, u)
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': u,
                 'ref': response.request.headers['Referer']
@@ -1040,12 +1040,12 @@ class HexunNewsSpider(GGNewsSpider):
             'ref': response.request.headers['Referer']
         })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         if '.html' not in response.url:
             pass
@@ -1127,4 +1127,4 @@ class HexunNewsSpider(GGNewsSpider):
 
             ch['count'] = ch['count'] + 1
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)

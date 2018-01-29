@@ -310,10 +310,10 @@ class CcStockNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
 
         if response.status == 404:
@@ -325,7 +325,7 @@ class CcStockNewsSpider(GGNewsSpider):
                 "//div[@class='listMain']/ul/li/a/@href|//div[@class='list-left left']/ul/li/a/@href").extract()
             for url in urls:
                 url = urljoin(base, url)
-                rcs.append({
+                ips.append({
                     'ch': ch,
                     'url': url,
                     'ref': response.url
@@ -341,12 +341,12 @@ class CcStockNewsSpider(GGNewsSpider):
                     'ref': response.url
                 })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
         ls = response.css(
@@ -384,7 +384,7 @@ class CcStockNewsSpider(GGNewsSpider):
 
         next_url = response.xpath("//span[@class='next']/a/@href").extract_first()
         if next_url is not None:
-            rcs.insert(0, {
+            ips.insert(0, {
                 'ch': ch,
                 'url': urljoin(get_base_url(response), next_url),
                 'ref': response.url,
@@ -395,4 +395,4 @@ class CcStockNewsSpider(GGNewsSpider):
 
             ch['count'] = ch['count'] + 1
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)

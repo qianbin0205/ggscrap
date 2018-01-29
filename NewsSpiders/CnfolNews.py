@@ -567,12 +567,12 @@ class CnfolNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         pg = response.meta['pg']
         url = response.meta['url']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         if ch['name'] == '港股-A+H资讯':
             urls = response.xpath("//div[@class='Fl W640 LBar']/p/a/@href").extract()
@@ -586,7 +586,7 @@ class CnfolNewsSpider(GGNewsSpider):
             urls = re.findall(r'http:\\/\\/\w+.cnfol.com\\/\w+\\/\d+\\/\d+.shtml', response.text, re.S)
         for u in urls:
             u = u.replace("\\", "")
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': u,
                 'ref': response.request.headers['Referer']
@@ -600,12 +600,12 @@ class CnfolNewsSpider(GGNewsSpider):
                 'ref': response.request.headers['Referer']
             })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
 
         ext = response.meta['ext']
@@ -723,11 +723,11 @@ class CnfolNewsSpider(GGNewsSpider):
             yield item
             ch['count'] = ch['count'] + 1
         else:
-            rcs.insert(0, {
+            ips.insert(0, {
                 'ch': ch,
                 'url': next_url,
                 'ref': response.url,
                 'ext': {'item': item}
             })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
