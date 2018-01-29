@@ -86,9 +86,9 @@ class GGNewsSpider(GGSpider):
                   config.news['db']['name'],
                   timeout=config.news['db']['timeout'])
 
-    cps = []    # current (list) pages
-    ips = []    # item pages
-    nps = []    # next (list) pages
+    cps = []  # current (list) pages
+    ips = []  # item pages
+    nps = []  # next (list) pages
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GGNewsSpider, self).__init__(*args, **kwargs)
@@ -138,18 +138,18 @@ class GGNewsSpider(GGSpider):
                                callback=self.parse_list)
 
         while self.ips:
-            rc = self.ips.pop(0)
-            ext = rc['ext'] if 'ext' in rc else {}
+            ip = self.ips.pop(0)
+            ext = ip['ext'] if 'ext' in ip else {}
 
-            pg = rc['pg'] if 'pg' in rc else None
-            url = rc['url'] if 'url' in rc else None
+            pg = ip['pg'] if 'pg' in ip else None
+            url = ip['url'] if 'url' in ip else None
             url = url(pg) if callable(url) else url
 
-            count = rc['ch']['count']
+            count = ip['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, dont_filter=True,
-                               headers={'Referer': rc['ref']},
-                               meta={'ch': rc['ch'], 'pg': pg, 'url': rc['url'],
+                               headers={'Referer': ip['ref']},
+                               meta={'ch': ip['ch'], 'pg': pg, 'url': ip['url'],
                                      'cps': self.cps, 'ips': self.ips, 'nps': self.nps, 'ext': ext},
                                callback=self.parse_item)
 
@@ -269,9 +269,9 @@ class GGFundNavSpider(GGSpider):
 
 
 # 基金公告Spider基类
-class GGNoticeSpider(GGSpider):
+class GGFundNoticeSpider(GGSpider):
     custom_settings = {
-        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGNoticePipeline': 300}
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNoticePipeline': 300}
     }
 
     dbPool = Pool(config.fund_notice['db']['host'],
@@ -281,12 +281,12 @@ class GGNoticeSpider(GGSpider):
                   config.fund_notice['db']['name'],
                   timeout=config.fund_notice['db']['timeout'])
 
-    ops = []
-    ros = []
-    tps = []
+    cps = []  # current (list) pages
+    ips = []  # item pages
+    nps = []  # next (list) pages
 
     def __init__(self, limit=None, *args, **kwargs):
-        super(GGNoticeSpider, self).__init__(*args, **kwargs)
+        super(GGFundNoticeSpider, self).__init__(*args, **kwargs)
         try:
             limit = int(limit)
         except:
@@ -312,58 +312,51 @@ class GGNoticeSpider(GGSpider):
         return self.__limit
 
     def request_next(self, *args):
-        self.ops = args[0] if args[0:] else self.ops
-        self.ros = args[1] if args[1:] else self.ros
-        self.tps = args[2] if args[2:] else self.tps
+        while self.cps:
+            cp = self.cps.pop(0)
+            ext = cp['ext'] if 'ext' in cp else {}
 
-        while self.ops:
-            op = self.ops.pop(0)
-            ext = op['ext'] if 'ext' in op else {}
-
-            pg = op['pg'] if 'pg' in op else None
-            url = op['url'] if 'url' in op else None
+            pg = cp['pg'] if 'pg' in cp else None
+            url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
-            count = op['ch']['count']
+            count = cp['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, priority=1,
-                               headers={'Referer': op['ref']},
-                               meta={'ch': op['ch'], 'pg': pg, 'url': op['url'],
-                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
+                               headers={'Referer': cp['ref']},
+                               meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'], 'ext': ext},
                                callback=self.parse_list)
 
-        while self.ros:
-            ro = self.ros.pop(0)
-            ext = ro['ext'] if 'ext' in ro else {}
+        while self.ips:
+            ip = self.ips.pop(0)
+            ext = ip['ext'] if 'ext' in ip else {}
 
-            pg = ro['pg'] if 'pg' in ro else None
-            url = ro['url'] if 'url' in ro else None
+            pg = ip['pg'] if 'pg' in ip else None
+            url = ip['url'] if 'url' in ip else None
             url = url(pg) if callable(url) else url
 
-            count = ro['ch']['count']
+            count = ip['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, dont_filter=True,
-                               headers={'Referer': ro['ref']},
-                               meta={'ch': ro['ch'], 'pg': pg, 'url': ro['url'],
-                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
+                               headers={'Referer': ip['ref']},
+                               meta={'ch': ip['ch'], 'pg': pg, 'url': ip['url'], 'ext': ext},
                                callback=self.parse_item)
 
-        self.ops = self.tps
-        self.tps = []
-        while self.ops:
-            op = self.ops.pop(0)
-            ext = op['ext'] if 'ext' in op else {}
+        self.cps = self.nps
+        self.nps = []
+        while self.cps:
+            cp = self.cps.pop(0)
+            ext = cp['ext'] if 'ext' in cp else {}
 
-            pg = op['pg'] if 'pg' in op else None
-            url = op['url'] if 'url' in op else None
+            pg = cp['pg'] if 'pg' in cp else None
+            url = cp['url'] if 'url' in cp else None
             url = url(pg) if callable(url) else url
 
-            count = op['ch']['count']
+            count = cp['ch']['count']
             if self.limit is None or count < self.limit:
                 return Request(url, priority=1,
-                               headers={'Referer': op['ref']},
-                               meta={'ch': op['ch'], 'pg': pg, 'url': op['url'],
-                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
+                               headers={'Referer': cp['ref']},
+                               meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'], 'ext': ext},
                                callback=self.parse_list)
 
     def parse_list(self, response):
