@@ -50,6 +50,6 @@ class GGFundNoticeItem(scrapy.Item):
     channel = scrapy.Field()                        # 频道名称
     url_entry = scrapy.Field()                      # 链接入口
 
-    url = scrapy.Field()                            # 原文链接
-    title = scrapy.Field()                          # 原文标题
+    url = scrapy.Field()                            # 链接地址
+    title = scrapy.Field()                          # 标题
     publish_time = scrapy.Field()                   # 发布时间
