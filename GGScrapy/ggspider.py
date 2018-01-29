@@ -318,6 +318,22 @@ class GGInteractionSpider(GGSpider):
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GGInteractionSpider, self).__init__(*args, **kwargs)
+        try:
+            limit = int(limit)
+        except:
+            self.__limit = None
+        else:
+            if limit > 0:
+                self.__limit = limit
+            else:
+                if limit < 0:
+                    self.__limit = -limit
+                else:
+                    self.__limit = None
+
+    @property
+    def limit(self):
+        return self.__limit
 
     def for_more(self, **kwargs):
         lp = kwargs['lp'] if 'lp' in kwargs else {}
