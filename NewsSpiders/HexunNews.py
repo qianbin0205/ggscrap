@@ -19,7 +19,7 @@ class HexunNewsSpider(GGNewsSpider):
     proxy = config.proxy
 
     start_urls = []
-    cps = [
+    lps = [
         {
             'ch': {
                 'name': '新闻首页-公司新闻',
@@ -998,12 +998,12 @@ class HexunNewsSpider(GGNewsSpider):
     # url = 'http://futures.hexun.com/2017-12-25/192074489.html'
     # url = 'http://hk.stock.hexun.com/2014-05-03/164441425.html'
     # url = 'http://stock.hexun.com/2018-01-02/192138769.html'
-    # cp = cps[0]
+    # lp = lps[0]
     # ips = [
     #     {
-    #         'ch': cp['ch'],
+    #         'ch': lp['ch'],
     #         'url': url,
-    #         'ref': cp['ref']
+    #         'ref': lp['ref']
     #     },
     # ]
 
@@ -1032,7 +1032,7 @@ class HexunNewsSpider(GGNewsSpider):
                 'url': u,
                 'ref': response.request.headers['Referer']
             })
-        self.nps.append({
+        self.lps.append({
             'ch': ch,
             'pg': pg + 1,
             'url': url,
