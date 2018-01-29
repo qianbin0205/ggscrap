@@ -116,11 +116,7 @@ class GGNewsSpider(GGSpider):
     def limit(self):
         return self.__limit
 
-    def request_next(self, *args):
-        self.cps = args[0] if args[0:] else self.cps
-        self.ips = args[1] if args[1:] else self.ips
-        self.nps = args[2] if args[2:] else self.nps
-
+    def request_next(self):
         while self.cps:
             cp = self.cps.pop(0)
             ext = cp['ext'] if 'ext' in cp else {}
@@ -133,8 +129,7 @@ class GGNewsSpider(GGSpider):
             if self.limit is None or count < self.limit:
                 return Request(url, priority=1,
                                headers={'Referer': cp['ref']},
-                               meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
-                                     'cps': self.cps, 'ips': self.ips, 'nps': self.nps, 'ext': ext},
+                               meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'], 'ext': ext},
                                callback=self.parse_list)
 
         while self.ips:
@@ -149,8 +144,7 @@ class GGNewsSpider(GGSpider):
             if self.limit is None or count < self.limit:
                 return Request(url, dont_filter=True,
                                headers={'Referer': ip['ref']},
-                               meta={'ch': ip['ch'], 'pg': pg, 'url': ip['url'],
-                                     'cps': self.cps, 'ips': self.ips, 'nps': self.nps, 'ext': ext},
+                               meta={'ch': ip['ch'], 'pg': pg, 'url': ip['url'], 'ext': ext},
                                callback=self.parse_item)
 
         self.cps = self.nps
@@ -167,8 +161,7 @@ class GGNewsSpider(GGSpider):
             if self.limit is None or count < self.limit:
                 return Request(url, priority=1,
                                headers={'Referer': cp['ref']},
-                               meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
-                                     'cps': self.cps, 'ips': self.ips, 'nps': self.nps, 'ext': ext},
+                               meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'], 'ext': ext},
                                callback=self.parse_list)
 
     def parse_list(self, response):
@@ -311,7 +304,7 @@ class GGFundNoticeSpider(GGSpider):
     def limit(self):
         return self.__limit
 
-    def request_next(self, *args):
+    def request_next(self):
         while self.cps:
             cp = self.cps.pop(0)
             ext = cp['ext'] if 'ext' in cp else {}
