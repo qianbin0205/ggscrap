@@ -16,7 +16,7 @@ class SZqhhqzbSpider(GGFundNavSpider):
     allowed_domains = ['www.hqzb-china.com']
 
     start_urls = []
-    
+
     def __init__(self, limit=None, *args, **kwargs):
         super(SZqhhqzbSpider, self).__init__(limit, *args, **kwargs)
 
