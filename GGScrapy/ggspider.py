@@ -129,22 +129,15 @@ class GGNewsSpider(GGSpider):
         try:
             limit = int(limit)
         except:
-            self.__update = True
             self.__limit = None
         else:
             if limit > 0:
                 self.__limit = limit
-                self.__update = False
             else:
-                self.__update = True
                 if limit < 0:
                     self.__limit = -limit
                 else:
                     self.__limit = None
-
-    @property
-    def update(self):
-        return self.__update
 
     @property
     def limit(self):
@@ -277,26 +270,54 @@ class GGFundNoticeSpider(GGSpider):
         try:
             limit = int(limit)
         except:
-            self.__update = True
             self.__limit = None
         else:
             if limit > 0:
                 self.__limit = limit
-                self.__update = False
             else:
-                self.__update = True
                 if limit < 0:
                     self.__limit = -limit
                 else:
                     self.__limit = None
 
     @property
-    def update(self):
-        return self.__update
-
-    @property
     def limit(self):
         return self.__limit
+
+    def for_more(self, **kwargs):
+        lp = kwargs['lp'] if 'lp' in kwargs else {}
+        ip = kwargs['ip'] if 'ip' in kwargs else {}
+        p = lp or ip
+        ch = p['ch'] if 'ch' in p else {}
+        count = ch['count'] if 'count' in ch else 0
+        count = count if isinstance(count, int) else 0
+        if self.limit is None or count < self.limit:
+            return True
+        else:
+            return False
+
+    def parse_list(self, response):
+        pass
+
+    def parse_item(self, response):
+        pass
+
+
+# 投资者关系互动平台Spider基类
+class GGInteractionSpider(GGSpider):
+    custom_settings = {
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNoticePipeline': 300}
+    }
+
+    dbPool = Pool(config.fund_notice['db']['host'],
+                  config.fund_notice['db']['port'],
+                  config.fund_notice['db']['user'],
+                  config.fund_notice['db']['pswd'],
+                  config.fund_notice['db']['name'],
+                  timeout=config.fund_notice['db']['timeout'])
+
+    def __init__(self, limit=None, *args, **kwargs):
+        super(GGInteractionSpider, self).__init__(*args, **kwargs)
 
     def for_more(self, **kwargs):
         lp = kwargs['lp'] if 'lp' in kwargs else {}
