@@ -210,12 +210,6 @@ class GGFundNavSpider(GGSpider):
                                    callback=self.parse_item)
             else:
                 body = ip['body'] if 'body' in ip else None
-                if body is not None:
-                    b = {}
-                    for (k, v) in body.items():
-                        v = v(pg) if callable(v) else v
-                        b[k] = v
-                    body = b
                 method = 'POST' if body else 'GET'
                 return Request(url, dont_filter=True,
                                method=method,
@@ -249,12 +243,6 @@ class GGFundNavSpider(GGSpider):
                                    callback=self.parse_fund)
             else:
                 body = fp['body'] if 'body' in fp else None
-                if body is not None:
-                    b = {}
-                    for (k, v) in body.items():
-                        v = v(pg) if callable(v) else v
-                        b[k] = v
-                    body = b
                 method = 'POST' if body else 'GET'
                 return Request(url, priority=1,
                                method=method,
