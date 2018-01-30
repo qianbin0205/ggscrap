@@ -1011,7 +1011,8 @@ class HexunNewsSpider(GGNewsSpider):
         super(HexunNewsSpider, self).__init__(limit, *args, **kwargs)
 
     def parse_list(self, response):
-        ch = response.meta['ch']
+        pi = response.meta['pi']
+        ch = pi['ch']
         pg = response.meta['pg']
         url = response.meta['url']
 
@@ -1042,10 +1043,11 @@ class HexunNewsSpider(GGNewsSpider):
         yield self.request_next()
 
     def parse_item(self, response):
-        ch = response.meta['ch']
+        pi = response.meta['pi']
+        ch = pi['ch']
         if '.html' not in response.url:
             pass
-        elif response.url == 'http://forex.hexun.com/rmbzx/index.html':
+        elif re.match(r'.+index[.]html$', response.url):
             pass
         else:
             item = GGNewsItem()
