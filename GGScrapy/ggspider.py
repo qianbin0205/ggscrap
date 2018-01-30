@@ -186,81 +186,44 @@ class GGFundNavSpider(GGSpider):
         self.fps = args[0] if args[0:] else self.fps
         self.ips = args[1] if args[1:] else self.ips
 
-        while self.ips:
-            ip = self.ips.pop(0)
-            ext = ip['ext'] if 'ext' in ip else {}
+        ps = self.ips or self.fps  # pages
+        pf = self.parse_item if self.ips else self.parse_fund  # parse function
+        if ps:
+            pi = ps.pop(0)  # page info
 
-            headers = ip['headers'] if 'headers' in ip else {}
+            ext = pi['ext'] if 'ext' in pi else {}
+            pg = pi['pg'] if 'pg' in pi else None
+
+            url = pi['url'] if 'url' in pi else None
+            req_url = url(pg) if callable(url) else url
+
+            ref = pi['ref'] if 'ref' in pi else None
+            req_ref = ref(pg) if callable(ref) else ref
+
+            headers = pi['headers'] if 'headers' in pi else {}
             headers = headers if isinstance(headers, dict) else {}
+            headers['Referer'] = req_ref
 
-            ref = ip['ref'] if 'ref' in ip else None
-            headers['Referer'] = ip['ref']
-
-            pg = ip['pg'] if 'pg' in ip else None
-            url = ip['url'] if 'url' in ip else None
-            url = url(pg) if callable(url) else url
-
-            form = ip['form'] if 'form' in ip else None
+            form = pi['form'] if 'form' in pi else None
             if form is not None:
                 formdata = {}
                 for (k, v) in form.items():
                     v = v(pg) if callable(v) else v
                     formdata[k] = v
-                return FormRequest(url=url, formdata=formdata, dont_filter=True,
-                                   headers=headers,
-                                   meta={'url': ip['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                return FormRequest(url=req_url, headers=headers, formdata=formdata, dont_filter=True, callback=pf,
+                                   meta={'pi': pi,
+                                         'ext': ext, 'pg': pg, 'url': url, 'ref': ref,
                                          'headers': headers, 'form': form,
-                                         'fps': self.fps, 'ips': self.ips},
-                                   callback=self.parse_item)
+                                         'fps': self.fps, 'ips': self.ips})
             else:
-                body = ip['body'] if 'body' in ip else None
+                body = pi['body'] if 'body' in pi else None
                 body = body(pg) if callable(body) else body
                 method = 'POST' if body else 'GET'
-                return Request(url, dont_filter=True,
-                               method=method,
-                               headers=headers, body=body,
-                               meta={'url': ip['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                return Request(req_url, method=method, headers=headers, body=body, dont_filter=True, callback=pf,
+                               meta={'pi': pi,
+                                     'ext': ext, 'pg': pg, 'url': url, 'ref': ref,
                                      'headers': headers, 'body': body,
-                                     'fps': self.fps, 'ips': self.ips},
-                               callback=self.parse_item)
-
-        while self.fps:
-            fp = self.fps.pop(0)
-            ext = fp['ext'] if 'ext' in fp else {}
-
-            headers = fp['headers'] if 'headers' in fp else {}
-            headers = headers if isinstance(headers, dict) else {}
-
-            ref = fp['ref'] if 'ref' in fp else None
-            headers['Referer'] = ref
-
-            pg = fp['pg'] if 'pg' in fp else None
-            url = fp['url'] if 'url' in fp else None
-            url = url(pg) if callable(url) else url
-
-            form = fp['form'] if 'form' in fp else None
-            if form is not None:
-                formdata = {}
-                for (k, v) in form.items():
-                    v = v(pg) if callable(v) else v
-                    formdata[k] = v
-                return FormRequest(url=url, formdata=formdata, dont_filter=True,
-                                   headers=headers,
-                                   meta={'url': fp['url'], 'ref': ref, 'pg': pg, 'ext': ext,
-                                         'headers': headers, 'form': form,
-                                         'fps': self.fps, 'ips': self.ips},
-                                   callback=self.parse_fund)
-            else:
-                body = fp['body'] if 'body' in fp else None
-                body = body(pg) if callable(body) else body
-                method = 'POST' if body else 'GET'
-                return Request(url, dont_filter=True,
-                               method=method,
-                               headers=headers, body=body,
-                               meta={'url': fp['url'], 'ref': ref, 'pg': pg, 'ext': ext,
-                                     'headers': headers, 'body': body,
-                                     'fps': self.fps, 'ips': self.ips},
-                               callback=self.parse_fund)
+                                     'fps': self.fps, 'ips': self.ips})
 
     def parse_fund(self, response):
         pass
