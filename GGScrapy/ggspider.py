@@ -73,33 +73,42 @@ class GGSpider(CrawlSpider):
         yield self.request_next()
 
     def request_next(self):
-        while self.ips:
-            ip = self.ips.pop(0)
-            ext = ip['ext'] if 'ext' in ip else {}
+        ps = self.ips or self.lps  # pages
+        pf = self.parse_item if self.ips else self.parse_list  # parse function
+        if ps:
+            pi = ps.pop(0)  # page info
+            if self.for_more(pi=pi):
+                ext = pi['ext'] if 'ext' in pi else {}
+                pg = pi['pg'] if 'pg' in pi else None
 
-            pg = ip['pg'] if 'pg' in ip else None
-            url = ip['url'] if 'url' in ip else None
-            url = url(pg) if callable(url) else url
+                url = pi['url'] if 'url' in pi else None
+                req_url = url(pg) if callable(url) else url
 
-            if self.for_more(ip=ip):
-                return Request(url, dont_filter=True,
-                               headers={'Referer': ip['ref']},
-                               meta={'ch': ip['ch'], 'pg': pg, 'url': ip['url'], 'ext': ext},
-                               callback=self.parse_item)
+                ref = pi['ref'] if 'ref' in pi else None
+                req_ref = ref(pg) if callable(ref) else ref
 
-        while self.lps:
-            lp = self.lps.pop(0)
-            ext = lp['ext'] if 'ext' in lp else {}
+                headers = pi['headers'] if 'headers' in pi else {}
+                headers = headers if isinstance(headers, dict) else {}
+                headers['Referer'] = req_ref
 
-            pg = lp['pg'] if 'pg' in lp else None
-            url = lp['url'] if 'url' in lp else None
-            url = url(pg) if callable(url) else url
-
-            if self.for_more(lp=lp):
-                return Request(url, priority=1,
-                               headers={'Referer': lp['ref']},
-                               meta={'ch': lp['ch'], 'pg': pg, 'url': lp['url'], 'ext': ext},
-                               callback=self.parse_list)
+                form = pi['form'] if 'form' in pi else None
+                if form is not None:
+                    formdata = {}
+                    for (k, v) in form.items():
+                        v = v(pg) if callable(v) else v
+                        formdata[k] = v
+                    return FormRequest(url=req_url, headers=headers, formdata=formdata, dont_filter=True, callback=pf,
+                                       meta={'pi': pi,
+                                             'ext': ext, 'pg': pg, 'url': url, 'ref': ref,
+                                             'headers': headers, 'form': form})
+                else:
+                    body = pi['body'] if 'body' in pi else None
+                    body = body(pg) if callable(body) else body
+                    method = 'POST' if body else 'GET'
+                    return Request(req_url, method=method, headers=headers, body=body, dont_filter=True, callback=pf,
+                                   meta={'pi': pi,
+                                         'ext': ext, 'pg': pg, 'url': url, 'ref': ref,
+                                         'headers': headers, 'body': body})
 
     def for_more(self, **kwargs):
         return self.__for_more
@@ -144,22 +153,14 @@ class GGNewsSpider(GGSpider):
         return self.__limit
 
     def for_more(self, **kwargs):
-        lp = kwargs['lp'] if 'lp' in kwargs else {}
-        ip = kwargs['ip'] if 'ip' in kwargs else {}
-        p = lp or ip
-        ch = p['ch'] if 'ch' in p else {}
+        pi = kwargs['pi'] if 'pi' in kwargs else {}
+        ch = pi['ch'] if 'ch' in pi else {}
         count = ch['count'] if 'count' in ch else 0
         count = count if isinstance(count, int) else 0
         if self.limit is None or count < self.limit:
             return True
         else:
             return False
-
-    def parse_list(self, response):
-        pass
-
-    def parse_item(self, response):
-        pass
 
 
 # 基金净值Spider基类
@@ -301,22 +302,14 @@ class GGFundNoticeSpider(GGSpider):
         return self.__limit
 
     def for_more(self, **kwargs):
-        lp = kwargs['lp'] if 'lp' in kwargs else {}
-        ip = kwargs['ip'] if 'ip' in kwargs else {}
-        p = lp or ip
-        ch = p['ch'] if 'ch' in p else {}
+        pi = kwargs['pi'] if 'pi' in kwargs else {}
+        ch = pi['ch'] if 'ch' in pi else {}
         count = ch['count'] if 'count' in ch else 0
         count = count if isinstance(count, int) else 0
         if self.limit is None or count < self.limit:
             return True
         else:
             return False
-
-    def parse_list(self, response):
-        pass
-
-    def parse_item(self, response):
-        pass
 
 
 # 投资者关系互动平台Spider基类
@@ -352,19 +345,11 @@ class GGInteractionSpider(GGSpider):
         return self.__limit
 
     def for_more(self, **kwargs):
-        lp = kwargs['lp'] if 'lp' in kwargs else {}
-        ip = kwargs['ip'] if 'ip' in kwargs else {}
-        p = lp or ip
-        ch = p['ch'] if 'ch' in p else {}
+        pi = kwargs['pi'] if 'pi' in kwargs else {}
+        ch = pi['ch'] if 'ch' in pi else {}
         count = ch['count'] if 'count' in ch else 0
         count = count if isinstance(count, int) else 0
         if self.limit is None or count < self.limit:
             return True
         else:
             return False
-
-    def parse_list(self, response):
-        pass
-
-    def parse_item(self, response):
-        pass
