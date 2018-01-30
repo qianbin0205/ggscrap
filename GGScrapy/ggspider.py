@@ -209,8 +209,11 @@ class GGFundNavSpider(GGSpider):
                                          'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                    callback=self.parse_item)
             else:
+                body = ip['body'] if 'body' in ip else None
+                method = 'POST' if body else 'GET'
                 return Request(url, dont_filter=True,
-                               headers=headers,
+                               method=method,
+                               headers=headers, body=body,
                                meta={'pg': pg, 'url': ip['url'], 'form': None,
                                      'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                callback=self.parse_item)
@@ -239,8 +242,11 @@ class GGFundNavSpider(GGSpider):
                                          'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                    callback=self.parse_fund)
             else:
+                body = fp['body'] if 'body' in fp else None
+                method = 'POST' if body else 'GET'
                 return Request(url, priority=1,
-                               headers=headers,
+                               method=method,
+                               headers=headers, body=body,
                                meta={'pg': pg, 'url': fp['url'], 'form': None,
                                      'fps': self.fps, 'ips': self.ips, 'ext': ext},
                                callback=self.parse_fund)
