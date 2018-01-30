@@ -55,6 +55,11 @@ class HNGTrustSpider(GGFundNavSpider):
             ips.append({
                 'url': u,
                 'ref': response.url,
+                'form': {
+                    'begintime': '2000-01-01',
+                    'endtime': '2018-01-30',
+                    'query': '查询'
+                },
                 'ext': {'fund_name': fund.css('::text').re_first(r'\s*?华能信托·\s*?(.+?)\s*?(?:净值表现){0,1}\s*?$')}
             })
 
@@ -65,10 +70,35 @@ class HNGTrustSpider(GGFundNavSpider):
         ips = response.meta['ips']
         ext = response.meta['ext']
 
-        tbs = response.css('tbody')
+        tbs = response.css('table')
         for tb in tbs:
             tr = tb.css('tr:first-child')
-            if tr.re_first(r'日期(?:.|\n)+?信托计划单位净值(?:.|\n)+?信托计划累计净值(?:.|\n)+累计净值年化增长率') is not None:
+            if tr.re_first(r'序号(?:.|\n)+?日期(?:.|\n)+?净值') is not None:
+                for tr in tb.css('tr:not(:first-child)'):
+                    item = GGFundNavItem()
+                    item['sitename'] = self.sitename
+                    item['channel'] = self.channel
+                    item['url'] = response.url
+
+                    statistic_date = tr.css('td:nth-child(2) *::text').re_first(r'[0-9/]+')
+                    if statistic_date is None:
+                        continue
+                    statistic_date = tr.css('td:nth-child(2) *::text').re_first(r'[0-9]+/[0-9]+/[[0-9]+')
+                    if statistic_date is not None:
+                        statistic_date = datetime.strptime(statistic_date, '%Y/%m/%d')
+                    if statistic_date is None:
+                        statistic_date = tr.css('td:nth-child(2) *::text').re_first(r'[0-9]{4}[0-9]{1,2}/[0-9]{1,2}')
+                        if statistic_date is not None:
+                            statistic_date = datetime.strptime(statistic_date, '%Y%m/%d')
+                    item['statistic_date'] = statistic_date
+
+                    nav = tr.css('td:nth-child(3) *::text').re_first(r'^\s*?([0-9.]+?)\s*?$')
+                    item['nav'] = float(nav)
+
+                    item['fund_name'] = ext['fund_name']
+                    yield item
+
+            elif tr.re_first(r'日期(?:.|\n)+?信托计划单位净值(?:.|\n)+?信托计划累计净值(?:.|\n)+累计净值年化增长率') is not None:
                 for tr in tb.css('tr:not(:first-child)'):
                     item = GGFundNavItem()
                     item['sitename'] = self.sitename
