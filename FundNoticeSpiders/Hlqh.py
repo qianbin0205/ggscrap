@@ -38,7 +38,8 @@ class HlqhSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_list(self, response):
-        ch = response.meta['ch']
+        pi = response.meta['pi']
+        ch = pi['ch']
 
         funds = response.xpath("//ul[@class='news-list']/li")
         for fund in funds:

@@ -33,8 +33,9 @@ class BjfqtzSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_list(self, response):
-        ch = response.meta['ch']
-        pg = response.meta['pg']
+        pi = response.meta['pi']
+        ch = pi['ch']
+        pg = pi['pg']
         url = response.meta['url']
 
         funds = response.xpath("//li")

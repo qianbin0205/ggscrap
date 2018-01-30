@@ -66,7 +66,8 @@ class HaiyanInvsetSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_list(self, response):
-        ch = response.meta['ch']
+        pi = response.meta['pi']
+        ch = pi['ch']
         fund_id = response.url.rsplit('/', 1)[1]
         csrf_token = response.css('html head meta[name="csrf-token"]::attr(content)').extract_first()
         self.ips.append({
@@ -84,7 +85,8 @@ class HaiyanInvsetSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_item(self, response):
-        ch = response.meta['ch']
+        pi = response.meta['pi']
+        ch = pi['ch']
         html_str = response.text.replace('$("#content").append();$("#pagination").detach();$("#content").html("");$("#content").after();', '')
         html = PyQuery(html_str)
         for a in html.items('a'):
