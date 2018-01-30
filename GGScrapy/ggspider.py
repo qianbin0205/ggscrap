@@ -191,6 +191,8 @@ class GGFundNavSpider(GGSpider):
 
             headers = ip['headers'] if 'headers' in ip else {}
             headers = headers if isinstance(headers, dict) else {}
+
+            ref = ip['ref'] if 'ref' in ip else None
             headers['Referer'] = ip['ref']
 
             pg = ip['pg'] if 'pg' in ip else None
@@ -205,17 +207,20 @@ class GGFundNavSpider(GGSpider):
                     formdata[k] = v
                 return FormRequest(url=url, formdata=formdata, dont_filter=True,
                                    headers=headers,
-                                   meta={'pg': pg, 'url': ip['url'], 'form': form,
-                                         'fps': self.fps, 'ips': self.ips, 'ext': ext},
+                                   meta={'url': ip['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                                         'headers': headers, 'form': form,
+                                         'fps': self.fps, 'ips': self.ips},
                                    callback=self.parse_item)
             else:
                 body = ip['body'] if 'body' in ip else None
+                body = body(pg) if callable(body) else body
                 method = 'POST' if body else 'GET'
                 return Request(url, dont_filter=True,
                                method=method,
                                headers=headers, body=body,
-                               meta={'pg': pg, 'url': ip['url'], 'form': None,
-                                     'fps': self.fps, 'ips': self.ips, 'ext': ext},
+                               meta={'url': ip['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                                     'headers': headers, 'body': body,
+                                     'fps': self.fps, 'ips': self.ips},
                                callback=self.parse_item)
 
         while self.fps:
@@ -224,7 +229,9 @@ class GGFundNavSpider(GGSpider):
 
             headers = fp['headers'] if 'headers' in fp else {}
             headers = headers if isinstance(headers, dict) else {}
-            headers['Referer'] = fp['ref']
+
+            ref = fp['ref'] if 'ref' in fp else None
+            headers['Referer'] = ref
 
             pg = fp['pg'] if 'pg' in fp else None
             url = fp['url'] if 'url' in fp else None
@@ -236,19 +243,22 @@ class GGFundNavSpider(GGSpider):
                 for (k, v) in form.items():
                     v = v(pg) if callable(v) else v
                     formdata[k] = v
-                return FormRequest(url=url, formdata=formdata, priority=1,
+                return FormRequest(url=url, formdata=formdata, dont_filter=True,
                                    headers=headers,
-                                   meta={'pg': pg, 'url': fp['url'], 'form': form,
-                                         'fps': self.fps, 'ips': self.ips, 'ext': ext},
+                                   meta={'url': fp['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                                         'headers': headers, 'form': form,
+                                         'fps': self.fps, 'ips': self.ips},
                                    callback=self.parse_fund)
             else:
                 body = fp['body'] if 'body' in fp else None
+                body = body(pg) if callable(body) else body
                 method = 'POST' if body else 'GET'
-                return Request(url, priority=1,
+                return Request(url, dont_filter=True,
                                method=method,
                                headers=headers, body=body,
-                               meta={'pg': pg, 'url': fp['url'], 'form': None,
-                                     'fps': self.fps, 'ips': self.ips, 'ext': ext},
+                               meta={'url': fp['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                                     'headers': headers, 'body': body,
+                                     'fps': self.fps, 'ips': self.ips},
                                callback=self.parse_fund)
 
     def parse_fund(self, response):
