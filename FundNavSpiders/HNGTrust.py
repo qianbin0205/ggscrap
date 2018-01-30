@@ -31,7 +31,17 @@ class HNGTrustSpider(GGFundNavSpider):
         # url = 'http://www.hngtrust.com/Info/2246192'
         # url = 'http://www.hngtrust.com/Info/2251136'
         # url = 'http://www.hngtrust.com/Info/2252057'
-        # yield self.request_next([], [{'url': url, 'ref': None}])
+        # url = 'http://www.hngtrust.com/Info/2246389'
+        # yield self.request_next([], [{
+        #     'url': url,
+        #     'ref': None,
+        #     'form': {
+        #         'begintime': '2000-01-01',
+        #         'endtime': '2018-01-30',
+        #         'query': '查询'
+        #     },
+        #     'ext': {'fund_name': '臻益集合资金信托计划'}
+        # }])
 
         yield self.request_next(fps, [])
 
@@ -80,7 +90,7 @@ class HNGTrustSpider(GGFundNavSpider):
                     item['channel'] = self.channel
                     item['url'] = response.url
 
-                    statistic_date = tr.css('td:nth-child(2) *::text').re_first(r'[0-9/]+')
+                    statistic_date = tr.css('td:nth-child(2) *::text').re_first(r'[0-9]+/+[0-9]+')
                     if statistic_date is None:
                         continue
                     statistic_date = tr.css('td:nth-child(2) *::text').re_first(r'[0-9]+/[0-9]+/[[0-9]+')
@@ -92,7 +102,7 @@ class HNGTrustSpider(GGFundNavSpider):
                             statistic_date = datetime.strptime(statistic_date, '%Y%m/%d')
                     item['statistic_date'] = statistic_date
 
-                    nav = tr.css('td:nth-child(3) *::text').re_first(r'^\s*?([0-9.]+?)\s*?$')
+                    nav = tr.css('td:nth-child(3)').re_first(r'>\s*([0-9.]+?)\s*<')
                     item['nav'] = float(nav)
 
                     item['fund_name'] = ext['fund_name']
@@ -105,7 +115,7 @@ class HNGTrustSpider(GGFundNavSpider):
                     item['channel'] = self.channel
                     item['url'] = response.url
 
-                    statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9/]+')
+                    statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9]+/+[0-9]+')
                     if statistic_date is None:
                         continue
                     statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9]+/[0-9]+/[[0-9]+')
@@ -117,10 +127,10 @@ class HNGTrustSpider(GGFundNavSpider):
                             statistic_date = datetime.strptime(statistic_date, '%Y%m/%d')
                     item['statistic_date'] = statistic_date
 
-                    nav = tr.css('td:nth-child(2) *::text').re_first(r'^\s*?([0-9.]+?)\s*?$')
+                    nav = tr.css('td:nth-child(2)').re_first(r'>\s*([0-9.]+?)\s*<')
                     item['nav'] = float(nav)
 
-                    added_nav = tr.css('td:nth-child(3) *::text').re_first(r'^\s*?([0-9.]+?)\s*?$')
+                    added_nav = tr.css('td:nth-child(3)').re_first(r'>\s*([0-9.]+?)\s*<')
                     item['added_nav'] = float(added_nav)
 
                     item['fund_name'] = ext['fund_name']
@@ -133,7 +143,7 @@ class HNGTrustSpider(GGFundNavSpider):
                     item['channel'] = self.channel
                     item['url'] = response.url
 
-                    statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9/]+')
+                    statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9]+/+[0-9]+')
                     if statistic_date is None:
                         continue
                     statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9]+/[0-9]+/[[0-9]+')
@@ -145,10 +155,10 @@ class HNGTrustSpider(GGFundNavSpider):
                             statistic_date = datetime.strptime(statistic_date, '%Y%m/%d')
                     item['statistic_date'] = statistic_date
 
-                    nav = tr.css('td:nth-child(2) *::text').re_first(r'^\s*?([0-9.]+?)\s*?$')
+                    nav = tr.css('td:nth-child(2)').re_first(r'>\s*([0-9.]+?)\s*<')
                     item['nav'] = float(nav)
 
-                    added_nav = tr.css('td:nth-child(3) *::text').re_first(r'^\s*?([0-9.]+?)\s*?$')
+                    added_nav = tr.css('td:nth-child(3)').re_first(r'>\s*([0-9.]+?)\s*<')
                     item['added_nav'] = float(added_nav)
 
                     item['fund_name'] = ext['fund_name']
@@ -161,7 +171,7 @@ class HNGTrustSpider(GGFundNavSpider):
                     item['channel'] = self.channel
                     item['url'] = response.url
 
-                    statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9/]+')
+                    statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9]+/+[0-9]+')
                     if statistic_date is None:
                         continue
                     statistic_date = tr.css('td:nth-child(1) *::text').re_first(r'[0-9]+/[0-9]+/[[0-9]+')
@@ -173,7 +183,7 @@ class HNGTrustSpider(GGFundNavSpider):
                             statistic_date = datetime.strptime(statistic_date, '%Y%m/%d')
                     item['statistic_date'] = statistic_date
 
-                    nav = tr.css('td:nth-child(2) *::text').re_first(r'^\s*?([0-9.]+?)\s*?$')
+                    nav = tr.css('td:nth-child(2)').re_first(r'>\s*([0-9.]+?)\s*<')
                     item['nav'] = float(nav)
 
                     item['fund_name'] = ext['fund_name']
