@@ -20,7 +20,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ZhTrust', '-a', 'jobId=0L'])
 
 # 自动登录
-cmdline.execute(['scrapy', 'crawl', 'FundNav_BaoyinCyInvset', '-a', 'jobId=0L'])
+#cmdline.execute(['scrapy', 'crawl', 'FundNav_BaoyinCyInvset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BotongInvset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Dctstz', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_DeyaInvest', '-a', 'jobId=0L'])
@@ -75,4 +75,9 @@ cmdline.execute(['scrapy', 'crawl', 'FundNav_BaoyinCyInvset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ShengangSecuritiesAsset', '-a', 'jobId=0L'])
 
 # 苏州信托
-cmdline.execute(['scrapy', 'crawl', 'FundNav_SuzhouTrust', '-a', 'jobId=0L'])
+#cmdline.execute(['scrapy', 'crawl', 'FundNav_SuzhouTrust', '-a', 'jobId=0L'])
+
+#cmdline.execute(['scrapy', 'crawl', 'FundNav_BJTHCapital', '-a', 'jobId=0L'])
+
+# 持赢投资
+cmdline.execute(['scrapy', 'crawl', 'FundNav_ChiyingInvest', '-a', 'jobId=0L'])
