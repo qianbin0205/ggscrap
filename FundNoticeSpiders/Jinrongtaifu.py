@@ -54,18 +54,18 @@ class JinrongtaifuSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_list(self, response):
-        ch = response.meta['ch']
+        pi = response.meta['pi']
+        ch = pi['ch']
         if response.url == 'http://www.jinrongtaifu.com/?Index/View&i=3':
             funds = response.xpath("//div[@class='fund-list m-t-20 m-b-40']/table/tr/td[1]/a")
             for fund in funds:
                 url = fund.xpath("./@href").extract_first()
                 url = urljoin(get_base_url(response), url)
-                title = fund.xpath("./text()").extract_first()
                 self.ips.append({
                     'ch': ch,
                     'url': url,
                     'ref': response.url,
-                    'ext': {'fund_name': title}
+
                 })
         else:
             funds = response.xpath("//div[@class='tab-cont m-t-10 m-b-40']/ul/li")
@@ -83,7 +83,8 @@ class JinrongtaifuSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_item(self, response):
-        ch = response.meta['ch']
+        pi = response.meta['pi']
+        ch = pi['ch']
         funds = response.xpath("//div[@class='item clearfix']")
         for fund in funds:
             item = GGFundNoticeItem()
