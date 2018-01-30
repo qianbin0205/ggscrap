@@ -26,6 +26,8 @@ class GGSpider(CrawlSpider):
     proxy = None  # http://YOUR_PROXY_IP:PORT
     proxy_auth = None  # USERNAME:PASSWORD
     start_urls = []
+    lps = []  # list pages
+    ips = []  # item pages
 
     @staticmethod
     def parse_cookies(cookies):
@@ -64,12 +66,48 @@ class GGSpider(CrawlSpider):
 
     def __init__(self, *args, **kwargs):
         super(GGSpider, self).__init__(*args, **kwargs)
+        self.__for_more = True
         self.cookies = self.parse_cookies(self.cookies)
 
     def start_requests(self):
         yield self.request_next()
 
-    def request_next(self, *args):
+    def request_next(self):
+        while self.ips:
+            ip = self.ips.pop(0)
+            ext = ip['ext'] if 'ext' in ip else {}
+
+            pg = ip['pg'] if 'pg' in ip else None
+            url = ip['url'] if 'url' in ip else None
+            url = url(pg) if callable(url) else url
+
+            if self.for_more(ip=ip):
+                return Request(url, dont_filter=True,
+                               headers={'Referer': ip['ref']},
+                               meta={'ch': ip['ch'], 'pg': pg, 'url': ip['url'], 'ext': ext},
+                               callback=self.parse_item)
+
+        while self.lps:
+            lp = self.lps.pop(0)
+            ext = lp['ext'] if 'ext' in lp else {}
+
+            pg = lp['pg'] if 'pg' in lp else None
+            url = lp['url'] if 'url' in lp else None
+            url = url(pg) if callable(url) else url
+
+            if self.for_more(lp=lp):
+                return Request(url, priority=1,
+                               headers={'Referer': lp['ref']},
+                               meta={'ch': lp['ch'], 'pg': pg, 'url': lp['url'], 'ext': ext},
+                               callback=self.parse_list)
+
+    def for_more(self, **kwargs):
+        return self.__for_more
+
+    def parse_list(self, response):
+        pass
+
+    def parse_item(self, response):
         pass
 
 
@@ -86,92 +124,38 @@ class GGNewsSpider(GGSpider):
                   config.news['db']['name'],
                   timeout=config.news['db']['timeout'])
 
-    cps = []
-    rcs = []
-    nps = []
-
     def __init__(self, limit=None, *args, **kwargs):
         super(GGNewsSpider, self).__init__(*args, **kwargs)
         try:
             limit = int(limit)
         except:
-            self.__update = True
             self.__limit = None
         else:
             if limit > 0:
                 self.__limit = limit
-                self.__update = False
             else:
-                self.__update = True
                 if limit < 0:
                     self.__limit = -limit
                 else:
                     self.__limit = None
 
     @property
-    def update(self):
-        return self.__update
-
-    @property
     def limit(self):
         return self.__limit
 
-    def request_next(self, *args):
-        self.cps = args[0] if args[0:] else self.cps
-        self.rcs = args[1] if args[1:] else self.rcs
-        self.nps = args[2] if args[2:] else self.nps
+    def for_more(self, **kwargs):
+        lp = kwargs['lp'] if 'lp' in kwargs else {}
+        ip = kwargs['ip'] if 'ip' in kwargs else {}
+        p = lp or ip
+        ch = p['ch'] if 'ch' in p else {}
+        count = ch['count'] if 'count' in ch else 0
+        count = count if isinstance(count, int) else 0
+        if self.limit is None or count < self.limit:
+            return True
+        else:
+            return False
 
-        while self.cps:
-            cp = self.cps.pop(0)
-            ext = cp['ext'] if 'ext' in cp else {}
-
-            pg = cp['pg'] if 'pg' in cp else None
-            url = cp['url'] if 'url' in cp else None
-            url = url(pg) if callable(url) else url
-
-            count = cp['ch']['count']
-            if self.limit is None or count < self.limit:
-                return Request(url, priority=1,
-                               headers={'Referer': cp['ref']},
-                               meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
-                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
-                               callback=self.parse_link)
-
-        while self.rcs:
-            rc = self.rcs.pop(0)
-            ext = rc['ext'] if 'ext' in rc else {}
-
-            pg = rc['pg'] if 'pg' in rc else None
-            url = rc['url'] if 'url' in rc else None
-            url = url(pg) if callable(url) else url
-
-            count = rc['ch']['count']
-            if self.limit is None or count < self.limit:
-                return Request(url, dont_filter=True,
-                               headers={'Referer': rc['ref']},
-                               meta={'ch': rc['ch'], 'pg': pg, 'url': rc['url'],
-                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
-                               callback=self.parse_item)
-
-        self.cps = self.nps
-        self.nps = []
-        while self.cps:
-            cp = self.cps.pop(0)
-            ext = cp['ext'] if 'ext' in cp else {}
-
-            pg = cp['pg'] if 'pg' in cp else None
-            url = cp['url'] if 'url' in cp else None
-            url = url(pg) if callable(url) else url
-
-            count = cp['ch']['count']
-            if self.limit is None or count < self.limit:
-                return Request(url, priority=1,
-                               headers={'Referer': cp['ref']},
-                               meta={'ch': cp['ch'], 'pg': pg, 'url': cp['url'],
-                                     'cps': self.cps, 'rcs': self.rcs, 'nps': self.nps, 'ext': ext},
-                               callback=self.parse_link)
-
-    def parse_link(self, response):
+    def parse_list(self, response):
         pass
 
     def parse_item(self, response):
@@ -191,8 +175,8 @@ class GGFundNavSpider(GGSpider):
                   config.fund_nav['db']['name'],
                   timeout=config.fund_nav['db']['timeout'])
 
-    fps = []
-    ips = []
+    fps = []  # fund (list) pages
+    ips = []  # item (list) pages
 
     def __init__(self, *args, **kwargs):
         super(GGFundNavSpider, self).__init__(*args, **kwargs)
@@ -207,6 +191,8 @@ class GGFundNavSpider(GGSpider):
 
             headers = ip['headers'] if 'headers' in ip else {}
             headers = headers if isinstance(headers, dict) else {}
+
+            ref = ip['ref'] if 'ref' in ip else None
             headers['Referer'] = ip['ref']
 
             pg = ip['pg'] if 'pg' in ip else None
@@ -221,14 +207,20 @@ class GGFundNavSpider(GGSpider):
                     formdata[k] = v
                 return FormRequest(url=url, formdata=formdata, dont_filter=True,
                                    headers=headers,
-                                   meta={'pg': pg, 'url': ip['url'], 'form': form,
-                                         'fps': self.fps, 'ips': self.ips, 'ext': ext},
+                                   meta={'url': ip['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                                         'headers': headers, 'form': form,
+                                         'fps': self.fps, 'ips': self.ips},
                                    callback=self.parse_item)
             else:
+                body = ip['body'] if 'body' in ip else None
+                body = body(pg) if callable(body) else body
+                method = 'POST' if body else 'GET'
                 return Request(url, dont_filter=True,
-                               headers=headers,
-                               meta={'pg': pg, 'url': ip['url'], 'form': None,
-                                     'fps': self.fps, 'ips': self.ips, 'ext': ext},
+                               method=method,
+                               headers=headers, body=body,
+                               meta={'url': ip['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                                     'headers': headers, 'body': body,
+                                     'fps': self.fps, 'ips': self.ips},
                                callback=self.parse_item)
 
         while self.fps:
@@ -237,7 +229,9 @@ class GGFundNavSpider(GGSpider):
 
             headers = fp['headers'] if 'headers' in fp else {}
             headers = headers if isinstance(headers, dict) else {}
-            headers['Referer'] = fp['ref']
+
+            ref = fp['ref'] if 'ref' in fp else None
+            headers['Referer'] = ref
 
             pg = fp['pg'] if 'pg' in fp else None
             url = fp['url'] if 'url' in fp else None
@@ -249,16 +243,22 @@ class GGFundNavSpider(GGSpider):
                 for (k, v) in form.items():
                     v = v(pg) if callable(v) else v
                     formdata[k] = v
-                return FormRequest(url=url, formdata=formdata, priority=1,
+                return FormRequest(url=url, formdata=formdata, dont_filter=True,
                                    headers=headers,
-                                   meta={'pg': pg, 'url': fp['url'], 'form': form,
-                                         'fps': self.fps, 'ips': self.ips, 'ext': ext},
+                                   meta={'url': fp['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                                         'headers': headers, 'form': form,
+                                         'fps': self.fps, 'ips': self.ips},
                                    callback=self.parse_fund)
             else:
-                return Request(url, priority=1,
-                               headers=headers,
-                               meta={'pg': pg, 'url': fp['url'], 'form': None,
-                                     'fps': self.fps, 'ips': self.ips, 'ext': ext},
+                body = fp['body'] if 'body' in fp else None
+                body = body(pg) if callable(body) else body
+                method = 'POST' if body else 'GET'
+                return Request(url, dont_filter=True,
+                               method=method,
+                               headers=headers, body=body,
+                               meta={'url': fp['url'], 'ref': ref, 'pg': pg, 'ext': ext,
+                                     'headers': headers, 'body': body,
+                                     'fps': self.fps, 'ips': self.ips},
                                callback=self.parse_fund)
 
     def parse_fund(self, response):
@@ -269,9 +269,9 @@ class GGFundNavSpider(GGSpider):
 
 
 # 基金公告Spider基类
-class GGNoticeSpider(GGSpider):
+class GGFundNoticeSpider(GGSpider):
     custom_settings = {
-        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGNoticePipeline': 300}
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNoticePipeline': 300}
     }
 
     dbPool = Pool(config.fund_notice['db']['host'],
@@ -281,92 +281,89 @@ class GGNoticeSpider(GGSpider):
                   config.fund_notice['db']['name'],
                   timeout=config.fund_notice['db']['timeout'])
 
-    ops = []
-    ros = []
-    tps = []
-
     def __init__(self, limit=None, *args, **kwargs):
-        super(GGNoticeSpider, self).__init__(*args, **kwargs)
+        super(GGFundNoticeSpider, self).__init__(*args, **kwargs)
         try:
             limit = int(limit)
         except:
-            self.__update = True
             self.__limit = None
         else:
             if limit > 0:
                 self.__limit = limit
-                self.__update = False
             else:
-                self.__update = True
                 if limit < 0:
                     self.__limit = -limit
                 else:
                     self.__limit = None
 
     @property
-    def update(self):
-        return self.__update
+    def limit(self):
+        return self.__limit
+
+    def for_more(self, **kwargs):
+        lp = kwargs['lp'] if 'lp' in kwargs else {}
+        ip = kwargs['ip'] if 'ip' in kwargs else {}
+        p = lp or ip
+        ch = p['ch'] if 'ch' in p else {}
+        count = ch['count'] if 'count' in ch else 0
+        count = count if isinstance(count, int) else 0
+        if self.limit is None or count < self.limit:
+            return True
+        else:
+            return False
+
+    def parse_list(self, response):
+        pass
+
+    def parse_item(self, response):
+        pass
+
+
+# 投资者关系互动平台Spider基类
+class GGInteractionSpider(GGSpider):
+    custom_settings = {
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNoticePipeline': 300}
+    }
+
+    dbPool = Pool(config.fund_notice['db']['host'],
+                  config.fund_notice['db']['port'],
+                  config.fund_notice['db']['user'],
+                  config.fund_notice['db']['pswd'],
+                  config.fund_notice['db']['name'],
+                  timeout=config.fund_notice['db']['timeout'])
+
+    def __init__(self, limit=None, *args, **kwargs):
+        super(GGInteractionSpider, self).__init__(*args, **kwargs)
+        try:
+            limit = int(limit)
+        except:
+            self.__limit = None
+        else:
+            if limit > 0:
+                self.__limit = limit
+            else:
+                if limit < 0:
+                    self.__limit = -limit
+                else:
+                    self.__limit = None
 
     @property
     def limit(self):
         return self.__limit
 
-    def request_next(self, *args):
-        self.ops = args[0] if args[0:] else self.ops
-        self.ros = args[1] if args[1:] else self.ros
-        self.tps = args[2] if args[2:] else self.tps
+    def for_more(self, **kwargs):
+        lp = kwargs['lp'] if 'lp' in kwargs else {}
+        ip = kwargs['ip'] if 'ip' in kwargs else {}
+        p = lp or ip
+        ch = p['ch'] if 'ch' in p else {}
+        count = ch['count'] if 'count' in ch else 0
+        count = count if isinstance(count, int) else 0
+        if self.limit is None or count < self.limit:
+            return True
+        else:
+            return False
 
-        while self.ops:
-            op = self.ops.pop(0)
-            ext = op['ext'] if 'ext' in op else {}
-
-            pg = op['pg'] if 'pg' in op else None
-            url = op['url'] if 'url' in op else None
-            url = url(pg) if callable(url) else url
-
-            count = op['ch']['count']
-            if self.limit is None or count < self.limit:
-                return Request(url, priority=1,
-                               headers={'Referer': op['ref']},
-                               meta={'ch': op['ch'], 'pg': pg, 'url': op['url'],
-                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
-                               callback=self.parse_link)
-
-        while self.ros:
-            ro = self.ros.pop(0)
-            ext = ro['ext'] if 'ext' in ro else {}
-
-            pg = ro['pg'] if 'pg' in ro else None
-            url = ro['url'] if 'url' in ro else None
-            url = url(pg) if callable(url) else url
-
-            count = ro['ch']['count']
-            if self.limit is None or count < self.limit:
-                return Request(url, dont_filter=True,
-                               headers={'Referer': ro['ref']},
-                               meta={'ch': ro['ch'], 'pg': pg, 'url': ro['url'],
-                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
-                               callback=self.parse_item)
-
-        self.ops = self.tps
-        self.tps = []
-        while self.ops:
-            op = self.ops.pop(0)
-            ext = op['ext'] if 'ext' in op else {}
-
-            pg = op['pg'] if 'pg' in op else None
-            url = op['url'] if 'url' in op else None
-            url = url(pg) if callable(url) else url
-
-            count = op['ch']['count']
-            if self.limit is None or count < self.limit:
-                return Request(url, priority=1,
-                               headers={'Referer': op['ref']},
-                               meta={'ch': op['ch'], 'pg': pg, 'url': op['url'],
-                                     'ops': self.ops, 'ros': self.ros, 'tps': self.tps, 'ext': ext},
-                               callback=self.parse_link)
-
-    def parse_link(self, response):
+    def parse_list(self, response):
         pass
 
     def parse_item(self, response):

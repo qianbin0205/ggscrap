@@ -331,7 +331,7 @@ class GGFundNoticePipeline(object):
             assert channel is not None and channel != ''
 
             url_entry = item['url_entry'] if 'url_entry' in item else None
-            entry = url_entry.strip() if isinstance(url_entry, str) else None
+            url_entry = url_entry.strip() if isinstance(url_entry, str) else None
             assert url_entry is not None and url_entry != ''
 
             url = item['url'] if 'url' in item else None
@@ -345,7 +345,7 @@ class GGFundNoticePipeline(object):
 
             publish_time = item['publish_time'] if 'publish_time' in item else None
             assert isinstance(publish_time, datetime)
-            publish_time = item['publish_time'].strftime('%Y-%m-%d %H:%M:%S')
+            publish_time = item['publish_time'].strftime('%Y-%m-%d')
 
             md5 = hashlib.md5()
             seed = 'sitename=' + quote(sitename)
@@ -369,8 +369,8 @@ class GGFundNoticePipeline(object):
                 row = cursor.fetchone()
                 if row is None:
                     cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey,groupname,sitename,channel,url_entry,url,title,publish_time,) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
-                        (hkey, groupname, sitename, channel, entry, url, title, publish_time))
+                        'INSERT INTO ' + table + ' (hkey,groupname,sitename,channel,url_entry,url,title,publish_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
+                        (hkey, groupname, sitename, channel, url_entry, url, title, publish_time))
                 elif row['hkey'] != hkey:
                     cursor.execute(
                         'UPDATE ' + table + ' SET hkey=%s,groupname=%s,sitename=%s,channel=%s,title=%s,publish_time=%s,update_time=GETDATE() WHERE hkey=%s',

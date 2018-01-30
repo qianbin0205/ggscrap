@@ -195,10 +195,10 @@ class ChinaFinanceNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         url = response.meta['url']
         pg = response.meta['pg']
@@ -209,7 +209,7 @@ class ChinaFinanceNewsSpider(GGNewsSpider):
                               "| //div[@id='c1']/ul/li/a/@href").extract()
         for u in urls:
             u = urljoin(base, u)
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': u,
                 'ref': response.url
@@ -232,12 +232,12 @@ class ChinaFinanceNewsSpider(GGNewsSpider):
                 'ref': response.url
             })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
 
@@ -341,10 +341,10 @@ class ChinaFinanceNewsSpider(GGNewsSpider):
             yield item
             ch['count'] = ch['count'] + 1
         else:
-            rcs.insert(0, {
+            ips.insert(0, {
                 'ch': ch,
                 'url': next_url,
                 'ref': response.url,
                 'ext': {'item': item}
             })
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)

@@ -255,12 +255,12 @@ class ZzwCsNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         pg = response.meta['pg']
         url = response.meta['url']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
 
         dls = response.css('body>.box1000>.box740.fl>dl')
@@ -268,7 +268,7 @@ class ZzwCsNewsSpider(GGNewsSpider):
             u = dl.xpath("./dt/a/@href").extract_first()
             u = urljoin(get_base_url(response), u)
             pubtime = dl.xpath("./dd/span/text()").extract_first()
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': u,
                 'ext': {'pubtime':pubtime},
@@ -282,12 +282,12 @@ class ZzwCsNewsSpider(GGNewsSpider):
             'ref': response.url
         })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
 
@@ -354,7 +354,7 @@ class ZzwCsNewsSpider(GGNewsSpider):
             yield item
             ch['count'] = ch['count'] + 1
         else:
-            rcs.insert(0, {
+            ips.insert(0, {
                 'ch': ch,
                 'url': re.sub(r'(t[0-9]+?_[0-9]+?)(_[0-9]+?|)(?=\.html)', r'\1_' + str(int(i) + 1), response.url,
                               flags=re.I),
@@ -362,4 +362,4 @@ class ZzwCsNewsSpider(GGNewsSpider):
                 'ext': {'item': item}
             })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)

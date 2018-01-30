@@ -33,7 +33,7 @@ fund_notice = {
         'user': 'sql_scrapy',
         'pswd': 'sql_scrapy123',
         'name': 'scrapy_debug_db',
-        'table': 't_nav_general',
+        'table': 't_fund_announcement',
         'timeout': 60
     }
 }
