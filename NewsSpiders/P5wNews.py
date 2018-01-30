@@ -187,12 +187,12 @@ class P5wNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         pg = response.meta['pg']
         url = response.meta['url']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
 
         base = get_base_url(response)
@@ -200,7 +200,7 @@ class P5wNewsSpider(GGNewsSpider):
         urls = response.xpath("//div[@class='manlist3']/ul/li//a/@href | //div[@class='left']//span[@class='hei']/a/@href").extract()
         for u in urls:
             u = urljoin(base, u)
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': u,
                 'ref': response.url
@@ -213,12 +213,12 @@ class P5wNewsSpider(GGNewsSpider):
             'ref': response.url
         })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
         ls = response.css(".Custom_UnionStyle>*, .Custom_UnionStyle::text").extract()
@@ -296,11 +296,11 @@ class P5wNewsSpider(GGNewsSpider):
             yield item
             ch['count'] = ch['count'] + 1
         else:
-            rcs.insert(0, {
+            ips.insert(0, {
                 'ch': ch,
                 'url': re.sub(r'(t[0-9]+?_[0-9]+?)(_[0-9]+?|)(?=\.htm)', r'\1_' + str(int(i) + 1), response.url,
                               flags=re.I),
                 'ref': response.url,
                 'ext': {'item': item}
                 })
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)

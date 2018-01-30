@@ -251,10 +251,10 @@ class NbdNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
 
         base = get_base_url(response)
@@ -262,7 +262,7 @@ class NbdNewsSpider(GGNewsSpider):
         urls = response.xpath("//div[@class='m-list']/ul/li/a/@href").extract()
         for url in urls:
             url = urljoin(base, url)
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': url,
                 'ref': response.url
@@ -278,12 +278,12 @@ class NbdNewsSpider(GGNewsSpider):
                 'ref': response.url
             })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
 
@@ -328,11 +328,11 @@ class NbdNewsSpider(GGNewsSpider):
             yield item
             ch['count'] = ch['count'] + 1
         else:
-            rcs.insert(0, {
+            ips.insert(0, {
                 'ch': ch,
                 'url': next_url,
                 'ref': response.url,
                 'ext': {'item': item}
             })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)

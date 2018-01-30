@@ -56,10 +56,10 @@ class CnstockNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         url = response.meta['url']
         pg = response.meta['pg']
@@ -76,7 +76,7 @@ class CnstockNewsSpider(GGNewsSpider):
             urls = [i['link'] for i in data]
         for u in urls:
             u = urljoin(base, u)
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': u,
                 'ref': response.request.headers['Referer']
@@ -89,12 +89,12 @@ class CnstockNewsSpider(GGNewsSpider):
             'ref': response.request.headers['Referer']
         })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
 
@@ -102,7 +102,7 @@ class CnstockNewsSpider(GGNewsSpider):
             if re.match(r'^http://news[.]cnstock[.]com/theme,[0-9]+[.]html$', response.url) is not None:
                 url = response.css('.tcbhd-r>h1>a::attr(href)').extract_first()
                 url = urljoin(get_base_url(response), url)
-                rcs.append({
+                ips.append({
                     'ch': ch,
                     'url': url,
                     'ref': response.url
@@ -130,7 +130,7 @@ class CnstockNewsSpider(GGNewsSpider):
                     title = response.xpath("//div[@class='title-inner']/h1/text()").extract_first()
                 item['title'] = title
                 if 'PK台' in item['title']:
-                    yield self.request_next(cps, rcs, nps)
+                    yield self.request_next(cps, ips, nps)
                     return
 
                 source = response.css('.main-content>.bullet>span.source>a::text').extract_first()
@@ -156,7 +156,7 @@ class CnstockNewsSpider(GGNewsSpider):
             pg = int(q['page'][0]) if 'page' in q else 1
             c = int(response.css('#hid_totalPage::attr(value)').extract_first())
             if pg < c:
-                rcs.insert(0, {
+                ips.insert(0, {
                     'ch': ch,
                     'url': item['url'] + '?page=' + str(pg + 1),
                     'ref': response.url,
@@ -166,4 +166,4 @@ class CnstockNewsSpider(GGNewsSpider):
                 yield item
                 ch['count'] = ch['count'] + 1
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)

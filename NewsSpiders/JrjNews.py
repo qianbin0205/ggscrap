@@ -1108,12 +1108,12 @@ class JrjNewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         pg = response.meta['pg']
         url = response.meta['url']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
 
@@ -1140,7 +1140,7 @@ class JrjNewsSpider(GGNewsSpider):
             infoCls = response.xpath("//input[@id='infoCls']/@value").extract_first()
         for u in urls:
             u = urljoin(base, u)
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': u,
                 'ref': response.request.headers['Referer']
@@ -1161,12 +1161,12 @@ class JrjNewsSpider(GGNewsSpider):
                 'url': url,
                 'ref': response.request.headers['Referer']
             })
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
         ls = response.css(
@@ -1245,7 +1245,7 @@ class JrjNewsSpider(GGNewsSpider):
             ch['count'] = ch['count'] + 1
 
         else:
-            rcs.insert(0, {
+            ips.insert(0, {
                 'ch': ch,
                 'url': re.sub(r'(/[0-9]+?/[0-9]+?/[0-9]+?)(-[0-9]+?|)(?=\.shtml)', r'\1-' + i, response.url,
                               flags=re.I),
@@ -1253,4 +1253,4 @@ class JrjNewsSpider(GGNewsSpider):
                 'ext': {'item': item}
             })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)

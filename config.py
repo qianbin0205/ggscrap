@@ -26,6 +26,18 @@ fund_nav = {
     }
 }
 
+fund_notice = {
+    'db': {
+        'host': '192.168.0.53',
+        'port': 1433,
+        'user': 'sql_scrapy',
+        'pswd': 'sql_scrapy123',
+        'name': 'scrapy_debug_db',
+        'table': 't_fund_announcement',
+        'timeout': 60
+    }
+}
+
 ufile = {
     'public_key': 'ucloudgcqin@go-goal.com13648682571239575500',
     'private_key': '27f435a8c39f515b01a3db66acbdd7ef9b37d16c',
