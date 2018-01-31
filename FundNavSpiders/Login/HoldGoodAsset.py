@@ -51,7 +51,7 @@ class HoldGoodAssetSpider(GGFundNavSpider):
         pages = response.xpath('//div[@class="total"]').re(r'\d+')
         page = int(pages[0])
         total_page = int(pages[-1])
-        if page <= total_page:
+        if page < total_page:
             next_page = str(page + 1)
             url = 'http://www.holdgood.net/products_list/pmcId=22&pageNo_FrontProducts_list01-1416471746544=' + next_page + '&pageSize_FrontProducts_list01-1416471746544=20.html'
             fps.append({
