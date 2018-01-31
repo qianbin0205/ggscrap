@@ -10,7 +10,7 @@ from GGScrapy.ggspider import GGFundNavSpider
 
 
 class GuoKaiStockSpider(GGFundNavSpider):
-    name = 'GuoKai_StockFundNav'
+    name = 'FundNav_GuoKaiStock'
     sitename = '国开证券资管'
     channel = '发行机构'
     allowed_domains = ['www.gkzq.com.cn']
