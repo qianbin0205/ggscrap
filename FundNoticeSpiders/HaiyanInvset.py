@@ -14,6 +14,8 @@ from pyquery import PyQuery
 class HaiyanInvsetSpider(GGFundNoticeSpider):
     name = 'FundNotice_HaiyanInvset'
     sitename = '海燕投资'
+    channel = '公告'
+    entry = 'http://www.haiyancap.com/pc/profit/all'
     allowed_domains = ['www.haiyancap.com']
 
     proxy = config.proxy
@@ -43,11 +45,6 @@ class HaiyanInvsetSpider(GGFundNoticeSpider):
     def parse_login(self, response):
         yield Request(url='http://www.haiyancap.com/pc/profit/all',
                       meta={
-                          'ch': {
-                                'name': '产品报告',
-                                'url_entry': 'http://www.haiyancap.com/pc/profit/all',
-                                'count': 0
-                            },
                           'ref': 'http://www.haiyancap.com/pc/profit/index'},
                       callback=self.parse_pre_list
                       )
@@ -66,28 +63,24 @@ class HaiyanInvsetSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_list(self, response):
-        pi = response.meta['pi']
-        ch = pi['ch']
         fund_id = response.url.rsplit('/', 1)[1]
         csrf_token = response.css('html head meta[name="csrf-token"]::attr(content)').extract_first()
         self.ips.append({
-            'ch': ch,
             'url': 'http://www.haiyancap.com/pc/products/' + fund_id + '/report',
             'headers': {
                 'X-CSRF-Token': csrf_token,
                 'X-Requested-With': 'XMLHttpRequest',
                 'Accept': '*/*;q=0.5, text/javascript, application/javascript, application/ecmascript, application/x-ecmascript'
-                },
-                'Pragma': 'no-cache',
+            },
+            'Pragma': 'no-cache',
             'ref': 'http://www.haiyancap.com/pc/products/1/show_data/0/show/' + fund_id
         })
 
         yield self.request_next()
 
     def parse_item(self, response):
-        pi = response.meta['pi']
-        ch = pi['ch']
-        html_str = response.text.replace('$("#content").append();$("#pagination").detach();$("#content").html("");$("#content").after();', '')
+        html_str = response.text.replace(
+            '$("#content").append();$("#pagination").detach();$("#content").html("");$("#content").after();', '')
         html = PyQuery(html_str)
         for a in html.items('a'):
             item = GGFundNoticeItem()
@@ -101,7 +94,6 @@ class HaiyanInvsetSpider(GGFundNoticeSpider):
         url = html('a').text('下一页').attr('href')
         if url is not None:
             self.ips.insert(0, {
-                'ch': ch,
                 'url': urljoin(get_base_url(response), url),
                 'ref': response.url
             })

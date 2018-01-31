@@ -11,6 +11,8 @@ from GGScrapy.ggspider import GGFundNoticeSpider
 class HlqhSpider(GGFundNoticeSpider):
     name = 'FundNotice_Hlqh'
     sitename = '华联期货'
+    channel = '公告'
+    entry = 'http://www.hlqh.com/article_cat.php?id=62'
     allowed_domains = ['www.hlqh.com']
     start_urls = ['http://www.hlqh.com']
 
@@ -20,11 +22,6 @@ class HlqhSpider(GGFundNoticeSpider):
 
     lps = [
         {
-            'ch': {
-                'name': '产品公告',
-                'url_entry': 'http://www.hlqh.com/article_cat.php?id=62',
-                'count': 0
-            },
             'url': 'http://www.hlqh.com/article_cat.php?id=62',
             'ref': 'http://www.hlqh.com/index.php'
         }
@@ -37,15 +34,12 @@ class HlqhSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_list(self, response):
-        pi = response.meta['pi']
-        ch = pi['ch']
-
         funds = response.xpath("//ul[@class='news-list']/li")
         for fund in funds:
             item = GGFundNoticeItem()
             item['sitename'] = self.sitename
-            item['channel'] = ch['name']
-            item['url_entry'] = ch['url_entry']
+            item['channel'] = self.channel
+            item['url_entry'] = self.entry
             url = fund.xpath("./a/@href").extract_first()
             item['url'] = urljoin(get_base_url(response), url)
             item['title'] = fund.xpath("./a/em/text()").extract_first()
@@ -56,7 +50,6 @@ class HlqhSpider(GGFundNoticeSpider):
         next_url = response.xpath("//a[text()='下一页']/@href").extract_first()
         if next_url is not None:
             self.lps.append({
-                'ch': ch,
                 'url': urljoin(get_base_url(response), next_url),
                 'ref': response.url
             })

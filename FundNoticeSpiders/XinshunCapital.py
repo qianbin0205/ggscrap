@@ -10,16 +10,13 @@ from GGScrapy.ggspider import GGFundNoticeSpider
 class XinshunCapitalSpider(GGFundNoticeSpider):
     name = 'FundNotice_XinshunCapital'
     sitename = '北京鑫顺和康投资'
+    channel = '公告'
+    entry = 'http://www.xinshuncapital.com/?c=news&catid=6'
     allowed_domains = ['www.xinshuncapital.com']
     start_urls = []
 
     lps = [
         {
-            'ch': {
-                'name': '新闻资讯-公司公告',
-                'url_entry': 'http://www.xinshuncapital.com/?c=news&catid=6',
-                'count': 0
-            },
             'url': 'http://www.xinshuncapital.com/?c=news&catid=6',
             'ref': None
         },
@@ -32,14 +29,12 @@ class XinshunCapitalSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_list(self, response):
-        pi = response.meta['pi']
-        ch = pi['ch']
         funds = response.xpath("//div[@class='new']/ul/li")
         for fund in funds:
             item = GGFundNoticeItem()
             item['sitename'] = self.sitename
-            item['channel'] = ch['name']
-            item['url_entry'] = ch['url_entry']
+            item['channel'] = self.channel
+            item['url_entry'] = self.entry
             url = fund.xpath("./span/a/@href").extract_first()
             item['url'] = urljoin(get_base_url(response), url)
             item['title'] = fund.xpath("./span/a/text()").extract_first()
@@ -50,7 +45,6 @@ class XinshunCapitalSpider(GGFundNoticeSpider):
         url = response.xpath("//a[text()='下一页']/@href").extract_first()
         if url is not None:
             self.lps.append({
-                'ch': ch,
                 'url': urljoin(get_base_url(response), url),
                 'ref': response.url
             })
