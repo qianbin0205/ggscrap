@@ -4,12 +4,12 @@ from GGScrapy.items import GGInteractionItem
 from GGScrapy.ggspider import GGInteractionSpider
 
 
-class SseInfoSpider(GGInteractionSpider):
-    name = 'Interaction_SseInfo'
-    sitename = '上证e互动'
+class CninfoIrmSpider(GGInteractionSpider):
+    name = 'Interaction_CninfoIrm'
+    sitename = '深交所互动易'
     channel = '投资者关系互动平台-最新回复'
-    entry = 'http://sns.sseinfo.com/qa.do'
-    allowed_domains = ['sns.sseinfo.com']
+    entry = 'http://irm.cninfo.com.cn/ircs/sse/sseSubIndex.do?condition.type=7'
+    allowed_domains = ['irm.cninfo.com.cn']
 
     start_urls = []
     ips = [
@@ -22,7 +22,7 @@ class SseInfoSpider(GGInteractionSpider):
     ]
 
     def __init__(self, *args, **kwargs):
-        super(SseInfoSpider, self).__init__(*args, **kwargs)
+        super(CninfoIrmSpider, self).__init__(*args, **kwargs)
 
     def parse_item(self, response):
         records = response.css('.m_feed_item')
