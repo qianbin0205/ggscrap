@@ -244,7 +244,7 @@ class GGFundNoticeSpider(GGSpider):
 
     def __init__(self, *args, **kwargs):
         super(GGFundNoticeSpider, self).__init__(*args, **kwargs)
-
+        
 
 # 投资者关系互动平台Spider基类
 class GGInteractionSpider(GGSpider):
@@ -287,4 +287,4 @@ class GGInteractionSpider(GGSpider):
             count = count if isinstance(count, int) else 0
             if self.limit and count >= self.limit:
                 ps.pop(0)
-            return super(GGNewsSpider, self).request_next()
+            return super(GGInteractionSpider, self).request_next()

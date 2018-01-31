@@ -46,7 +46,7 @@ class GhlsqhSpider(GGFundNoticeSpider):
             publish_time = fund.xpath("./span/text()").re_first(r'\d+-\d+-\d+')
             item['publish_time'] = datetime.strptime(publish_time, '%Y-%m-%d')
             yield item
-            ch['count'] = ch['count'] + 1
+
         next_url = response.xpath("//a[text()='下一页']/@href").extract_first()
         if next_url is not None:
             self.lps.append({

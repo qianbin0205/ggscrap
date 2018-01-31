@@ -46,7 +46,7 @@ class XinshunCapitalSpider(GGFundNoticeSpider):
             publish_time = fund.xpath("./text()").re_first(r'\d+-\d+-\d+')
             item['publish_time'] = datetime.strptime(publish_time, '%Y-%m-%d')
             yield item
-            ch['count'] = ch['count'] + 1
+
         url = response.xpath("//a[text()='下一页']/@href").extract_first()
         if url is not None:
             self.lps.append({
