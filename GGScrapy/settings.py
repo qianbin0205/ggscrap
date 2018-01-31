@@ -19,7 +19,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 BOT_NAME = 'GGScrapy'
 
-SPIDER_MODULES = ['spiders', 'NewsSpiders', 'FundNavSpiders']
+# SPIDER_MODULES = ['spiders']
+SPIDER_MODULES = config.SPIDER_MODULES
 NEWSPIDER_MODULE = 'spiders'
 
 COMMANDS_MODULE = 'GGScrapy.commands'
@@ -76,9 +77,9 @@ DEFAULT_REQUEST_HEADERS = config.DEFAULT_REQUEST_HEADERS
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'GGScrapy.middlewares.GGDownloaderMiddleware': 543,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'GGScrapy.middlewares.GGDownloaderMiddleware': 543,
+# }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

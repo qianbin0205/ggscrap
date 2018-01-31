@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import config
 from datetime import datetime
+from scrapy import Request
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -11,12 +13,24 @@ class MingxiZichanSpider(GGFundNavSpider):
     sitename = '上海鸣熙资产'
     channel = '投资顾问'
     allowed_domains = ['www.mxzichan.com']
-    start_urls = ['http://www.mxzichan.com/pc/login']
+
+    proxy = config.proxy
+
+    start_urls = []
+    fps = [
+        {
+            'url': 'http://www.mxzichan.com/pc/profit/all',
+            'ref': 'http://www.mxzichan.com/pc/profit/index',
+        }
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(MingxiZichanSpider, self).__init__(limit, *args, **kwargs)
 
-    def parse(self, response):
+    def start_requests(self):
+        yield Request(url='http://www.mxzichan.com/pc/login', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         authenticity_token = response.xpath(".//input[@name='authenticity_token']/@value").extract_first()
         yield FormRequest(url='http://www.mxzichan.com/pc/login/submit_user',
                           formdata={'login_name': '13916427906',
@@ -32,15 +46,7 @@ class MingxiZichanSpider(GGFundNavSpider):
                           callback=self.parse_login)
 
     def parse_login(self, response):
-
-        fps = [
-            {
-                'url': 'http://www.mxzichan.com/pc/profit/all',
-                'ref': 'http://www.mxzichan.com/pc/profit/index',
-            }
-        ]
-
-        yield self.request_next(fps, [])
+        yield self.request_next()
 
     def parse_fund(self, response):
         fps = response.meta['fps']

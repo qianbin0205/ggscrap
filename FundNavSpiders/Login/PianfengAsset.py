@@ -3,6 +3,7 @@
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
+from scrapy import Request
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -13,12 +14,22 @@ class PianfengAssetSpider(GGFundNavSpider):
     sitename = '偏锋投资'
     channel = '投顾净值'
     allowed_domains = ['www.shpfic.com']
-    start_urls = ['http://www.shpfic.com/']
+
+    start_urls = []
+    fps = [
+        {
+            'url': 'http://www.shpfic.com/index/product/product.html',
+            'ref': 'http://www.shpfic.com/index/index/index_show.html',
+        }
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(PianfengAssetSpider, self).__init__(limit, *args, **kwargs)
 
-    def parse(self, response):
+    def start_requests(self):
+        yield Request(url='http://www.shpfic.com/', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         token = response.xpath("//input[@name='__token__']/@value").extract_first()
         yield FormRequest(url='http://www.shpfic.com/index/login/login.html',
                           formdata={'username': 'BY123456',
@@ -29,14 +40,7 @@ class PianfengAssetSpider(GGFundNavSpider):
                           callback=self.parse_login)
 
     def parse_login(self, response):
-        fps = [
-            {
-                'url': 'http://www.shpfic.com/index/product/product.html',
-                'ref': 'http://www.shpfic.com/index/index/index_show.html',
-            }
-        ]
-
-        yield self.request_next(fps, [])
+        yield self.request_next()
 
     def parse_fund(self, response):
         fps = response.meta['fps']

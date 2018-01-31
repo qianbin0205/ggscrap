@@ -42,3 +42,14 @@ class GGFundNavItem(scrapy.Item):
     income_value_per_ten_thousand = scrapy.Field()  # 每万份计划收益(单位: 元)
     d7_annualized_return = scrapy.Field()           # 7日年化收益率(单位: %)
 
+
+# 私募公告
+class GGFundNoticeItem(scrapy.Item):
+    groupname = scrapy.Field()                      # 分组名称
+    sitename = scrapy.Field()                       # 站点名称
+    channel = scrapy.Field()                        # 频道名称
+    url_entry = scrapy.Field()                      # 链接入口
+
+    url = scrapy.Field()                            # 链接地址
+    title = scrapy.Field()                          # 标题
+    publish_time = scrapy.Field()                   # 发布时间

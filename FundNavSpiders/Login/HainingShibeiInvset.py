@@ -3,7 +3,9 @@
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
+from scrapy import Request
 from scrapy import FormRequest
+import config
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
@@ -13,12 +15,24 @@ class HainingShibeiInvsetSpider(GGFundNavSpider):
     sitename = '海宁拾贝投资'
     channel = '投顾净值'
     allowed_domains = ['www.tbamc.com']
-    start_urls = ['http://www.tbamc.com/pc/login']
+
+    proxy = config.proxy
+
+    start_urls = []
+    fps = [
+        {
+            'url': 'http://www.tbamc.com/pc/profit/all',
+            'ref': 'http://www.tbamc.com/pc/profit/index',
+        }
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(HainingShibeiInvsetSpider, self).__init__(limit, *args, **kwargs)
 
-    def parse(self, response):
+    def start_requests(self):
+        yield Request(url='http://www.tbamc.com/pc/login', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         authenticity_token = response.xpath(".//input[@name='authenticity_token']/@value").extract_first()
         yield FormRequest(url='http://www.tbamc.com/pc/login/submit_user',
                           formdata={'login_name': '17839170174',
@@ -34,15 +48,7 @@ class HainingShibeiInvsetSpider(GGFundNavSpider):
                           callback=self.parse_login)
 
     def parse_login(self, response):
-
-        fps = [
-            {
-                'url': 'http://www.tbamc.com/pc/profit/all',
-                'ref': 'http://www.tbamc.com/pc/profit/index',
-            }
-        ]
-
-        yield self.request_next(fps, [])
+        yield self.request_next()
 
     def parse_fund(self, response):
         fps = response.meta['fps']
@@ -71,20 +77,36 @@ class HainingShibeiInvsetSpider(GGFundNavSpider):
         ips = response.meta['ips']
 
         fund_name = response.xpath("//div[@class='line_bg_left']/p/text()").extract_first()
-        rows = response.xpath("//div[@id='nets']/table/tbody/tr")
-        for row in rows:
-            item = GGFundNavItem()
-            item['sitename'] = self.sitename
-            item['channel'] = self.channel
-            item['url'] = response.url
-            item['fund_name'] = fund_name
+        if fund_name == '中信信托拾贝尊享A-C投资集合资金信托计划':
+            for i in ['A期', 'B期', 'C期', 'A-C']:
+                fund_name = '中信信托拾贝尊享{}投资集合资金信托计划'.format(i)
+                rows = response.xpath("//div[@id='nets']/table/tbody/tr")
+                for row in rows:
+                    item = GGFundNavItem()
+                    item['sitename'] = self.sitename
+                    item['channel'] = self.channel
+                    item['url'] = response.url
+                    item['fund_name'] = fund_name
 
-            statistic_date = row.xpath("./td[1]/text()").re_first(r'\d+-\d+-\d+')
-            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+                    statistic_date = row.xpath("./td[1]/text()").re_first(r'\d+-\d+-\d+')
+                    item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-            item['nav'] = float(row.xpath("./td[2]/text()").extract_first())
-            item['added_nav'] = float(row.xpath("./td[3]/text()").extract_first())
+                    item['nav'] = float(row.xpath("./td[2]/text()").extract_first())
+                    item['added_nav'] = float(row.xpath("./td[3]/text()").extract_first())
+                    yield item
+        else:
+            rows = response.xpath("//div[@id='nets']/table/tbody/tr")
+            for row in rows:
+                item = GGFundNavItem()
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.url
+                item['fund_name'] = fund_name
 
-            yield item
+                statistic_date = row.xpath("./td[1]/text()").re_first(r'\d+-\d+-\d+')
+                item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
+                item['nav'] = float(row.xpath("./td[2]/text()").extract_first())
+                item['added_nav'] = float(row.xpath("./td[3]/text()").extract_first())
+                yield item
         yield self.request_next(fps, ips)

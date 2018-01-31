@@ -3,6 +3,7 @@
 from datetime import datetime
 from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
+from scrapy import Request
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -13,12 +14,22 @@ class RabbitFundSpider(GGFundNavSpider):
     sitename = '中欧瑞博'
     channel = '投资顾问'
     allowed_domains = ['www.rabbitfund.com.cn']
-    start_urls = ['http://www.rabbitfund.com.cn/cn/']
+
+    start_urls = []
+    fps = [
+        {
+            'url': 'http://www.rabbitfund.com.cn/cn/products.html',
+            'ref': 'http://www.rabbitfund.com.cn/cn/member/',
+        }
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(RabbitFundSpider, self).__init__(limit, *args, **kwargs)
 
-    def parse(self, response):
+    def start_requests(self):
+        yield Request(url='http://www.rabbitfund.com.cn/cn/', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         yield FormRequest(url='http://www.rabbitfund.com.cn/cn/tools/ajax.ashx',
                           formdata={'UserName': '13916427906',
                                     'Password': 'ZYYXSM123',
@@ -28,14 +39,7 @@ class RabbitFundSpider(GGFundNavSpider):
                           callback=self.parse_login)
 
     def parse_login(self, response):
-        fps = [
-            {
-                'url': 'http://www.rabbitfund.com.cn/cn/products.html',
-                'ref': 'http://www.rabbitfund.com.cn/cn/member/',
-            }
-        ]
-
-        yield self.request_next(fps, [])
+        yield self.request_next()
 
     def parse_fund(self, response):
         fps = response.meta['fps']

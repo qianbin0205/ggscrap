@@ -3,6 +3,7 @@
 import re
 import json
 from datetime import datetime
+from scrapy import Request
 from scrapy import FormRequest
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
@@ -13,36 +14,43 @@ class SimuPaipaiSpider(GGFundNavSpider):
     sitename = '私募排排'
     channel = '第三方净值'
     allowed_domains = ['simuwang.com']
-    start_urls = ['http://www.simuwang.com/?utm_source=8']
 
     custom_settings = {
-        'DOWNLOAD_DELAY': 3,
+        'DOWNLOAD_DELAY': 5,
     }
+
+    username = '18637946652'
+    password = '870301'
+
+    start_urls = []
+    fps = [
+        {
+            'pg': 1,
+            'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(
+                pg) + '&condition=fund_type%3A1%2C6%2C4%2C3%2C8%2C2%3Bret%3A9%3Brating_year%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
+            'ref': 'http://dc.simuwang.com/',
+        },
+        {
+            'pg': 1,
+            'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(
+                pg) + '&condition=newBoard%3A4%3Bret%3A9%3Brating_year%3A1%3Bistiered%3A0%3Bcompany_type%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
+            'ref': 'http://dc.simuwang.com/',
+        },
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(SimuPaipaiSpider, self).__init__(limit, *args, **kwargs)
 
-    def parse(self, response):
+    def start_requests(self):
+        yield Request(url='http://www.simuwang.com/?utm_source=8', callback=self.parse_pre_login)
+
+    def parse_pre_login(self, response):
         yield FormRequest(
             url='http://passport.simuwang.com/index.php?m=Passport&c=auth&a=login&&rz_cback=jQuery11130020065956082853775_1516063850007&type=login&name=18637946652&pass=870301&reme=1&rn=1',
             callback=self.parse_login)
 
     def parse_login(self, response):
-        fps = [
-            {
-                'pg': 1,
-                'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(pg) + '&condition=fund_type%3A1%2C6%2C4%2C3%2C8%2C2%3Bret%3A9%3Brating_year%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
-                'ref': 'http://dc.simuwang.com/',
-            },
-            {
-                'pg': 1,
-                'url': lambda pg: 'http://dc.simuwang.com/ranking/get?page=' + str(
-                    pg) + '&condition=newBoard%3A4%3Bret%3A9%3Brating_year%3A1%3Bistiered%3A0%3Bcompany_type%3A1%3Bsort_name%3Aprofit_col2%3Bsort_asc%3Adesc%3Bkeyword%3A',
-                'ref': 'http://dc.simuwang.com/',
-            },
-        ]
-
-        yield self.request_next(fps, [])
+        yield self.request_next()
 
     def parse_fund(self, response):
         fps = response.meta['fps']

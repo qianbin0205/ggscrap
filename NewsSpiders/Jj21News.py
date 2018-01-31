@@ -50,12 +50,12 @@ class Jj21NewsSpider(GGNewsSpider):
 
         yield self.request_next(cps, [], [])
 
-    def parse_link(self, response):
+    def parse_list(self, response):
         ch = response.meta['ch']
         pg = response.meta['pg']
         url = response.meta['url']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
 
         base = get_base_url(response)
@@ -63,7 +63,7 @@ class Jj21NewsSpider(GGNewsSpider):
         urls = response.xpath("//div[@id='data_list']/div/div[@class='Tlist']/a/@href").extract()
         for u in urls:
             u = urljoin(base, u)
-            rcs.append({
+            ips.append({
                 'ch': ch,
                 'url': u,
                 'ref': response.url
@@ -76,12 +76,12 @@ class Jj21NewsSpider(GGNewsSpider):
             'ref': response.url
         })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
 
     def parse_item(self, response):
         ch = response.meta['ch']
         cps = response.meta['cps']
-        rcs = response.meta['rcs']
+        ips = response.meta['ips']
         nps = response.meta['nps']
         ext = response.meta['ext']
         ls = response.xpath("//div[@class='detailCont']/p").extract()
@@ -129,11 +129,11 @@ class Jj21NewsSpider(GGNewsSpider):
             yield item
             ch['count'] = ch['count'] + 1
         else:
-            rcs.insert(0, {
+            ips.insert(0, {
                 'ch': ch,
                 'url': nextPageurl,
                 'ref': response.url,
                 'ext': {'item': item}
             })
 
-        yield self.request_next(cps, rcs, nps)
+        yield self.request_next(cps, ips, nps)
