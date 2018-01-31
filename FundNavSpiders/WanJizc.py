@@ -1,8 +1,5 @@
 import json
 from datetime import datetime
-from urllib.parse import urljoin
-from scrapy import Request
-from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
@@ -12,8 +9,11 @@ class WanJizcSpider(GGFundNavSpider):
     sitename = '万霁资产'
     channel = '投资顾问'
     allowed_domains = ['www.wanjizichan.com']
+
+    username = 'ZYYXSM'
+    password = '13916427906'
+
     start_urls = ['http://www.wanjizichan.com/products']
-    # url = 'http://www.wanjizichan.com'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(WanJizcSpider, self).__init__(limit, *args, **kwargs)
@@ -28,8 +28,8 @@ class WanJizcSpider(GGFundNavSpider):
         yield self.request_next(fps, [])
 
     def parse_fund(self, response):
-        # print(response.text)
         funds = json.loads(response.text)
+<<<<<<< HEAD:FundNavSpiders/WuHua/WanJizc.py
 
         for fund in funds:
             # print(data)
@@ -43,6 +43,18 @@ class WanJizcSpider(GGFundNavSpider):
                 item['url'] = response.url
                 item['fund_name'] = fund['name']
                 # print(nvData['date'])
+=======
+        for fund in funds:
+            nvDatas = fund['jzDataInfo']
+            for nvData in nvDatas:
+                item = GGFundNavItem()
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.url
+
+                item['fund_name'] = fund['name']
+
+>>>>>>> 6f2eb72837bea3f296d2b41f62b1a18e99a16244:FundNavSpiders/WanJizc.py
                 statistic_date = nvData['date']
                 item['statistic_date'] = datetime.strptime(statistic_date, '%Y/%m/%d')
 

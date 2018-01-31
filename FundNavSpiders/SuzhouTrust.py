@@ -33,8 +33,8 @@ class SuzhouTrustSpider(GGFundNavSpider):
         for tr in trs[1:]:
             url = tr.xpath("./td[1]/a/@href").extract_first()
             ips.append({
-                'url':url,
-                'ref':response.url
+                'url': url,
+                'ref': response.url
             })
 
         yield self.request_next([], ips)
@@ -46,7 +46,7 @@ class SuzhouTrustSpider(GGFundNavSpider):
         nextUrl = response.xpath("//span[@class='page_next page_abled']/a/@href").extract_first()
         nextUrl = urljoin(get_base_url(response), nextUrl)
         refUrl = response.url
-        if nextUrl !=''and refUrl != nextUrl:
+        if nextUrl != ''and refUrl != nextUrl:
             ips.append({
                 'url': nextUrl,
                 'ref': response.url

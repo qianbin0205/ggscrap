@@ -8,20 +8,18 @@ from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
 
-class XinPuAssetSpider(GGFundNavSpider):
-    name = 'FundNav_XinPuAsset'
-    sitename = '信普资产'
-    channel = '投顾净值'
-    allowed_domains = ['www.xp-fund.com', 'www.xinpibao.com', '.xinpibao.com', 'xinpibao.com']
-    start_urls = ['http://www.xp-fund.com/', 'http://www.xinpibao.com/company/M11451.html']
-
+class XinPiBaoSpider(GGFundNavSpider):
+    allowed_domains = ['xinpibao.com']
     username = '13916427906'
     password = 'ZYYXSM123'
-    cookies = 'JSESSIONID=7C16425AACF338F5E374258FB7E35BB6; xpbtoken=jm1m4g98du0kg3h0h9d2fu8954mu; Hm_lvt_bd5f74e276d37b338277623405760296=1515977698,1516070626,1516760453,1516777886; td_cookie=11049179; Hm_lpvt_bd5f74e276d37b338277623405760296=1516782316'
+    cookies = 'JSESSIONID=2DE7848F55290953A6C828EE706E22B3; td_cookie=11049151; Hm_lvt_bd5f74e276d37b338277623405760296=1516782716,1516951611,1516951810,1516954999; xpbtoken=1k6eusrlsfbnod8o726mttvmn0jc7; Hm_lpvt_bd5f74e276d37b338277623405760296=1516955527'
+
+    org_id = None
 
     def __init__(self, limit=None, *args, **kwargs):
-        super(XinPuAssetSpider, self).__init__(limit, *args, **kwargs)
+        super(XinPiBaoSpider, self).__init__(limit, *args, **kwargs)
 
+    # yield Request(url='http://www.xinpibao.com/sso/api/users/random', callback=self.parse_pre_login)
     # def parse_pre_login(self, response):
     #     yield Request(url='http://www.xinpibao.com/sso/api/users/login',
     #                   method='POST',
@@ -34,9 +32,8 @@ class XinPuAssetSpider(GGFundNavSpider):
     #     pass
 
     def start_requests(self):
-        # yield Request(url='http://www.xinpibao.com/sso/api/users/random', callback=self.parse_pre_login)
-
-        yield Request(url='http://www.xinpibao.com/web/api/idmapping/?id=M11451', callback=self.parse_map)
+        if isinstance(self.org_id, str):
+            yield Request(url='http://www.xinpibao.com/web/api/idmapping/?id=' + self.org_id, callback=self.parse_map)
 
     def parse_map(self, response):
         flt = '{"managerCompanyId":"' + eval(response.text)['data'] + '"}'
@@ -44,7 +41,7 @@ class XinPuAssetSpider(GGFundNavSpider):
         fps = [
             {
                 'url': 'http://www.xinpibao.com/web/api/funds/computeInfos/?filter=' + flt + '&from=0',
-                'ref': 'http://www.xinpibao.com/company/M11451.html',
+                'ref': 'http://www.xinpibao.com/company/' + self.org_id + '.html',
             },
         ]
 

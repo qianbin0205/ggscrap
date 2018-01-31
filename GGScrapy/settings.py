@@ -19,7 +19,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 BOT_NAME = 'GGScrapy'
 
-SPIDER_MODULES = ['spiders', 'NewsSpiders', 'FundNavSpiders']
+# SPIDER_MODULES = ['spiders']
+SPIDER_MODULES = config.SPIDER_MODULES
 NEWSPIDER_MODULE = 'spiders'
 
 COMMANDS_MODULE = 'GGScrapy.commands'

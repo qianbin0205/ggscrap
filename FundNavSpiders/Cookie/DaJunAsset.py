@@ -16,6 +16,8 @@ class DaJunAssetSpider(GGFundNavSpider):
     channel = '投资顾问'
     allowed_domains = ['www.greatwheel.com.cn']
     start_urls = ['http://www.greatwheel.com.cn/#/product?tplid=4773&id=8']
+
+    username = '13916427906'
     cookies = 'pgv_pvi=462177280; pgv_si=s4667771904'
 
     def __init__(self, limit=None, *args, **kwargs):

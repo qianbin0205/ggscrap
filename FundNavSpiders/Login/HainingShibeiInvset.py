@@ -77,20 +77,36 @@ class HainingShibeiInvsetSpider(GGFundNavSpider):
         ips = response.meta['ips']
 
         fund_name = response.xpath("//div[@class='line_bg_left']/p/text()").extract_first()
-        rows = response.xpath("//div[@id='nets']/table/tbody/tr")
-        for row in rows:
-            item = GGFundNavItem()
-            item['sitename'] = self.sitename
-            item['channel'] = self.channel
-            item['url'] = response.url
-            item['fund_name'] = fund_name
+        if fund_name == '中信信托拾贝尊享A-C投资集合资金信托计划':
+            for i in ['A期', 'B期', 'C期', 'A-C']:
+                fund_name = '中信信托拾贝尊享{}投资集合资金信托计划'.format(i)
+                rows = response.xpath("//div[@id='nets']/table/tbody/tr")
+                for row in rows:
+                    item = GGFundNavItem()
+                    item['sitename'] = self.sitename
+                    item['channel'] = self.channel
+                    item['url'] = response.url
+                    item['fund_name'] = fund_name
 
-            statistic_date = row.xpath("./td[1]/text()").re_first(r'\d+-\d+-\d+')
-            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+                    statistic_date = row.xpath("./td[1]/text()").re_first(r'\d+-\d+-\d+')
+                    item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
-            item['nav'] = float(row.xpath("./td[2]/text()").extract_first())
-            item['added_nav'] = float(row.xpath("./td[3]/text()").extract_first())
+                    item['nav'] = float(row.xpath("./td[2]/text()").extract_first())
+                    item['added_nav'] = float(row.xpath("./td[3]/text()").extract_first())
+                    yield item
+        else:
+            rows = response.xpath("//div[@id='nets']/table/tbody/tr")
+            for row in rows:
+                item = GGFundNavItem()
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.url
+                item['fund_name'] = fund_name
 
-            yield item
+                statistic_date = row.xpath("./td[1]/text()").re_first(r'\d+-\d+-\d+')
+                item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
 
+                item['nav'] = float(row.xpath("./td[2]/text()").extract_first())
+                item['added_nav'] = float(row.xpath("./td[3]/text()").extract_first())
+                yield item
         yield self.request_next(fps, ips)
