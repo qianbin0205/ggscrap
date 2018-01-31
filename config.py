@@ -53,3 +53,15 @@ fund_notice = {
         'timeout': 60
     }
 }
+
+interaction = {
+    'db': {
+        'host': '192.168.0.53',
+        'port': 1433,
+        'user': 'sql_scrapy',
+        'pswd': 'sql_scrapy123',
+        'name': 'scrapy_debug_db',
+        'table': 't_fund_announcement',
+        'timeout': 60
+    }
+}
