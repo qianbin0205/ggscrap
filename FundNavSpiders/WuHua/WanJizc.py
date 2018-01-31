@@ -10,7 +10,7 @@ from GGScrapy.ggspider import GGFundNavSpider
 class WanJizcSpider(GGFundNavSpider):
     name = 'FundNav_WanJizc'
     sitename = '万霁资产'
-    channel = '产品净值'
+    channel = '投资顾问'
     allowed_domains = ['www.wanjizichan.com']
     start_urls = ['http://www.wanjizichan.com/products']
     # url = 'http://www.wanjizichan.com'
@@ -30,19 +30,19 @@ class WanJizcSpider(GGFundNavSpider):
     def parse_fund(self, response):
         # print(response.text)
         funds = json.loads(response.text)
-        item = GGFundNavItem()
-
-        item['sitename'] = self.sitename
-        item['channel'] = self.channel
-        item['url'] = response.url
 
         for fund in funds:
             # print(data)
-            item['fund_name'] = fund['name']
             # print(fund['jzDataInfo'])
             nvDatas = fund['jzDataInfo']
             for nvData in nvDatas:
-                print(nvData['date'])
+                item = GGFundNavItem()
+
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.url
+                item['fund_name'] = fund['name']
+                # print(nvData['date'])
                 statistic_date = nvData['date']
                 item['statistic_date'] = datetime.strptime(statistic_date, '%Y/%m/%d')
 

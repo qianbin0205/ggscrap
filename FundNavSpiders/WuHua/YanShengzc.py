@@ -11,7 +11,7 @@ from scrapy import FormRequest
 class YanShengzcSpider(GGFundNavSpider):
     name = 'FundNav_YanShengzc'
     sitename = '衍盛资产'
-    channel = '产品净值'
+    channel = '投资顾问'
     allowed_domains = ['derivatives-china.invest.ldtamp.com']
     # start_urls = ['http://derivatives-china.invest.ldtamp.com/pfL.1.201.json']
     cookies = '__guid=185857340.924789394216647200.1516684602690.4316; JSESSIONID=356EEB21CD15626836013B4C3E64E992; SESSION=7e59293b-ba22-4e6a-a1ce-84c1edf7a147; monitor_count=2'
