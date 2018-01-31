@@ -993,7 +993,6 @@ class HexunNewsSpider(GGNewsSpider):
 
     # ips = [
     #     {
-    #         'ch': lps[0]['ch'],
     #         'url': 'http://hk.stock.hexun.com/2013-07-04/155777688.html',
     #         'url': 'http://hk.stock.hexun.com/2017-11-22/191737335.html',
     #         'url': 'http://stock.hexun.com/2007-06-15/100684360.html',
@@ -1001,7 +1000,9 @@ class HexunNewsSpider(GGNewsSpider):
     #         'url': 'http://futures.hexun.com/2017-12-25/192074489.html',
     #         'url': 'http://hk.stock.hexun.com/2014-05-03/164441425.html',
     #         'url': 'http://stock.hexun.com/2018-01-02/192138769.html',
-    #         'ref': lps[0]['ref']
+    #         'url': 'http://news.hexun.com/2018-01-31/192356794.html',
+    #         'ref': lps[0]['ref'],
+    #         'ch': lps[0]['ch']
     #     },
     # ]
 
