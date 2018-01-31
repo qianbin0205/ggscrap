@@ -92,6 +92,7 @@ class GGNewsPipeline(object):
                 seed += '&content=' + quote(content)
             md5.update(seed.encode('utf-8'))
             hkey = md5.hexdigest()
+            item['hkey'] = hkey
 
             conn = spider.dbPool.acquire()
             cursor = conn.cursor()

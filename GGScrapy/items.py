@@ -10,6 +10,8 @@ import scrapy
 
 # 新闻资讯
 class GGNewsItem(scrapy.Item):
+    hkey = scrapy.Field()                           # 哈希主键
+
     groupname = scrapy.Field()                      # 分组名称
     sitename = scrapy.Field()                       # 站点名称
     channel = scrapy.Field()                        # 频道名称
