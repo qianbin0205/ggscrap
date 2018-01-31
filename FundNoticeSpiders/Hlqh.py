@@ -16,7 +16,7 @@ class HlqhSpider(GGFundNoticeSpider):
 
     username = 'ZYYXSM'
     password = 'ZYYXSM123'
-    cookies = 'UM_distinctid=160e95cb88f89-04accda377420c-393d5c04-15f900-160e95cb8903cc; _cnzz_CV4130363=toJSONString%7C%7C; real_ipd=203.110.179.245; ECS_ID=3d5ec8feca7c554aa88f9d32efb51b96169b5c97; CNZZDATA4130363=cnzz_eid%3D685787141-1515741960-http%253A%252F%252Fwww.hlqh.com%252F%26ntime%3D1517311255; td_cookie=11049176; ECS[display]=grid; noHint=1'
+    cookies = 'UM_distinctid=160e95cb88f89-04accda377420c-393d5c04-15f900-160e95cb8903cc; _cnzz_CV4130363=toJSONString%7C%7C; ECS[display]=grid; noHint=1; real_ipd=203.110.179.245; ECS_ID=22a1cde20caabfa5307ebaabbd44ac90c69b18d8; CNZZDATA4130363=cnzz_eid%3D685787141-1515741960-http%253A%252F%252Fwww.hlqh.com%252F%26ntime%3D1517362036; td_cookie=11049100'
 
     lps = [
         {
@@ -34,7 +34,6 @@ class HlqhSpider(GGFundNoticeSpider):
         super(HlqhSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
-
         yield self.request_next()
 
     def parse_list(self, response):

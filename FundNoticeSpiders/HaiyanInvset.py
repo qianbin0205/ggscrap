@@ -55,14 +55,14 @@ class HaiyanInvsetSpider(GGFundNoticeSpider):
     def parse_pre_list(self, response):
         ch = response.meta['ch']
 
-        # fund_ids = response.css(r'tbody.tbody_w>tr>td:last-child>div:first-child>a::attr(href)').re(
-        #     r'/pc/profit/(\S+)/remove_collection')
-        # for fund_id in fund_ids:
-        self.lps.append({
-            'ch': ch,
-            'url': 'http://www.haiyancap.com/pc/products/1/show_data/0/show/' + '2LAMeM0XGMcY4040DPyjTx',
-            'ref': response.url,
-        })
+        fund_ids = response.css(r'tbody.tbody_w>tr>td:last-child>div:first-child>a::attr(href)').re(
+            r'/pc/profit/(\S+)/remove_collection')
+        for fund_id in fund_ids:
+            self.lps.append({
+                'ch': ch,
+                'url': 'http://www.haiyancap.com/pc/products/1/show_data/0/show/' + fund_id,
+                'ref': response.url,
+            })
         yield self.request_next()
 
     def parse_list(self, response):

@@ -50,7 +50,7 @@ class BjfqtzSpider(GGFundNoticeSpider):
             publish_time = fund.xpath("./div/p").re_first(r'\d+-\d+-\d+')
             item['publish_time'] = datetime.strptime(publish_time, '%Y-%m-%d')
             yield item
-            ch['count'] = ch['count'] + 1
+
         tpg = response.xpath("//span[@id='DcmsPage_PageInfo']/text()").re_first(r'(\d+)\|\d+')
         if pg < int(tpg):
             self.lps.append({

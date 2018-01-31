@@ -15,7 +15,7 @@ class JinrongtaifuSpider(GGFundNoticeSpider):
 
     username = '13916427906'
     password = 'ZYYXSM123'
-    cookies = 'PHPSESSID=i2rpf84atqpttkdsjt6h6vq1l6; PHPSESSID_NS_Sig=oenCV6mfwDxivAm8; td_cookie=11049137'
+    cookies = 'PHPSESSID=fgq26vkh63sb26f7h85qbkelc3; PHPSESSID_NS_Sig=oenCV6mfz2lh4Qa5; td_cookie=11049097'
 
     lps = [
         {
@@ -98,6 +98,6 @@ class JinrongtaifuSpider(GGFundNoticeSpider):
             publish_time = fund.xpath(".//div[@class='caozuo']/a/@href").re_first(r'/upload/jinrongtaifu(\d+)\.pdf')[0:8]
             item['publish_time'] = datetime.strptime(publish_time, '%Y%m%d')
             yield item
-            ch['count'] = ch['count'] + 1
+
         yield self.request_next()
 
