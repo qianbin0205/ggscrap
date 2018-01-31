@@ -555,7 +555,6 @@ class CnfolNewsSpider(GGNewsSpider):
 
     # ips = [
     #     {
-    #         'ch': lps[0]['ch'],
     #         'url': 'http://sc.stock.cnfol.com/shichangjuejin/20171228/25831775.shtml',
     #         'url': 'http://hkstock.cnfol.com/A+Hzixun/20131030/16065440.shtml',
     #         'url': 'http://hkstock.cnfol.com/A+Hzixun/20131030/16064291.shtml',
@@ -564,6 +563,8 @@ class CnfolNewsSpider(GGNewsSpider):
     #         'url': 'http://gold.cnfol.com/guojiyuanyousc/20180122/25934538.shtml',
     #         'url': 'http://gold.cnfol.com/guojiyuanyousc/20180122/25933608.shtml',
     #         'url': 'http://gold.cnfol.com/guojiyuanyousc/20180123/25939136.shtml',
+    #         'url': 'http://forex.cnfol.com/eyqq/20140521/17925345.shtml',
+    #         'ch': lps[0]['ch'],
     #         'ref': lps[0]['ref']
     #     },
     # ]
@@ -637,7 +638,7 @@ class CnfolNewsSpider(GGNewsSpider):
             if title is None:
                 title = response.xpath("//h2[@id='Title']/text()").extract_first()
             if title is None:
-                title = response.xpath("//div[@class='EDArt']/h1/text()").extract_first()
+                title = response.css('.EDArt>h1::text').extract_first()
             if title is None:
                 title = response.css('h1.ArtH1::text').extract_first()
             item["title"] = title
@@ -658,8 +659,11 @@ class CnfolNewsSpider(GGNewsSpider):
                 pubtime = response.xpath("//div[@class='Subtitle']/text()").re_first(r'(\d+年\d+月\d+日\s*\d+:\d+)')
             if pubtime is None:
                 pubtime = response.css('.ArtHps>span').re_first(r'\d+-\d+-\d+\s*\d+:\d+:\d+')
+            if pubtime is None:
+                pubtime = response.css('.EDArt>.Tsb').re_first(r'(\d+年\d+月\d+日\s*\d+:\d+)')
             if pubtime is not None:
                 if '年' in pubtime:
+                    pubtime = re.sub(r'\s+', '', pubtime)
                     pubtime = datetime.strptime(pubtime, '%Y年%m月%d日%H:%M')
                 else:
                     pubtime = datetime.strptime(pubtime, '%Y-%m-%d %H:%M:%S')
@@ -695,6 +699,8 @@ class CnfolNewsSpider(GGNewsSpider):
             if source is None:
                 source = response.xpath("//div[@class='Subtitle']/text()").re_first(
                     r'\d+年\d+月\d+日\s*\d+:\d+\s+(\S+)\s*\s+\s*')
+            if source is None:
+                source = response.css('.EDArt>.Tsb').re_first(r'\d+年\d+月\d+日\s*\d+:\d+\s+(\S+)\s+')
             if source is not None:
                 if 'K图' in source:
                     source = None
