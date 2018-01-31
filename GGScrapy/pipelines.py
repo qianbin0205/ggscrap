@@ -284,6 +284,7 @@ class GGFundNavPipeline(object):
                 seed += '&d7_annualized_return=' + quote(str(d7_annualized_return))
             md5.update(seed.encode('utf-8'))
             hkey = md5.hexdigest()
+            item['hkey'] = hkey
 
             conn = spider.dbPool.acquire()
             cursor = conn.cursor()
@@ -360,6 +361,7 @@ class GGFundNoticePipeline(object):
 
             md5.update(seed.encode('utf-8'))
             hkey = md5.hexdigest()
+            item['hkey'] = hkey
 
             conn = spider.dbPool.acquire()
             cursor = conn.cursor()
