@@ -232,7 +232,7 @@ class GGFundNavSpider(GGSpider):
 # 基金公告Spider基类
 class GGFundNoticeSpider(GGSpider):
     channel = '公告'
-    
+
     custom_settings = {
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNoticePipeline': 300}
     }
