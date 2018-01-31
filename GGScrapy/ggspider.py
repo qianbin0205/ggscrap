@@ -242,35 +242,8 @@ class GGFundNoticeSpider(GGSpider):
                   config.fund_notice['db']['name'],
                   timeout=config.fund_notice['db']['timeout'])
 
-    def __init__(self, limit=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(GGFundNoticeSpider, self).__init__(*args, **kwargs)
-        try:
-            limit = int(limit)
-        except:
-            self.__limit = None
-        else:
-            if limit > 0:
-                self.__limit = limit
-            else:
-                if limit < 0:
-                    self.__limit = -limit
-                else:
-                    self.__limit = None
-
-    @property
-    def limit(self):
-        return self.__limit
-
-    def request_next(self):
-        ps = self.ips or self.lps  # pages
-        if ps:
-            pi = ps[0]
-            ch = pi['ch'] if 'ch' in pi else {}
-            count = ch['count'] if 'count' in ch else 0
-            count = count if isinstance(count, int) else 0
-            if self.limit and count >= self.limit:
-                ps.pop(0)
-            return super(GGNewsSpider, self).request_next()
 
 
 # 投资者关系互动平台Spider基类

@@ -10,16 +10,13 @@ from GGScrapy.ggspider import GGFundNoticeSpider
 class BjfqtzSpider(GGFundNoticeSpider):
     name = 'FundNotice_Bjfqtz'
     sitename = '蜂雀投资'
+    channel = '公告'
+    entry = 'http://www.bjfqtz.com/news.aspx?ParentId=5&CateId=22'
     allowed_domains = ['www.bjfqtz.com']
     start_urls = []
 
     lps = [
         {
-            'ch': {
-                'name': '新闻中心-企业公告',
-                'url_entry': 'http://www.bjfqtz.com/news.aspx?ParentId=5&CateId=22',
-                'count': 0
-            },
             'pg': 1,
             'url': lambda pg: 'http://www.bjfqtz.com/newslist.aspx?ParentId=5&CateId=22&page=' + str(pg),
             'ref': None
