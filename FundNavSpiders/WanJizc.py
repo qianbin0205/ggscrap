@@ -29,6 +29,21 @@ class WanJizcSpider(GGFundNavSpider):
 
     def parse_fund(self, response):
         funds = json.loads(response.text)
+<<<<<<< HEAD:FundNavSpiders/WuHua/WanJizc.py
+
+        for fund in funds:
+            # print(data)
+            # print(fund['jzDataInfo'])
+            nvDatas = fund['jzDataInfo']
+            for nvData in nvDatas:
+                item = GGFundNavItem()
+
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.url
+                item['fund_name'] = fund['name']
+                # print(nvData['date'])
+=======
         for fund in funds:
             nvDatas = fund['jzDataInfo']
             for nvData in nvDatas:
@@ -39,6 +54,7 @@ class WanJizcSpider(GGFundNavSpider):
 
                 item['fund_name'] = fund['name']
 
+>>>>>>> 6f2eb72837bea3f296d2b41f62b1a18e99a16244:FundNavSpiders/WanJizc.py
                 statistic_date = nvData['date']
                 item['statistic_date'] = datetime.strptime(statistic_date, '%Y/%m/%d')
 
