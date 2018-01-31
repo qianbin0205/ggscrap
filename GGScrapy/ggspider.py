@@ -231,6 +231,8 @@ class GGFundNavSpider(GGSpider):
 
 # 基金公告Spider基类
 class GGFundNoticeSpider(GGSpider):
+    channel = '公告'
+    
     custom_settings = {
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNoticePipeline': 300}
     }
@@ -244,7 +246,7 @@ class GGFundNoticeSpider(GGSpider):
 
     def __init__(self, *args, **kwargs):
         super(GGFundNoticeSpider, self).__init__(*args, **kwargs)
-        
+
 
 # 投资者关系互动平台Spider基类
 class GGInteractionSpider(GGSpider):
