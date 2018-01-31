@@ -10,6 +10,8 @@ from GGScrapy.ggspider import GGFundNoticeSpider
 class JinrongtaifuSpider(GGFundNoticeSpider):
     name = 'FundNotice_Jinrongtaifu'
     sitename = '北京锦融泰富投资'
+    channel = '公告'
+    entry = "['http://www.jinrongtaifu.com/?Index/View&i=3'],['http://www.jinrongtaifu.com/?Index/View&i=20'],['http://www.jinrongtaifu.com/?Index/View&i=24']"
     allowed_domains = ['www.jinrongtaifu.com']
     start_urls = []
 
@@ -19,29 +21,14 @@ class JinrongtaifuSpider(GGFundNoticeSpider):
 
     lps = [
         {
-            'ch': {
-                'name': '产品中心-产品报告',
-                'url_entry': 'http://www.jinrongtaifu.com/?Index/View&i=3',
-                'count': 0
-            },
             'url': 'http://www.jinrongtaifu.com/?Index/View&i=3',
             'ref': 'http://www.jinrongtaifu.com/?Index/Index'
         },
         {
-            'ch': {
-                'name': '投研中心-公司动态',
-                'url_entry': 'http://www.jinrongtaifu.com/?Index/View&i=20',
-                'count': 0
-            },
             'url': 'http://www.jinrongtaifu.com/?Index/View&i=20',
             'ref': 'http://www.jinrongtaifu.com/?Index/Index'
         },
         {
-            'ch': {
-                'name': '投研中心-产品公告',
-                'url_entry': 'http://www.jinrongtaifu.com/?Index/View&i=24',
-                'count': 0
-            },
             'url': 'http://www.jinrongtaifu.com/?Index/View&i=24',
             'ref': 'http://www.jinrongtaifu.com/?Index/Index'
         },
@@ -54,15 +41,12 @@ class JinrongtaifuSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_list(self, response):
-        pi = response.meta['pi']
-        ch = pi['ch']
         if response.url == 'http://www.jinrongtaifu.com/?Index/View&i=3':
             funds = response.xpath("//div[@class='fund-list m-t-20 m-b-40']/table/tr/td[1]/a")
             for fund in funds:
                 url = fund.xpath("./@href").extract_first()
                 url = urljoin(get_base_url(response), url)
                 self.ips.append({
-                    'ch': ch,
                     'url': url,
                     'ref': response.url,
 
@@ -72,8 +56,8 @@ class JinrongtaifuSpider(GGFundNoticeSpider):
             for fund in funds:
                 item = GGFundNoticeItem()
                 item['sitename'] = self.sitename
-                item['channel'] = ch['name']
-                item['url_entry'] = ch['url_entry']
+                item['channel'] = self.channel
+                item['url_entry'] = self.entry
                 url = fund.xpath("./a[1]/@href").extract_first()
                 item['url'] = urljoin(get_base_url(response), url)
                 item['title'] = fund.xpath("./a[1]/text()").extract_first()
@@ -83,14 +67,12 @@ class JinrongtaifuSpider(GGFundNoticeSpider):
         yield self.request_next()
 
     def parse_item(self, response):
-        pi = response.meta['pi']
-        ch = pi['ch']
         funds = response.xpath("//div[@class='item clearfix']")
         for fund in funds:
             item = GGFundNoticeItem()
             item['sitename'] = self.sitename
-            item['channel'] = ch['name']
-            item['url_entry'] = ch['url_entry']
+            item['channel'] = self.channel
+            item['url_entry'] = self.entry
             url = fund.xpath(".//div[@class='caozuo']/a/@href").extract_first()
             item['url'] = urljoin(get_base_url(response), url)
             item['title'] = fund.xpath("./div[@class='pdf-title']/text()").extract_first()
