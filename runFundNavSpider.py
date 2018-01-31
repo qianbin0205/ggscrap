@@ -79,5 +79,8 @@ from scrapy import cmdline
 
 #cmdline.execute(['scrapy', 'crawl', 'FundNav_BJTHCapital', '-a', 'jobId=0L'])
 
+#国开证券资管
+#cmdline.execute(['scrapy', 'crawl', 'FundNav_GuoKaiStock', '-a', 'jobId=0L'])
+
 # 持赢投资
 cmdline.execute(['scrapy', 'crawl', 'FundNav_ChiyingInvest', '-a', 'jobId=0L'])
