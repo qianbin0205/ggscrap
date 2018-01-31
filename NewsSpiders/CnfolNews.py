@@ -564,8 +564,8 @@ class CnfolNewsSpider(GGNewsSpider):
     #         'url': 'http://gold.cnfol.com/guojiyuanyousc/20180122/25933608.shtml',
     #         'url': 'http://gold.cnfol.com/guojiyuanyousc/20180123/25939136.shtml',
     #         'url': 'http://forex.cnfol.com/eyqq/20140521/17925345.shtml',
-    #         'ch': lps[0]['ch'],
-    #         'ref': lps[0]['ref']
+    #         'ref': lps[0]['ref'],
+    #         'ch': lps[0]['ch']
     #     },
     # ]
 
