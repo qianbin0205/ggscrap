@@ -17,7 +17,7 @@ class HualianFuturesSpider(GGFundNavSpider):
 
     username = 'ZYYX'
     password = 'ZYYX888'
-    cookies = 'td_cookie=11049146; UM_distinctid=160e95cb88f89-04accda377420c-393d5c04-15f900-160e95cb8903cc; _cnzz_CV4130363=toJSONString%7C%7C; ECS[display]=grid; real_ipd=203.110.179.245; ECS_ID=7b01d4741a6ae4f85531e9b0c3af6fac1c78be52; CNZZDATA4130363=cnzz_eid%3D685787141-1515741960-http%253A%252F%252Fwww.hlqh.com%252F%26ntime%3D1515978405'
+    cookies = 'UM_distinctid=160e95cb88f89-04accda377420c-393d5c04-15f900-160e95cb8903cc; _cnzz_CV4130363=toJSONString%7C%7C; ECS[display]=grid; real_ipd=203.110.179.245; ECS_ID=e258b411e4ce9f26f6bd6bed3ccc64cc83b0d521; CNZZDATA4130363=cnzz_eid%3D685787141-1515741960-http%253A%252F%252Fwww.hlqh.com%252F%26ntime%3D1517445811; noHint=1; ECS[history]=224; td_cookie=11049097'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(HualianFuturesSpider, self).__init__(limit, *args, **kwargs)

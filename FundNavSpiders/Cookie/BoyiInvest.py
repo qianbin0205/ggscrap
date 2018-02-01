@@ -14,9 +14,9 @@ class BoyiInvestSpider(GGFundNavSpider):
     allowed_domains = ['www.boyiinvest.com']
     start_urls = ['http://www.boyiinvest.com/index.asp?product.html']
 
-    username = 'by123'
-    password = 'by123456'
-    cookies = 'closeclick=closeclick; td_cookie=11049065; %5Fi18n=OK; %5FS%5FRESOURCE=zh%2Dcn; %5FS%5FTEMPLATEDIR=%2Ftemplate%2Fdefault; %5FS%5FLANG%5FDIR=; %5FS%5FLANG=zh%2Dcn; ASPSESSIONIDACQACSCR=LOOPGKCBOHCDHEIFDMMFPMLM'
+    username = 'ZYYXSM'
+    password = 'ZYYXSM123'
+    cookies = 'td_cookie=11049099; %5Fi18n=OK; %5FS%5FRESOURCE=zh%2Dcn; %5FS%5FTEMPLATEDIR=%2Ftemplate%2Fdefault; %5FS%5FLANG%5FDIR=; %5FS%5FLANG=zh%2Dcn; ASPSESSIONIDASRAARTA=LBHJJJAABPFGFBOLACAOFDGP'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(BoyiInvestSpider, self).__init__(limit, *args, **kwargs)
