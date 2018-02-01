@@ -42,22 +42,19 @@ class XingRongBangAssetSpider(GGFundNavSpider):
         ext = response.meta['ext']
         fund_name = ext['fund_name']
         item = GGFundNavItem()
-        taget_area = response.xpath('//div[@id="images"')
-        # filter = [_.xpath('//text()') for _ in taget_area]
-        str_info = str(taget_area)
+        # 只有使用正则，用xpath会缺数据
+        info_list = re.findall('(\d{2,4}年\d{1,2}月\d{1,2}日)：(\d{0,1}\.\d{0,4})',
+                               response.text, re.DOTALL)
 
-        # for i in str_info:
-        # for i in info_list:
-        #     statistic_date = i.split('：')[0]
-        #     nav = i.split('：')[1]
-        #     item['sitename'] = self.sitename
-        #     item['channel'] = self.channel
-        #     item['url'] = response.url
-        #
-        #     item['fund_name'] = fund_name
-        #
-        #     item['statistic_date'] = datetime.strptime(statistic_date, '%Y年%m月%d日')
-        #
-        #     item['nav'] = float(nav)
-        #     item['added_nav'] = None
-        yield item
+        for i in info_list:
+            statistic_date = i[0]
+            nav = i[1]
+            item['sitename'] = self.sitename
+            item['channel'] = self.channel
+            item['url'] = response.url
+            item['fund_name'] = fund_name
+            item['statistic_date'] = datetime.strptime(statistic_date,
+                                                       '%Y年%m月%d日') if statistic_date is not None else None
+            item['nav'] = float(nav) if nav is not None else None
+            item['added_nav'] = None
+            yield item
