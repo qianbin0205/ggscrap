@@ -17,7 +17,7 @@ class GlqhSpider(GGFundNavSpider):
 
     username = '15838535216'
     password = '050835'
-    cookies = '_glqh_=xDKxicFmNZ; UM_distinctid=1609b8b0b8a34e-0c27bab557c9df-5f19331c-1aeaa0-1609b8b0b8b96a; td_cookie=11049276; CNZZDATA1256302135=895841349-1514433905-http%253A%252F%252Fwww.glqh.com%252F%7C1516066680; JSESSIONID=1BE9B05F680C642651A705DABBAF8427'
+    cookies = 'td_cookie=11049146; _glqh_=IkyD8RuoQQ; UM_distinctid=1614badbdbc53c-0af3c6111a00a3-393d5c04-15f900-1614badbdbdd55; td_cookie=11049143; CNZZDATA1256302135=429034375-1517389512-%7C1517461155; JSESSIONID=5634BEE841DE8FC4A1903466A329E1C7'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GlqhSpider, self).__init__(limit, *args, **kwargs)
@@ -73,6 +73,20 @@ class GlqhSpider(GGFundNavSpider):
 
                 statistic_date = re.sub('(\d+年)\D*(\d+月\d+日)', r'\1\2', statistic_date)
                 item['statistic_date'] = datetime.strptime(statistic_date, '%Y年%m月%d日')
+
+                item['added_nav'] = float(row.css('td:nth-child(2)').re_first('>\s*?([0-9.]+?)\s*?<'))
+                yield item
+
+            elif row.css('td:first-child').re_first(r'\d+\D+年\D+\d+\D+\月\D+\d+\D+日') is not None:
+                item = GGFundNavItem()
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.url
+                item['fund_name'] = ext['fund_name']
+
+                statistic_date = row.xpath('td[1]/p//span[@lang="EN-US"]/text()').extract()
+                statistic_date = statistic_date[0] + statistic_date[1] + statistic_date[2]
+                item['statistic_date'] = datetime.strptime(statistic_date, '%Y%m%d')
 
                 item['added_nav'] = float(row.css('td:nth-child(2)').re_first('>\s*?([0-9.]+?)\s*?<'))
                 yield item
