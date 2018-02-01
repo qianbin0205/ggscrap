@@ -1,3 +1,4 @@
 from scrapy import cmdline
 
-cmdline.execute(['scrapy', 'crawl', 'FundNav_AAA', '-a', 'jobId=0L'])
+#第一创业证券资管
+cmdline.execute(['scrapy', 'crawl', 'FundNav_DiyichuangyeSecuritiesManagement', '-a', 'jobId=0L'])
