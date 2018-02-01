@@ -1,33 +1,32 @@
 # -*- coding: utf-8 -*-
 
-from GGScrapy.items import GGInteractionItem
-from GGScrapy.ggspider import GGInteractionSpider
+from GGScrapy.items import GGIrcsItem
+from GGScrapy.ggspider import GGIrcsSpider
 
 
-class SseInfoSpider(GGInteractionSpider):
-    name = 'Interaction_SseInfo'
-    sitename = '上证e互动'
+class CninfoIrmSpider(GGIrcsSpider):
+    name = 'Ircs_CninfoIrm'
+    sitename = '深交所互动易'
     channel = '投资者关系互动平台-最新回复'
-    entry = 'http://sns.sseinfo.com/qa.do'
-    allowed_domains = ['sns.sseinfo.com']
+    entry = 'http://irm.cninfo.com.cn/ircs/sse/sseSubIndex.do?condition.type=7'
+    allowed_domains = ['irm.cninfo.com.cn']
 
     start_urls = []
     ips = [
         {
             'pg': 1,
-            'url': lambda pg: 'http://sns.sseinfo.com/ajax/feeds.do?page=' + str(
-                pg) + '&type=11&pageSize=10&lastid=-1&show=1',
-            'ref': 'http://sns.sseinfo.com/qa.do'
+            'url': 'http://irm.cninfo.com.cn/ircs/interaction/lastRepliesForSzse.do',
+            'ref': 'http://irm.cninfo.com.cn/ircs/sse/sseSubIndex.do?condition.type=7'
         }
     ]
 
     def __init__(self, *args, **kwargs):
-        super(SseInfoSpider, self).__init__(*args, **kwargs)
+        super(CninfoIrmSpider, self).__init__(*args, **kwargs)
 
     def parse_item(self, response):
         records = response.css('.m_feed_item')
         for record in records:
-            item = GGInteractionItem()
+            item = GGIrcsItem()
             item['sitename'] = self.sitename
             item['channel'] = self.channel
             item['url'] = response.url
