@@ -16,7 +16,7 @@ class XiamenTrustSpider(GGFundNavSpider):
 
     username = 'qzm'
     password = 'qzm123'
-    cookies = 'ant_stream_5a4fa6a5e96dc=1516180204/1706187116; bow_stream_5a4fa6a5e96dc=13; myCookie=; ASP.NET_SessionId=h0jmqyvskk42mojkxyrwgcb1; td_cookie=11049118'
+    cookies = 'td_cookie=11049118; ant_stream_5a4fa6a5e96dc=1517476782/3942334202; bow_stream_5a4fa6a5e96dc=13; myCookie=; _siteUp=1; ASP.NET_SessionId=rl50x0454w4tr555hglwfb45'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(XiamenTrustSpider, self).__init__(limit, *args, **kwargs)

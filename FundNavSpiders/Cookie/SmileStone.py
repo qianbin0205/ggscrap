@@ -15,7 +15,7 @@ class SmileStoneSpider(GGFundNavSpider):
 
     username = '410325197710121425'
     password = '123456'
-    cookies = 'lczc_cpbg_new=0; lczc_wdtw_new=0; td_cookie=11049256; PHPSESSID=5tsipib8e3v6jmkosabpa2odi7'
+    cookies = 'PHPSESSID=sev6vm2ol48i0e5arp02054qm2; lczc_cpbg_new=0; lczc_wdtw_new=0; td_cookie=11049102'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(SmileStoneSpider, self).__init__(limit, *args, **kwargs)
