@@ -7,15 +7,15 @@ from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
 
 
-class ZhongTieturstSpider(GGFundNavSpider):
-    name = 'FundNav_ZhongTieturst'
+class ZTXTSpider(GGFundNavSpider):
+    name = 'ZTXT'
     sitename = '中铁信托'
     channel = '信托净值'
     allowed_domains = ['www.crtrust.com']
     start_urls = ['http://www.crtrust.com/front/getProductsXTZQbyPage_195401472991.jhtml']
 
     def __init__(self, limit=None, *args, **kwargs):
-        super(ZhongTieturstSpider, self).__init__(limit, *args, **kwargs)
+        super(ZTXTSpider, self).__init__(limit, *args, **kwargs)
 
     def start_requests(self):
         fps = [
@@ -56,7 +56,7 @@ class ZhongTieturstSpider(GGFundNavSpider):
         ips = response.meta['ips']
         item = GGFundNavItem()
         pg = response.meta['pg']
-
+ 
         ext = response.meta['ext']
         fund_name = ext['fund_name']
         fund_code = ext['fund_code']
