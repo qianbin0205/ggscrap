@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from urllib.parse import urljoin
 from GGScrapy.items import GGIrcsItem
 from GGScrapy.ggspider import GGIrcsSpider
+from scrapy.utils.response import get_base_url
 
 
 class CninfoIrmSpider(GGIrcsSpider):
@@ -12,9 +14,8 @@ class CninfoIrmSpider(GGIrcsSpider):
     allowed_domains = ['irm.cninfo.com.cn']
 
     start_urls = []
-    ips = [
+    lps = [
         {
-            'pg': 1,
             'url': 'http://irm.cninfo.com.cn/ircs/interaction/lastRepliesForSzse.do',
             'ref': 'http://irm.cninfo.com.cn/ircs/sse/sseSubIndex.do?condition.type=7'
         }
@@ -23,46 +24,44 @@ class CninfoIrmSpider(GGIrcsSpider):
     def __init__(self, *args, **kwargs):
         super(CninfoIrmSpider, self).__init__(*args, **kwargs)
 
-    def parse_item(self, response):
-        records = response.css('.m_feed_item')
+    def parse_list(self, response):
+        records = response.css('.talkList2>.askBoxOuter')
         for record in records:
-            item = GGIrcsItem()
-            item['sitename'] = self.sitename
-            item['channel'] = self.channel
-            item['url'] = response.url
+            url = record.css('.msgBox .msgCnt a.cntcolor::attr(href)').extract_first()
+            url = urljoin(get_base_url(response), url)
+            self.ips.append({
+                'url': url,
+                'ref': None
+            })
 
-            author = record.css('.m_feed_detail.m_qa_detail>.m_feed_face>p::text').extract_first()
-            item['author'] = author
+        yield self.request_next()
 
-            stock_code = record.css('.m_feed_detail.m_qa_detail>.m_feed_cnt>.m_feed_txt>a::text').re_first(
-                r':\S+\((\d+)\)')
-            item['stock_code'] = stock_code
+    def parse_item(self, response):
+        item = GGIrcsItem()
+        item['sitename'] = self.sitename
+        item['channel'] = self.channel
+        item['url'] = response.url
 
-            stock_name = record.css('.m_feed_detail.m_qa_detail>.m_feed_cnt>.m_feed_txt>a::text').re_first(
-                r':(\S+)\(\d+\)')
-            item['stock_name'] = stock_name
+        author = response.css('.askBoxOuter .userPic .userName::text').re_first(r'^\s*(\S.+\S)\s*$')
+        item['author'] = author
 
-            q_time = record.css('.m_feed_detail.m_qa_detail>.m_feed_cnt>.m_feed_func>.m_feed_from>span:nth-child(1)::text').extract_first()
-            item['q_time'] = q_time
+        stock_code = response.css('.answerBoxOuter .userPic .comCode>a::text').re_first(r'^\s*(\S.+\S)\s*$')
+        item['stock_code'] = stock_code
 
-            q_content = record.css('.m_feed_detail.m_qa_detail>.m_feed_cnt>.m_feed_txt').re_first(r'</a>(\S+)\s*</div>')
-            item['q_content'] = q_content
+        stock_name = response.css('.answerBoxOuter .userPic .comName>a::text').re_first(r'^\s*(\S.+\S)\s*$')
+        item['stock_name'] = stock_name
 
-            a_time = record.css(
-                '.m_feed_detail.m_qa>.m_feed_func>.m_feed_from>span:nth-child(1)::text').extract_first()
-            item['a_time'] = a_time
+        q_time = response.css('.askBoxOuter .msgBox .date::text').re_first(r'^\s*(\S.+\S)\s*$')
+        item['q_time'] = q_time
 
-            a_content = record.css('.m_feed_detail.m_qa>.m_feed_cnt>.m_feed_txt::text').extract_first()
-            if a_content:
-                a_content = a_content.strip()
-            item['a_content'] = a_content
+        q_content = response.css('.askBoxOuter .msgBox .msgCnt>div::text').re_first(r'^\s*(\S.+\S)\s*$')
+        item['q_content'] = q_content
 
-            yield item
+        a_time = response.css('.answerBoxOuter .answerBox .time .date::text').re_first(r'^\s*(\S.+\S)\s*$')
+        item['a_time'] = a_time
 
-        self.ips.append({
-            'pg': response.meta['pg'] + 1,
-            'url': response.meta['url'],
-            'ref': response.meta['ref']
-        })
+        a_content = response.css('.answerBoxOuter .answerBox .msgCnt>a.blue2[target="_blank"]::text').re_first(r'^\s*(\S.+\S)\s*$')
+        item['a_content'] = a_content
 
+        yield item
         yield self.request_next()
