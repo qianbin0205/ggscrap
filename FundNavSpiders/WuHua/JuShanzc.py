@@ -1,18 +1,27 @@
 import json
 from datetime import datetime
-from urllib.parse import urljoin
 from scrapy import Request
-from scrapy.utils.response import get_base_url
 from GGScrapy.items import GGFundNavItem
 from GGScrapy.ggspider import GGFundNavSpider
-from scrapy import FormRequest
+
 
 class JuShanzcSpider(GGFundNavSpider):
     name = 'FundNav_JuShanzc'
     sitename = '巨杉资产'
     channel = '投资顾问'
     allowed_domains = ['www.grasset.com.cn']
-    # start_urls = ['http://derivatives-china.invest.ldtamp.com/pfL.1.201.json']
+
+    fps = [
+        {
+            'url': 'http://www.grasset.com.cn/api/product/queryNetValueList',
+            'headers': {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            'body': '{"auditStatus":3,"productType":"","productName":""}',
+            'ref': 'http://www.grasset.com.cn/productNetValueList'
+        }
+    ]
 
     def __init__(self, limit=None, *args, **kwargs):
         super(JuShanzcSpider, self).__init__(limit, *args, **kwargs)
@@ -21,46 +30,64 @@ class JuShanzcSpider(GGFundNavSpider):
         yield Request(url='http://www.grasset.com.cn/api/login/login',
                       method='post',
                       headers={'Content-Type': 'application/json',
-                               'Referer': 'http://www.grasset.com.cn/auth',
-                               'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36'},
+                               'Referer': 'http://www.grasset.com.cn/auth'
+                               },
                       body=b'{"loginName":"13916427906","password":"123456"}',
                       callback=self.parse_login)
 
     def parse_login(self, response):
-        # print(response.text)
-        yield Request(url='http://www.grasset.com.cn/api/product/queryNetValueList',
-                      method='post',
-                      headers={'Content-Type': 'application/json',
-                               'Referer': 'http://www.grasset.com.cn/productNetValueList',
-                               'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36'},
-                      body=b'{"auditStatus":"3","productName":"","productType":""}',
-                      callback=self.parse_nv_link)
+        yield self.request_next()
 
-    def parse_nv_link(self, response):
-        # print(response.text)
-        funds = json.loads(response.text)["data"]["records"]
-        # print(funds)
-        for fund in funds:
-            fundId = fund['productId']
-            fundName = fund['productName']
-            # print(fundId)
-            payload = {"productId": fundId, "pageSize": "20", "pageNumber": "1"}
-            yield Request(url='http://www.grasset.com.cn/api/product/netValue/query',
-                        method='post',
-                        meta={'fundName': fundName},
-                        headers={'Content-Type': 'application/json',
-                               'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36'},
-                        body=json.dumps(payload),
-                        callback=self.parse_item)
+    def parse_fund(self, response):
+        data = json.loads(response.text)['data']
+
+        for record in data['records']:
+            fund_id = record['productId']
+            fund_name = record['productName']
+            self.ips.append({
+                'pg': {'page': 1, 'fund_id': fund_id},
+                'url': 'http://www.grasset.com.cn/api/product/netValue/query',
+                'headers': {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                'body': lambda pg: '{"pageSize":500,"pageNumber":' + str(pg['page']) + ',"productId":"' + pg['fund_id'] + '"}',
+                'ref': 'http://www.grasset.com.cn/productNetValueDetail/' + fund_id,
+                'ext': {'fund_name': fund_name}
+            })
+
+        yield self.request_next()
 
     def parse_item(self, response):
-        # print(response.text)
-        fundName = response.meta['fundName']
-        # print(fundName)
-        # nvData = json.loads(response.text)["data"]
-        # # nValues = json.loads(response.text)["data"]["records"]
-        # nvRecordCount = nvData["totalRecordCount"]
-        # # print(nvRecordCount)
-        # nvRecordList = nvData["records"]
-        # for nvRecord in nvRecordList:
+        print(response.text)
+        data = json.loads(response.text)['data']
+        ext = response.meta['ext']
 
+        fund_name = ext['fund_name']
+        for record in data['records']:
+            item = GGFundNavItem()
+            item['sitename'] = self.sitename
+            item['channel'] = self.channel
+            item['url'] = response.url
+            item['fund_name'] = fund_name
+
+            statistic_date = record['netDate'][0:10]
+            item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+
+            item['nav'] = record['netValue']
+            item['added_nav'] = record['netValueAccu']
+            yield item
+
+        pg = response.meta['pg']
+        if pg['page'] * 500 < int(data['totalRecordCount']):
+            pg['page'] = pg['page'] + 1
+            self.ips.append({
+                'pg': pg,
+                'url': response.url,
+                'headers': response.meta['headers'],
+                'body': response.meta['body'],
+                'ref': response.meta['ref'],
+                'ext': response.meta['ext']
+            })
+
+        yield self.request_next()
