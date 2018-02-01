@@ -16,7 +16,7 @@ class GuotaijunanSpider(GGFundNavSpider):
 
     username = '13916427906'
     password = 'ZYYXSM123'
-    cookies = 'showthemenr=show; shotanchuang=; gjzgs1=130345f503a2d4de6e8ab84452b00e6f; login_sign=122f001ef2344adf85d7598a045b9538; s101_SESSION=D218C638E99BE7415D53A50806186834'
+    cookies = 'showthemenr=show; shotanchuang=; gjzgs1=130345f503a2d4de6e8ab84452b00e6f; login_sign=0fa3e4a140b948218cb54a051cdd97ea; s101_SESSION=D8C082C77D51B72D83925ECC6143247D'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(GuotaijunanSpider, self).__init__(limit, *args, **kwargs)

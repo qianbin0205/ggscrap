@@ -1,0 +1,68 @@
+# -*- coding: utf-8 -*-
+
+from GGScrapy.items import GGIrcsItem
+from GGScrapy.ggspider import GGIrcsSpider
+
+
+class CninfoIrmSpider(GGIrcsSpider):
+    name = 'Ircs_CninfoIrm'
+    sitename = '深交所互动易'
+    channel = '投资者关系互动平台-最新回复'
+    entry = 'http://irm.cninfo.com.cn/ircs/sse/sseSubIndex.do?condition.type=7'
+    allowed_domains = ['irm.cninfo.com.cn']
+
+    start_urls = []
+    ips = [
+        {
+            'pg': 1,
+            'url': 'http://irm.cninfo.com.cn/ircs/interaction/lastRepliesForSzse.do',
+            'ref': 'http://irm.cninfo.com.cn/ircs/sse/sseSubIndex.do?condition.type=7'
+        }
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super(CninfoIrmSpider, self).__init__(*args, **kwargs)
+
+    def parse_item(self, response):
+        records = response.css('.m_feed_item')
+        for record in records:
+            item = GGIrcsItem()
+            item['sitename'] = self.sitename
+            item['channel'] = self.channel
+            item['url'] = response.url
+
+            author = record.css('.m_feed_detail.m_qa_detail>.m_feed_face>p::text').extract_first()
+            item['author'] = author
+
+            stock_code = record.css('.m_feed_detail.m_qa_detail>.m_feed_cnt>.m_feed_txt>a::text').re_first(
+                r':\S+\((\d+)\)')
+            item['stock_code'] = stock_code
+
+            stock_name = record.css('.m_feed_detail.m_qa_detail>.m_feed_cnt>.m_feed_txt>a::text').re_first(
+                r':(\S+)\(\d+\)')
+            item['stock_name'] = stock_name
+
+            q_time = record.css('.m_feed_detail.m_qa_detail>.m_feed_cnt>.m_feed_func>.m_feed_from>span:nth-child(1)::text').extract_first()
+            item['q_time'] = q_time
+
+            q_content = record.css('.m_feed_detail.m_qa_detail>.m_feed_cnt>.m_feed_txt').re_first(r'</a>(\S+)\s*</div>')
+            item['q_content'] = q_content
+
+            a_time = record.css(
+                '.m_feed_detail.m_qa>.m_feed_func>.m_feed_from>span:nth-child(1)::text').extract_first()
+            item['a_time'] = a_time
+
+            a_content = record.css('.m_feed_detail.m_qa>.m_feed_cnt>.m_feed_txt::text').extract_first()
+            if a_content:
+                a_content = a_content.strip()
+            item['a_content'] = a_content
+
+            yield item
+
+        self.ips.append({
+            'pg': response.meta['pg'] + 1,
+            'url': response.meta['url'],
+            'ref': response.meta['ref']
+        })
+
+        yield self.request_next()

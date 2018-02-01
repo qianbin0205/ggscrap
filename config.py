@@ -1,4 +1,4 @@
-SPIDER_MODULES = ['spiders', 'NewsSpiders', 'FundNavSpiders', 'FundNoticeSpiders', 'InteractionSpiders']
+SPIDER_MODULES = ['spiders', 'NewsSpiders', 'FundNavSpiders', 'FundNoticeSpiders', 'IrcsSpiders']
 
 DEFAULT_REQUEST_HEADERS = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -43,6 +43,18 @@ fund_nav = {
 }
 
 fund_notice = {
+    'db': {
+        'host': '192.168.0.53',
+        'port': 1433,
+        'user': 'sql_scrapy',
+        'pswd': 'sql_scrapy123',
+        'name': 'scrapy_debug_db',
+        'table': 't_fund_announcement',
+        'timeout': 60
+    }
+}
+
+ircs = {
     'db': {
         'host': '192.168.0.53',
         'port': 1433,

@@ -10,6 +10,8 @@ import scrapy
 
 # 新闻资讯
 class GGNewsItem(scrapy.Item):
+    hkey = scrapy.Field()                           # 哈希主键
+
     groupname = scrapy.Field()                      # 分组名称
     sitename = scrapy.Field()                       # 站点名称
     channel = scrapy.Field()                        # 频道名称
@@ -25,6 +27,8 @@ class GGNewsItem(scrapy.Item):
 
 # 基金净值
 class GGFundNavItem(scrapy.Item):
+    hkey = scrapy.Field()                           # 哈希主键
+
     groupname = scrapy.Field()                      # 分组名称
     sitename = scrapy.Field()                       # 站点名称
     channel = scrapy.Field()                        # 频道名称
@@ -45,11 +49,31 @@ class GGFundNavItem(scrapy.Item):
 
 # 私募公告
 class GGFundNoticeItem(scrapy.Item):
+    hkey = scrapy.Field()                           # 哈希主键
+
     groupname = scrapy.Field()                      # 分组名称
     sitename = scrapy.Field()                       # 站点名称
     channel = scrapy.Field()                        # 频道名称
     url_entry = scrapy.Field()                      # 链接入口
 
     url = scrapy.Field()                            # 链接地址
-    title = scrapy.Field()                          # 标题
+    title = scrapy.Field()                          # 公告标题
     publish_time = scrapy.Field()                   # 发布时间
+
+
+# 投资者关系互动平台
+class GGIrcsItem(scrapy.Item):
+    hkey = scrapy.Field()                           # 哈希主键
+
+    groupname = scrapy.Field()                      # 分组名称
+    sitename = scrapy.Field()                       # 站点名称
+    channel = scrapy.Field()                        # 频道名称
+
+    url = scrapy.Field()                            # 链接地址
+    author = scrapy.Field()                         # 提问人员
+    stock_code = scrapy.Field()                     # 股票代码
+    stock_name = scrapy.Field()                     # 股票名称
+    q_time = scrapy.Field()                         # 提问时间
+    q_content = scrapy.Field()                      # 提问内容
+    a_time = scrapy.Field()                         # 回答时间
+    a_content = scrapy.Field()                      # 回答内容

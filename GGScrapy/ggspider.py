@@ -231,6 +231,8 @@ class GGFundNavSpider(GGSpider):
 
 # 基金公告Spider基类
 class GGFundNoticeSpider(GGSpider):
+    channel = '公告'
+
     custom_settings = {
         'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNoticePipeline': 300}
     }
@@ -244,47 +246,20 @@ class GGFundNoticeSpider(GGSpider):
 
     def __init__(self, *args, **kwargs):
         super(GGFundNoticeSpider, self).__init__(*args, **kwargs)
-        
+
 
 # 投资者关系互动平台Spider基类
-class GGInteractionSpider(GGSpider):
+class GGIrcsSpider(GGSpider):
     custom_settings = {
-        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGFundNoticePipeline': 300}
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGIrcsPipeline': 300}
     }
 
-    dbPool = Pool(config.fund_notice['db']['host'],
-                  config.fund_notice['db']['port'],
-                  config.fund_notice['db']['user'],
-                  config.fund_notice['db']['pswd'],
-                  config.fund_notice['db']['name'],
-                  timeout=config.fund_notice['db']['timeout'])
+    dbPool = Pool(config.ircs['db']['host'],
+                  config.ircs['db']['port'],
+                  config.ircs['db']['user'],
+                  config.ircs['db']['pswd'],
+                  config.ircs['db']['name'],
+                  timeout=config.ircs['db']['timeout'])
 
-    def __init__(self, limit=None, *args, **kwargs):
-        super(GGInteractionSpider, self).__init__(*args, **kwargs)
-        try:
-            limit = int(limit)
-        except:
-            self.__limit = None
-        else:
-            if limit > 0:
-                self.__limit = limit
-            else:
-                if limit < 0:
-                    self.__limit = -limit
-                else:
-                    self.__limit = None
-
-    @property
-    def limit(self):
-        return self.__limit
-
-    def request_next(self):
-        ps = self.ips or self.lps  # pages
-        if ps:
-            pi = ps[0]
-            ch = pi['ch'] if 'ch' in pi else {}
-            count = ch['count'] if 'count' in ch else 0
-            count = count if isinstance(count, int) else 0
-            if self.limit and count >= self.limit:
-                ps.pop(0)
-            return super(GGInteractionSpider, self).request_next()
+    def __init__(self, *args, **kwargs):
+        super(GGIrcsSpider, self).__init__(*args, **kwargs)

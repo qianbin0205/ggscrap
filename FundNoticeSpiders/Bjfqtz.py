@@ -31,7 +31,6 @@ class BjfqtzSpider(GGFundNoticeSpider):
 
     def parse_list(self, response):
         pi = response.meta['pi']
-        ch = pi['ch']
         pg = pi['pg']
         url = response.meta['url']
 
@@ -39,8 +38,8 @@ class BjfqtzSpider(GGFundNoticeSpider):
         for fund in funds:
             item = GGFundNoticeItem()
             item['sitename'] = self.sitename
-            item['channel'] = ch['name']
-            item['url_entry'] = ch['url_entry']
+            item['channel'] = self.channel
+            item['url_entry'] = self.entry
             u = fund.xpath("./div/a[2]/@href").extract_first()
             item['url'] = urljoin(get_base_url(response), u)
             item['title'] = fund.xpath("./div/a[2]/text()").extract_first()
@@ -51,7 +50,6 @@ class BjfqtzSpider(GGFundNoticeSpider):
         tpg = response.xpath("//span[@id='DcmsPage_PageInfo']/text()").re_first(r'(\d+)\|\d+')
         if pg < int(tpg):
             self.lps.append({
-                'ch': ch,
                 'pg': pg + 1,
                 'url': url,
                 'ref': response.url
