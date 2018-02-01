@@ -15,7 +15,7 @@ class SzhvcSpider(GGFundNavSpider):
 
     username = '18602199319'
     password = 'yadan0319'
-    cookies = 'td_cookie=11049292; td_cookie=11049224; SESSIONID=5bc4f42e-6a67-4a1f-b707-a9b1156de0a2; userinfo=s%3ALcbcOh1nyLXmVGjkQJ0c7C4DhwV0tpbt.qpjobROygrCVtYmqn0yaHcYRCaHdF0MlEkxtVZ9G%2F14'
+    cookies = 'td_cookie=11049107; SESSIONID=fefbfbc0-d08e-40af-98c6-804d7e563d43; userinfo=s%3AAHgx5dXgyapB_X_Vx5cEJ86KJWionwnU.VB7BZU3IOemOyb5cqk%2FkKv7%2Bn4V82yxFkfrVtdytPKk'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(SzhvcSpider, self).__init__(limit, *args, **kwargs)

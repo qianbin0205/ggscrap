@@ -1,4 +1,4 @@
-SPIDER_MODULES = ['spiders', 'NewsSpiders', 'FundNavSpiders', 'FundNoticeSpiders', 'InteractionSpiders']
+SPIDER_MODULES = ['spiders', 'NewsSpiders', 'FundNavSpiders', 'FundNoticeSpiders', 'IrcsSpiders']
 
 DEFAULT_REQUEST_HEADERS = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -54,7 +54,7 @@ fund_notice = {
     }
 }
 
-interaction = {
+ircs = {
     'db': {
         'host': '192.168.0.53',
         'port': 1433,

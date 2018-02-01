@@ -14,7 +14,7 @@ class HuaAnzqSpider(GGFundNavSpider):
     channel = '券商PB净值列表'
     allowed_domains = ['pb.hazq.com:6384']
     # start_urls = ['http://derivatives-china.invest.ldtamp.com/pfL.1.201.json']
-    cookies = 'JSESSIONID=C6A4A487A8EB7D728B47E0C5EC080915; Hm_lvt_099ede35125085b13b2ce845fff55d0a=1517289571; Hm_lpvt_099ede35125085b13b2ce845fff55d0a=1517289584; Hm_lvt_e75c81301e11720191cdfb53e718f25b=1517289571; Hm_lpvt_e75c81301e11720191cdfb53e718f25b=1517289584'
+    cookies = 'JSESSIONID=37D924810E2CE39CB17DFD7333AC81B6; Hm_lvt_099ede35125085b13b2ce845fff55d0a=1517289571; Hm_lvt_e75c81301e11720191cdfb53e718f25b=1517289571'
 
     def __init__(self, limit=None, *args, **kwargs):
         super(HuaAnzqSpider, self).__init__(limit, *args, **kwargs)
@@ -27,10 +27,40 @@ class HuaAnzqSpider(GGFundNavSpider):
             }
         ]
 
-        yield self.request_next(fps, [])
+        yield self.request_next(fps)
 
     def parse_fund(self, response):
-        # print(response.text)
         fundList = json.loads(response.text)
         for fund in fundList:
-            print(fund["prodName"])
+            nvList = fund['netValue'].split('<br/>')
+            if len(nvList) == 1:
+                item = GGFundNavItem()
+                item['sitename'] = self.sitename
+                item['channel'] = self.channel
+                item['url'] = response.url
+                item['fund_name'] = fund['prodName']
+                init_date = fund['netDate']
+                statistic_date = str(init_date)[:4]+'-'+str(init_date)[4:6]+'-'+str(init_date)[6:8]
+                item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+                nav = fund['netValue']
+
+                item['nav'] = float(nav) if nav is not None else None
+                added_nav = fund['cumulativeNetValue']
+                item['added_nav'] = float(added_nav)if added_nav is not None else None
+                yield item
+            else:
+                for eachNv in nvList:
+                    eachNvInfo = eachNv.split(':')
+                    item = GGFundNavItem()
+                    item['sitename'] = self.sitename
+                    item['channel'] = self.channel
+                    item['url'] = response.url
+                    item['fund_name'] = fund['prodName']+"--"+eachNvInfo[0]
+                    init_date = fund['netDate']
+                    statistic_date = str(init_date)[:4]+'-'+str(init_date)[4:6]+'-'+str(init_date)[6:8]
+                    item['statistic_date'] = datetime.strptime(statistic_date, '%Y-%m-%d')
+                    # nav = fund['netValue']
+                    item['nav'] = float(eachNvInfo[1]) if nav is not None else None
+                    added_nav = fund['cumulativeNetValue']
+                    item['added_nav'] = float(added_nav)if added_nav is not None else None
+                    yield item

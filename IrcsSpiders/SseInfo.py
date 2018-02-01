@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from GGScrapy.items import GGInteractionItem
-from GGScrapy.ggspider import GGInteractionSpider
+from GGScrapy.items import GGIrcsItem
+from GGScrapy.ggspider import GGIrcsSpider
 
 
-class SseInfoSpider(GGInteractionSpider):
-    name = 'Interaction_SseInfo'
+class SseInfoSpider(GGIrcsSpider):
+    name = 'Ircs_SseInfo'
     sitename = '上证e互动'
     channel = '投资者关系互动平台-最新回复'
     entry = 'http://sns.sseinfo.com/qa.do'
-    allowed_domains = ['sns.sseinfo.com/']
+    allowed_domains = ['sns.sseinfo.com']
 
     start_urls = []
     ips = [
@@ -27,7 +27,7 @@ class SseInfoSpider(GGInteractionSpider):
     def parse_item(self, response):
         records = response.css('.m_feed_item')
         for record in records:
-            item = GGInteractionItem()
+            item = GGIrcsItem()
             item['sitename'] = self.sitename
             item['channel'] = self.channel
             item['url'] = response.url

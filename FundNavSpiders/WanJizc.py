@@ -29,18 +29,6 @@ class WanJizcSpider(GGFundNavSpider):
 
     def parse_fund(self, response):
         funds = json.loads(response.text)
-        for fund in funds:
-            # print(data)
-            # print(fund['jzDataInfo'])
-            nvDatas = fund['jzDataInfo']
-            for nvData in nvDatas:
-                item = GGFundNavItem()
-
-                item['sitename'] = self.sitename
-                item['channel'] = self.channel
-                item['url'] = response.url
-                item['fund_name'] = fund['name']
-                # print(nvData['date'])
 
         for fund in funds:
             nvDatas = fund['jzDataInfo']

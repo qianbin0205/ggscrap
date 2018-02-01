@@ -395,7 +395,7 @@ class GGFundNoticePipeline(object):
 
 
 # 投资者关系互动平台Pipeline
-class GGInteractionPipeline(object):
+class GGIrcsPipeline(object):
     def process_item(self, item, spider):
         try:
             return item

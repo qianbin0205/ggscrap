@@ -62,7 +62,7 @@ class GGFundNoticeItem(scrapy.Item):
 
 
 # 投资者关系互动平台
-class GGInteractionItem(scrapy.Item):
+class GGIrcsItem(scrapy.Item):
     hkey = scrapy.Field()                           # 哈希主键
 
     groupname = scrapy.Field()                      # 分组名称

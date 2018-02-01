@@ -249,17 +249,17 @@ class GGFundNoticeSpider(GGSpider):
 
 
 # 投资者关系互动平台Spider基类
-class GGInteractionSpider(GGSpider):
+class GGIrcsSpider(GGSpider):
     custom_settings = {
-        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGInteractionPipeline': 300}
+        'ITEM_PIPELINES': {'GGScrapy.pipelines.GGIrcsPipeline': 300}
     }
 
-    dbPool = Pool(config.interaction['db']['host'],
-                  config.interaction['db']['port'],
-                  config.interaction['db']['user'],
-                  config.interaction['db']['pswd'],
-                  config.interaction['db']['name'],
-                  timeout=config.interaction['db']['timeout'])
+    dbPool = Pool(config.ircs['db']['host'],
+                  config.ircs['db']['port'],
+                  config.ircs['db']['user'],
+                  config.ircs['db']['pswd'],
+                  config.ircs['db']['name'],
+                  timeout=config.ircs['db']['timeout'])
 
     def __init__(self, *args, **kwargs):
-        super(GGInteractionSpider, self).__init__(*args, **kwargs)
+        super(GGIrcsSpider, self).__init__(*args, **kwargs)
