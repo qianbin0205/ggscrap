@@ -1,12 +1,12 @@
 import json
 from datetime import datetime
 from scrapy import Request
-from GGScrapy.items import GGFundNavItem
-from GGScrapy.ggspider import GGFundNavSpider
+from FundNavSpiders import GGFundNavItem
+from FundNavSpiders import GGFundNavSpider
 
 
 class JuShanzcSpider(GGFundNavSpider):
-    name = 'FundNav_JuShanzc'
+    name = 'FundNav_JuShanzc1'
     sitename = '巨杉资产'
     channel = '投资顾问'
     allowed_domains = ['www.grasset.com.cn']

@@ -10,7 +10,7 @@ from scrapy import cmdline
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_XinPuAsset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_BotongInvset', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_HongdaoInvset', '-a', 'jobId=0L'])
-cmdline.execute(['scrapy', 'crawl', 'FundNav_SZsgd', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_QhhmFund', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_MingxiZichan', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_SdictkTrust', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_Fotic', '-a', 'jobId=0L'])

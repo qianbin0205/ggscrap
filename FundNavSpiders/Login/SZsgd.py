@@ -5,8 +5,8 @@ from urllib.parse import urljoin
 from scrapy.utils.response import get_base_url
 from scrapy import Request
 import random
-from GGScrapy.items import GGFundNavItem
-from GGScrapy.ggspider import GGFundNavSpider
+from FundNavSpiders import GGFundNavItem
+from FundNavSpiders import GGFundNavSpider
 import json
 
 
@@ -19,8 +19,8 @@ class SZsgdSpider(GGFundNavSpider):
     username = 18602199319
     password = 'yadan0319'
 
-    def __init__(self, limit=None, *args, **kwargs):
-        super(SZsgdSpider, self).__init__(limit, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(SZsgdSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         yield Request(url='http://www.sz-sgd.com/User.ashx?r='+str(random.random())+'&type=login&username=18602199319&password=yadan0319', callback=self.parse_login)

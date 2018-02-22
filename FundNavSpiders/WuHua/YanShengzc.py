@@ -1,23 +1,19 @@
 import json
 from datetime import datetime
-from urllib.parse import urljoin
-from scrapy import Request
-from scrapy.utils.response import get_base_url
-from GGScrapy.items import GGFundNavItem
-from GGScrapy.ggspider import GGFundNavSpider
-from scrapy import FormRequest
+from FundNavSpiders import GGFundNavItem
+from FundNavSpiders import GGFundNavSpider
 
 
-class YanShengzcSpider(GGFundNavSpider):
-    name = 'FundNav_YanShengzc'
+class YanShengzc1Spider(GGFundNavSpider):
+    name = 'FundNav_YanShengzc1'
     sitename = '衍盛资产'
     channel = '投资顾问'
     allowed_domains = ['derivatives-china.invest.ldtamp.com']
     # start_urls = ['http://derivatives-china.invest.ldtamp.com/pfL.1.201.json']
     cookies = '__guid=185857340.924789394216647200.1516684602690.4316; JSESSIONID=356EEB21CD15626836013B4C3E64E992; SESSION=7e59293b-ba22-4e6a-a1ce-84c1edf7a147; monitor_count=2'
 
-    def __init__(self, limit=None, *args, **kwargs):
-        super(YanShengzcSpider, self).__init__(limit, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(YanShengzcSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         fps = [

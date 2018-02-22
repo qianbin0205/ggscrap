@@ -1,4 +1,4 @@
-SPIDER_MODULES = ['spiders', 'NewsSpiders', 'FundNavSpiders', 'FundNoticeSpiders', 'IrcsSpiders']
+SPIDER_MODULES = ['FundNavSpiders', 'FundNoticeSpiders']
 
 DEFAULT_REQUEST_HEADERS = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -7,36 +7,15 @@ DEFAULT_REQUEST_HEADERS = {
 }
 
 proxy = 'http://111.13.111.184:80'
-
-ufile = {
-    'public_key': 'ucloudgcqin@go-goal.com13648682571239575500',
-    'private_key': '27f435a8c39f515b01a3db66acbdd7ef9b37d16c',
-    'bucket': 'zyyxpachong'
-}
-
-news = {
-    'db': {
-        'host': '192.168.0.53',
-        'port': 1433,
-        'user': 'sql_scrapy',
-        'pswd': 'sql_scrapy123',
-        'name': 'scrapy_debug_db',
-        'table': 't_scrapy_news',
-        'timeout': 60
-    },
-
-    'ufile': {
-        'group': 'Debug'
-    }
-}
+anonymous_proxy = 'http://114.215.95.188:3128'
 
 fund_nav = {
     'db': {
         'host': '192.168.0.53',
+        'name': 'scrapy_debug_db',
         'port': 1433,
         'user': 'sql_scrapy',
         'pswd': 'sql_scrapy123',
-        'name': 'scrapy_debug_db',
         'table': 't_nav_general',
         'timeout': 60
     }
@@ -45,22 +24,10 @@ fund_nav = {
 fund_notice = {
     'db': {
         'host': '192.168.0.53',
+        'name': 'scrapy_debug_db',
         'port': 1433,
         'user': 'sql_scrapy',
         'pswd': 'sql_scrapy123',
-        'name': 'scrapy_debug_db',
-        'table': 't_fund_announcement',
-        'timeout': 60
-    }
-}
-
-ircs = {
-    'db': {
-        'host': '192.168.0.53',
-        'port': 1433,
-        'user': 'sql_scrapy',
-        'pswd': 'sql_scrapy123',
-        'name': 'scrapy_debug_db',
         'table': 't_fund_announcement',
         'timeout': 60
     }
