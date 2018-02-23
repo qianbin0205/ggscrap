@@ -103,118 +103,119 @@ class GGFundNavItem(Item):
 # 基金净值Pipeline
 class GGFundNavPipeline(object):
     def process_item(self, item, spider):
-        try:
-            groupname = item['groupname'] if 'groupname' in item else spider.groupname
-            groupname = groupname.strip() if isinstance(groupname, str) else None
-            groupname = groupname if groupname != '' else None
-            assert groupname is None or groupname != ''
-
-            sitename = item['sitename'] if 'sitename' in item else None
-            sitename = sitename.strip() if isinstance(sitename, str) else None
-            assert sitename is not None and sitename != ''
-
-            channel = item['channel'] if 'channel' in item else None
-            channel = channel.strip() if isinstance(channel, str) else None
-            assert channel is not None and channel != ''
-
-            url = item['url'] if 'url' in item else None
-            url = url.decode() if isinstance(url, bytes) else url
-            url = url.strip() if isinstance(url, str) else None
-            assert url is not None and url != ''
-
-            fund_name = item['fund_name'] if 'fund_name' in item else None
-            fund_name = fund_name.strip() if isinstance(fund_name, str) else None
-            assert fund_name is not None and fund_name != ''
-
-            statistic_date = item['statistic_date'] if 'statistic_date' in item else None
-            assert isinstance(statistic_date, datetime)
-            statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
-
-            fund_code = item['fund_code'] if 'fund_code' in item else None
-            fund_code = fund_code.strip() if isinstance(fund_code, str) else None
-            fund_code = fund_code if fund_code != '' else None
-            assert fund_code is None or fund_code != ''
-
-            nav = item['nav'] if 'nav' in item else None
-            assert nav is None or isinstance(nav, float) or isinstance(nav, int)
-
-            added_nav = item['added_nav'] if 'added_nav' in item else None
-            assert added_nav is None or isinstance(added_nav, float) or isinstance(added_nav, int)
-
-            nav_2 = item['nav_2'] if 'nav_2' in item else None
-            assert nav_2 is None or isinstance(nav_2, float) or isinstance(nav_2, int)
-
-            added_nav_2 = item['added_nav_2'] if 'added_nav_2' in item else None
-            assert added_nav_2 is None or isinstance(added_nav_2, float) or isinstance(added_nav_2, int)
-
-            total_nav = item['total_nav'] if 'total_nav' in item else None
-            assert total_nav is None or isinstance(total_nav, float) or isinstance(total_nav, int)
-
-            share = item['share'] if 'share' in item else None
-            assert share is None or isinstance(share, float) or isinstance(share, int)
-
-            income_value_per_ten_thousand = item[
-                'income_value_per_ten_thousand'] if 'income_value_per_ten_thousand' in item else None
-            assert income_value_per_ten_thousand is None or isinstance(income_value_per_ten_thousand,
-                                                                       float) or isinstance(
-                income_value_per_ten_thousand, int)
-
-            d7_annualized_return = item['d7_annualized_return'] if 'd7_annualized_return' in item else None
-            assert d7_annualized_return is None or isinstance(d7_annualized_return, float) or isinstance(
-                d7_annualized_return, int)
-
-            md5 = hashlib.md5()
-            seed = 'sitename=' + quote(sitename)
-            seed += '&channel=' + quote(channel)
-            seed += '&fund_name=' + quote(fund_name)
-            seed += '&statistic_date=' + quote(statistic_date)
-            if fund_code is not None:
-                seed += '&fund_code=' + quote(fund_code)
-            if nav is not None:
-                seed += '&nav=' + quote(str(nav))
-            if added_nav is not None:
-                seed += '&added_nav=' + quote(str(added_nav))
-            if nav_2 is not None:
-                seed += '&nav_2=' + quote(str(nav_2))
-            if added_nav_2 is not None:
-                seed += '&added_nav_2=' + quote(str(added_nav_2))
-            if total_nav is not None:
-                seed += '&total_nav=' + quote(str(total_nav))
-            if share is not None:
-                seed += '&share=' + quote(str(share))
-            if income_value_per_ten_thousand is not None:
-                seed += '&income_value_per_ten_thousand=' + quote(str(income_value_per_ten_thousand))
-            if d7_annualized_return is not None:
-                seed += '&d7_annualized_return=' + quote(str(d7_annualized_return))
-            md5.update(seed.encode('utf-8'))
-            hkey = md5.hexdigest()
-            item['hkey'] = hkey
-
-            conn = spider.dbPool.acquire()
-            cursor = conn.cursor()
-            try:
-                table = config.fund_nav['db']['table']
-                cursor.execute(
-                    'SELECT TOP 1 hkey FROM ' + table + ' WHERE sitename=%s AND channel=%s AND fund_name=%s AND statistic_date=%s ORDER BY tmstamp',
-                    (sitename, channel, fund_name, statistic_date,))
-                row = cursor.fetchone()
-                if row is None:
-                    cursor.execute(
-                        'INSERT INTO ' + table + ' (hkey,groupname,sitename,channel,url,fund_name,statistic_date,fund_code,nav,added_nav,nav_2,added_nav_2,total_nav,share,income_value_per_ten_thousand,d7_annualized_return) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-                        (hkey, groupname, sitename, channel, url, fund_name, statistic_date, fund_code, nav, added_nav,
-                         nav_2, added_nav_2, total_nav, share, income_value_per_ten_thousand, d7_annualized_return,))
-                elif row['hkey'] != hkey:
-                    cursor.execute(
-                        'UPDATE ' + table + ' SET hkey=%s,groupname=%s,url=%s,fund_code=%s,nav=%s,added_nav=%s,nav_2=%s,added_nav_2=%s,total_nav=%s,share=%s,income_value_per_ten_thousand=%s,d7_annualized_return=%s,update_time=GETDATE() WHERE hkey=%s',
-                        (hkey, groupname, url, fund_code, nav, added_nav, nav_2, added_nav_2, total_nav, share,
-                         income_value_per_ten_thousand, d7_annualized_return, row['hkey'],))
-            finally:
-                cursor.close()
-                spider.dbPool.release(conn)
-        except:
-            spider.crawler.engine.close_spider(spider, 'pipeline error!')
-            spider.crawler.stats.set_value('exit_emsg', traceback.format_exc())
-            spider.crawler.stats.set_value('exit_emsg_item', item)
-            spider.crawler.stats.set_value('exit_code', 1)
-        finally:
-            return item
+        return item
+        # try:
+        #     groupname = item['groupname'] if 'groupname' in item else spider.groupname
+        #     groupname = groupname.strip() if isinstance(groupname, str) else None
+        #     groupname = groupname if groupname != '' else None
+        #     assert groupname is None or groupname != ''
+        #
+        #     sitename = item['sitename'] if 'sitename' in item else None
+        #     sitename = sitename.strip() if isinstance(sitename, str) else None
+        #     assert sitename is not None and sitename != ''
+        #
+        #     channel = item['channel'] if 'channel' in item else None
+        #     channel = channel.strip() if isinstance(channel, str) else None
+        #     assert channel is not None and channel != ''
+        #
+        #     url = item['url'] if 'url' in item else None
+        #     url = url.decode() if isinstance(url, bytes) else url
+        #     url = url.strip() if isinstance(url, str) else None
+        #     assert url is not None and url != ''
+        #
+        #     fund_name = item['fund_name'] if 'fund_name' in item else None
+        #     fund_name = fund_name.strip() if isinstance(fund_name, str) else None
+        #     assert fund_name is not None and fund_name != ''
+        #
+        #     statistic_date = item['statistic_date'] if 'statistic_date' in item else None
+        #     assert isinstance(statistic_date, datetime)
+        #     statistic_date = item['statistic_date'].strftime('%Y-%m-%d')
+        #
+        #     fund_code = item['fund_code'] if 'fund_code' in item else None
+        #     fund_code = fund_code.strip() if isinstance(fund_code, str) else None
+        #     fund_code = fund_code if fund_code != '' else None
+        #     assert fund_code is None or fund_code != ''
+        #
+        #     nav = item['nav'] if 'nav' in item else None
+        #     assert nav is None or isinstance(nav, float) or isinstance(nav, int)
+        #
+        #     added_nav = item['added_nav'] if 'added_nav' in item else None
+        #     assert added_nav is None or isinstance(added_nav, float) or isinstance(added_nav, int)
+        #
+        #     nav_2 = item['nav_2'] if 'nav_2' in item else None
+        #     assert nav_2 is None or isinstance(nav_2, float) or isinstance(nav_2, int)
+        #
+        #     added_nav_2 = item['added_nav_2'] if 'added_nav_2' in item else None
+        #     assert added_nav_2 is None or isinstance(added_nav_2, float) or isinstance(added_nav_2, int)
+        #
+        #     total_nav = item['total_nav'] if 'total_nav' in item else None
+        #     assert total_nav is None or isinstance(total_nav, float) or isinstance(total_nav, int)
+        #
+        #     share = item['share'] if 'share' in item else None
+        #     assert share is None or isinstance(share, float) or isinstance(share, int)
+        #
+        #     income_value_per_ten_thousand = item[
+        #         'income_value_per_ten_thousand'] if 'income_value_per_ten_thousand' in item else None
+        #     assert income_value_per_ten_thousand is None or isinstance(income_value_per_ten_thousand,
+        #                                                                float) or isinstance(
+        #         income_value_per_ten_thousand, int)
+        #
+        #     d7_annualized_return = item['d7_annualized_return'] if 'd7_annualized_return' in item else None
+        #     assert d7_annualized_return is None or isinstance(d7_annualized_return, float) or isinstance(
+        #         d7_annualized_return, int)
+        #
+        #     md5 = hashlib.md5()
+        #     seed = 'sitename=' + quote(sitename)
+        #     seed += '&channel=' + quote(channel)
+        #     seed += '&fund_name=' + quote(fund_name)
+        #     seed += '&statistic_date=' + quote(statistic_date)
+        #     if fund_code is not None:
+        #         seed += '&fund_code=' + quote(fund_code)
+        #     if nav is not None:
+        #         seed += '&nav=' + quote(str(nav))
+        #     if added_nav is not None:
+        #         seed += '&added_nav=' + quote(str(added_nav))
+        #     if nav_2 is not None:
+        #         seed += '&nav_2=' + quote(str(nav_2))
+        #     if added_nav_2 is not None:
+        #         seed += '&added_nav_2=' + quote(str(added_nav_2))
+        #     if total_nav is not None:
+        #         seed += '&total_nav=' + quote(str(total_nav))
+        #     if share is not None:
+        #         seed += '&share=' + quote(str(share))
+        #     if income_value_per_ten_thousand is not None:
+        #         seed += '&income_value_per_ten_thousand=' + quote(str(income_value_per_ten_thousand))
+        #     if d7_annualized_return is not None:
+        #         seed += '&d7_annualized_return=' + quote(str(d7_annualized_return))
+        #     md5.update(seed.encode('utf-8'))
+        #     hkey = md5.hexdigest()
+        #     item['hkey'] = hkey
+        #
+        #     conn = spider.dbPool.acquire()
+        #     cursor = conn.cursor()
+        #     try:
+        #         table = config.fund_nav['db']['table']
+        #         cursor.execute(
+        #             'SELECT TOP 1 hkey FROM ' + table + ' WHERE sitename=%s AND channel=%s AND fund_name=%s AND statistic_date=%s ORDER BY tmstamp',
+        #             (sitename, channel, fund_name, statistic_date,))
+        #         row = cursor.fetchone()
+        #         if row is None:
+        #             cursor.execute(
+        #                 'INSERT INTO ' + table + ' (hkey,groupname,sitename,channel,url,fund_name,statistic_date,fund_code,nav,added_nav,nav_2,added_nav_2,total_nav,share,income_value_per_ten_thousand,d7_annualized_return) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+        #                 (hkey, groupname, sitename, channel, url, fund_name, statistic_date, fund_code, nav, added_nav,
+        #                  nav_2, added_nav_2, total_nav, share, income_value_per_ten_thousand, d7_annualized_return,))
+        #         elif row['hkey'] != hkey:
+        #             cursor.execute(
+        #                 'UPDATE ' + table + ' SET hkey=%s,groupname=%s,url=%s,fund_code=%s,nav=%s,added_nav=%s,nav_2=%s,added_nav_2=%s,total_nav=%s,share=%s,income_value_per_ten_thousand=%s,d7_annualized_return=%s,update_time=GETDATE() WHERE hkey=%s',
+        #                 (hkey, groupname, url, fund_code, nav, added_nav, nav_2, added_nav_2, total_nav, share,
+        #                  income_value_per_ten_thousand, d7_annualized_return, row['hkey'],))
+        #     finally:
+        #         cursor.close()
+        #         spider.dbPool.release(conn)
+        # except:
+        #     spider.crawler.engine.close_spider(spider, 'pipeline error!')
+        #     spider.crawler.stats.set_value('exit_emsg', traceback.format_exc())
+        #     spider.crawler.stats.set_value('exit_emsg_item', item)
+        #     spider.crawler.stats.set_value('exit_code', 1)
+        # finally:
+        #     return item
