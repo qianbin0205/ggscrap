@@ -9,7 +9,7 @@ from scrapy import cmdline
 # cookie
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_XingJuInvest', '-a', 'jobId=0L'])
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_ShiTianFengInvest', '-a', 'jobId=0L'])
-cmdline.execute(['scrapy', 'crawl', 'FundNav_TengYeCapitals', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_TaiHeHuiInvest', '-a', 'jobId=0L'])
 
 # log_in
 # cmdline.execute(['scrapy', 'crawl', 'FundNav_XingRongBangAsset', '-a', 'jobId=0L'])
