@@ -18,7 +18,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 ssl._create_default_https_context = ssl._create_unverified_context
 
 BOT_NAME = 'GGScrapy'
-
+# COOKIES_DEBUG=True
 # SPIDER_MODULES = ['spiders']
 SPIDER_MODULES = config.SPIDER_MODULES
 NEWSPIDER_MODULE = 'spiders'

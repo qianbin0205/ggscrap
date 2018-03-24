@@ -51,7 +51,6 @@ class BaiShiAssetSpider(GGFundNavSpider):
         yield self.request_next()
 
     def parse_item(self, response):
-        ips = response.meta['ips']
         fund_name = response.meta['ext']['fund_name']
         rows = response.css('table tr')
         for row in rows:
