@@ -1,7 +1,7 @@
 from scrapy import cmdline
 
 # free
-cmdline.execute(['scrapy', 'crawl', 'FundNav_FreedChina', '-a', 'jobId=0L'])
+cmdline.execute(['scrapy', 'crawl', 'FundNav_CeFutures', '-a', 'jobId=0L'])
 
 
 
